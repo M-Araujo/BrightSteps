@@ -2,7 +2,7 @@ function Dashboard() {
 
     return (
         <>
-            This is the dashbaord
+            This is the
         </>
     );
 
