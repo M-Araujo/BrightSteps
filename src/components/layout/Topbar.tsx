@@ -1,3 +1,4 @@
+import logo from './../../assets/react.svg';
 
 export default function Topbar() {
 
@@ -15,7 +16,7 @@ export default function Topbar() {
                                 </svg>
                             </button>
                             <a href="https://flowbite.com" className="flex ms-2 md:me-24">
-                                img
+                                <img src={logo} alt="Logo" className="w-10 h-auto" />
                                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
                             </a>
                         </div>
@@ -24,7 +25,7 @@ export default function Topbar() {
                                 <div>
                                     <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                         <span className="sr-only">Open user menu</span>
-                                        img
+                                        <img className="inline-block size-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
                                     </button>
                                 </div>
                                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
