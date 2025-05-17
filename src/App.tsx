@@ -5,6 +5,7 @@ import Sidebar from './components/layout/Sidebar.tsx';
 import Footer from './components/layout/Footer.tsx';
 import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
+import About from './routes/About.tsx';
 
 
 function App() {
@@ -14,11 +15,12 @@ function App() {
         <Topbar />
         <main className="flex flex-1">
           <Sidebar />
-          <div className="p-4 w-full ml-0 sm:ml-64"> {/* Space for Sidebar */}
+          <div className="p-4 w-full ml-0 sm:ml-64 text-left"> {/* Space for Sidebar */}
             <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/goals" element={<Goals />} />
+                <Route path="/about" element={<About />} />
               </Routes>
             </div>
           </div>
