@@ -1,5 +1,6 @@
 import logo from './../../assets/react.svg';
 import { Link } from 'react-router-dom';
+import LanguageSwitcher from './../ui/LanguageSwitcher.tsx';
 
 export default function Topbar() {
 
@@ -23,7 +24,12 @@ export default function Topbar() {
                         </div>
                         <div className="flex items-center">
                             <div className="flex items-center ms-3">
+
                                 <div>
+                                    <LanguageSwitcher />
+                                </div>
+                                {/* 
+                                 <div>
                                     <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                         <span className="sr-only">Open user menu</span>
                                         <img className="inline-block size-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
@@ -53,6 +59,10 @@ export default function Topbar() {
                                         </li>
                                     </ul>
                                 </div>
+                                
+                                
+                                */}
+
                             </div>
                         </div>
                     </div>

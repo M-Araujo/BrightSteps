@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Topbar from './components/layout/Topbar.tsx';
 import Sidebar from './components/layout/Sidebar.tsx';
-import Footer from './components/layout/Footer.tsx';
+//import Footer from './components/layout/Footer.tsx';
 import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
 import About from './routes/About.tsx';
@@ -25,7 +25,7 @@ function App() {
             </div>
           </div>
         </main>
-        <Footer />
+        { /*<Footer />*/}
       </div>
     </BrowserRouter>
   );

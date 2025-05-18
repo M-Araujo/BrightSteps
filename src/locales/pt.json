@@ -1,0 +1,31 @@
+{
+    "menu": {
+        "dashboard": "Dashboard",
+        "goals": "Objetivos",
+        "about": "Acerca"
+    },
+    "dashboard": {
+        "welcome": "Bem-vindo ao BrightSteps — o teu rastreador pessoal de hábitos para criares melhores rotinas, um passo de cada vez.",
+        "card1": "Este será outro cartão",
+        "summary": "Resumo de objetivos",
+        "tip": "Dica do dia",
+        "inspiration": "Inspiração",
+        "mentors": "Mentores"
+    },
+
+    "about": {
+        "title": "Sobre",
+        "welcome": "Bem-vindo ao meu Portfólio de Rastreio de Hábitos!",
+        "intro1": "Olá, sou a Miriam, uma desenvolvedora apaixonada focada em construir aplicações intuitivas e práticas. Este projeto é um <strong>rastreio de hábitos</strong> onde pode facilmente gerir e acompanhar os seus objetivos pessoais e hábitos diários.",
+        "note": "<strong>Nota:</strong> Quaisquer dados que adicione ou altere são guardados apenas na sessão atual e serão reiniciados ao atualizar a página. Isto permite-lhe experimentar sem preocupações quanto à segurança ou partilha dos seus dados.",
+        "intro2": "Este projeto é uma demonstração das minhas competências em desenvolvimento frontend, com funcionalidades como atualizações de dados em tempo real, caixas interativas e um layout responsivo. Sinta-se à vontade para explorar e conhecer melhor o meu trabalho!",
+        "connect": "Pode também conectar-se comigo no <a href=\"https://www.linkedin.com/in/seu-perfil\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-blue-600 hover:underline focus:outline-none focus:ring focus:ring-blue-400 rounded\">LinkedIn</a> para mais detalhes ou oportunidades.",
+        "features": {
+            "list": [
+                "➕ Adicione novos hábitos e personalize o seu acompanhamento.",
+                "📈 Acompanhe o seu progresso em direção a objetivos específicos e mantenha-se motivado.",
+                "🔐 Explore um modo sandbox com funcionalidades limitadas para testar recursos em segurança sem afetar os dados."
+            ]
+        }
+    }
+}

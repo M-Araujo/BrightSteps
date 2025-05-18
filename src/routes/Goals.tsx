@@ -1,9 +1,15 @@
 
 import { useEffect, useState } from 'react';
 
+type Goal = {
+    id: number;
+    title: string;
+    completed: boolean
+}
+
 export default function Goals() {
 
-    const [goals, setGoals] = useState([]);
+    const [goals, setGoals] = useState<Goal[]>([]);
 
     useEffect(() => {
         fetch("https://brighsteps-api.vercel.app/api/goals")
