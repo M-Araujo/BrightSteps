@@ -6,6 +6,8 @@ import Sidebar from './components/layout/Sidebar.tsx';
 import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
 import About from './routes/About.tsx';
+import '@fontsource/montserrat/400.css'; // Regular
+import '@fontsource/montserrat/700.css'; // Bold
 
 
 function App() {
