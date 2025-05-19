@@ -20,6 +20,8 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Montserrat',
+  sans-serif;
 }
 
 a {
