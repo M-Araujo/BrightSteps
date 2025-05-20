@@ -14,6 +14,21 @@ type Movie = {
         pt?: string;
     },
     link?: string
+};
+
+type Mentor = {
+    id: number;
+    title: {
+        en?: string;
+        pt?: string;
+    };
+    author: string;
+    image?: string;
+    type: string;
+    description: {
+        en?: string;
+        pt?: string;
+    }
 }
 
 
@@ -22,7 +37,7 @@ export default function Dashboard() {
     const { t, i18n } = useTranslation();
     const lang = i18n.language as 'en' | 'pt';
     const [movie, setMovie] = useState<Movie>();
-    // const [mentors, setMentors] = useState([]);
+    const [mentor, setMentor] = useState<Mentor>();
 
 
     useEffect(() => {
@@ -30,10 +45,10 @@ export default function Dashboard() {
             .then(res => res.json())
             .then(data => {
                 setMovie(data['movie']);
-                console.log(data['movie']);
+                setMentor(data['mentor']);
+                console.log(data['mentor']);
             })
             .catch(err => console.log('something failed', err));
-
     }, []);
 
 
@@ -76,7 +91,7 @@ export default function Dashboard() {
                             )}
 
                             {movie.link && movie.link.includes('youtube.com') && (
-                                <div className="w-full h-[300px] mt-2">
+                                    <div className="w-full h-60 mt-2 overflow-hidden rounded-md">
                                     <iframe
                                         src={movie.link.replace('watch?v=', 'embed/')}
                                         title="Inspirational Video"
@@ -99,7 +114,54 @@ export default function Dashboard() {
 
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>{t('dashboard.mentors')}</Card>
+                <Card>{t('dashboard.mentors')}
+
+                    {mentor && (
+                        <>
+                            {mentor.title?.[lang] && (
+                                <p className="text-md font-medium text-primary mb-1">
+                                    {mentor.title[lang]}
+                                </p>
+                            )}
+
+                            {mentor.description?.[lang] && (
+                                <p className="text-sm text-gray-700 mb-3">
+                                    {mentor.description[lang]}
+                                </p>
+                            )}
+
+                            {mentor.image ? (
+                                <div className="w-full h-60 mt-2 overflow-hidden rounded-md">
+                                    <img
+                                        src={mentor.image}
+                                        alt=""
+                                        className="w-full h-full object-cover rounded-md"
+                                    />
+                                </div>
+                            ) : (
+
+                                mentor.link && mentor.link.includes('youtube.com') && (
+                                    <div className="w-full h-60 mt-2 overflow-hidden rounded-md">
+                                        <iframe
+                                            src={mentor.link.replace('watch?v=', 'embed/')}
+                                            title="Inspirational Video"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                            className="w-full h-full rounded-xl"
+                                        ></iframe>
+                                    </div>
+                                )
+
+                            )}
+
+
+                        </>
+
+                    )}
+
+
+                </Card>
             </div>
         </div>
     );
