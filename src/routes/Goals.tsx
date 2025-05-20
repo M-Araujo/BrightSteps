@@ -12,12 +12,13 @@ type Goal = {
 
 export default function Goals() {
     const { i18n, t } = useTranslation();
+    const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
     const [goals, setGoals] = useState<Goal[]>([]);
 
     useEffect(() => {
         fetch("https://brighsteps-api.vercel.app/api/goals")
             .then(res => res.json())
-            .then(data => setGoals(data[0])) // Flatten the response
+            .then(data => setGoals(data)) // Flatten the response
             .catch(err => console.log('Something failed', err));
     }, []);
 
