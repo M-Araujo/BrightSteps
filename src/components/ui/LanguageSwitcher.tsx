@@ -21,9 +21,9 @@ export default function LanguageSwitcher() {
         <div className="relative inline-block text-left z-50">
             <button
                 onClick={() => setOpen(!open)}
-                className="inline-flex items-center bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded px-2 py-1 text-sm text-gray-700 dark:text-white"
+                className="inline-flex items-center bg-white  rounded px-2 py-1 text-sm text-gray-700 dark:text-white"
             >
-                <div className="w-8 h-8 rounded-full overflow-hidden mr-2 border border-gray-300 dark:border-gray-600 shadow-sm bg-gray-100 dark:bg-gray-700">
+                <div className="w-6 h-6 rounded-full overflow-hidden mr-2 shadow-sm bg-gray-100 dark:bg-gray-700">
                     <img src={currentLang.flag} alt={currentLang.code} className="w-full h-full object-cover" />
                 </div>
                 {currentLang.code.toUpperCase()}
@@ -40,7 +40,7 @@ export default function LanguageSwitcher() {
                             onClick={() => switchLanguage(lang.code)}
                             className="flex items-center w-full px-3 py-2 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors duration-200 cursor-pointer"
                         >
-                            <div className="w-8 h-8 rounded-full overflow-hidden mr-2 border border-gray-300 dark:border-gray-600 shadow-sm bg-gray-100 dark:bg-gray-700">
+                            <div className="w-6 h-6 rounded-full overflow-hidden mr-2 border border-gray-300 dark:border-gray-600 shadow-sm bg-gray-100 dark:bg-gray-700">
                                 <img src={lang.flag} alt={lang.code} className="w-full h-full object-cover" />
                             </div>
                             {lang.label}
