@@ -3,6 +3,7 @@ import Card from './../components/ui/Card.tsx';
 import { useEffect, useState } from 'react';
 
 
+
 type Movie = {
     id: number;
     title: {
