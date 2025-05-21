@@ -8,8 +8,6 @@ import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
 import About from './routes/About.tsx';
 
-import { useEffect } from 'react';
-
 function AnimatedRoutes() {
   const location = useLocation();
 

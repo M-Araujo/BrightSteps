@@ -23,18 +23,33 @@ export default function Goals() {
     }, []);
 
     return (
-        <div className="max-w-xl mx-auto px-4 py-6">
-            <h1 className="text-2xl font-bold mb-4">{t('goals.title', 'Goals')}</h1>
+        <div className="max-w-4xl mx-auto px-6 py-8">
+            <h1 className="text-lg font-semibold mb-6 text-gray-700">{t('goals.title', 'Goals')}</h1>
 
-            <ul className="list-disc pl-5 space-y-2">
+
+            <div className="space-y-2">
+                <div className="grid grid-cols-4 font-semibold text-sm text-gray-600 px-3">
+                    <span>Goal</span>
+                    <span>Start</span>
+                    <span>End</span>
+                    <span>Status</span>
+                </div>
+
                 {goals.map((goal) => (
-                    <li key={goal.id}>
-                        <span className={goal.completed ? "line-through text-gray-500" : ''}>
-                            {goal.title[i18n.language] ?? goal.title.en}
+                    <div key={goal.id} className="grid grid-cols-4 items-center p-3 border rounded-md bg-white shadow-sm text-sm">
+                        <span className={goal.completed ? "line-through text-gray-500" : ""}>
+                            {goal.title[lang] ?? goal.title.en}
                         </span>
-                    </li>
+                        <span>{goal.startDate}</span>
+                        <span>{goal.endDate}</span>
+                        <span className={goal.completed ? "text-green-600 font-medium" : "text-yellow-600 font-medium"}>
+                            {goal.completed ? "🎉 All done!" : "🛠️ Still working on it..."}
+                        </span>
+                    </div>
                 ))}
-            </ul>
+            </div>
+
+
         </div>
     );
 }
