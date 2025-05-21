@@ -2,7 +2,12 @@
   "menu": {
       "dashboard": "Dashboard",
       "goals": "Goals",
-      "about": "About"
+      "about": "About",
+      "habits": "Habits",
+      "calendar": "Calendar",
+      "stats": "Stats",
+      "tips": "Tips",
+      "settings": "Settings"
   } ,
 
   "dashboard": {

@@ -2,7 +2,12 @@
     "menu": {
         "dashboard": "Dashboard",
         "goals": "Objetivos",
-        "about": "Acerca"
+        "about": "Acerca",
+        "habits": "Hábitos",
+        "calendar": "Calendário",
+        "stats": "Estatísticas",
+        "tips": "Dicas",
+        "settings": "Configurações"
     },
     "dashboard": {
         "welcome": "Bem-vindo ao BrightSteps — o teu rastreador pessoal de hábitos para criares melhores rotinas, um passo de cada vez.",
