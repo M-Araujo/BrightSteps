@@ -28,7 +28,13 @@ export default function Goals() {
         <div className="max-w-4xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
             <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('goals.title', 'Goals')}</h1>
 
-            {/* Header */}
+            <div className="flex justify-end mb-4">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm rounded-lg shadow transition">
+                    + Add goal
+                </button>
+            </div>
+
+
             <div className="grid grid-cols-4 font-semibold text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow-sm mb-2">
                 <span>🎯 Goal</span>
                 <span>📅 Start</span>
@@ -36,14 +42,12 @@ export default function Goals() {
                 <span>📊 Status</span>
             </div>
 
-            {/* Empty state */}
             {goals.length === 0 && (
                 <p className="text-center text-gray-500 py-6">
                     🌱 No goals yet. Time to dream big!
                 </p>
             )}
 
-            {/* Goals list */}
             <div className="space-y-2">
                 {goals.map((goal) => (
                     <div
@@ -66,9 +70,6 @@ export default function Goals() {
                                 {goal.completed ? "All done!" : "In progress"}
                             </span>
                         </div>
-
-
-
                     </div>
                 ))}
             </div>
