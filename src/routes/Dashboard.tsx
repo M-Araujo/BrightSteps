@@ -32,6 +32,18 @@ type Mentor = {
     }
 }
 
+type Tip = {
+    id: number,
+    title: {
+        en: string;
+        pt: string;
+    },
+    description: {
+        en: string;
+        pt: string;
+    }
+}
+
 
 export default function Dashboard() {
 
@@ -39,6 +51,7 @@ export default function Dashboard() {
     const lang = i18n.language as 'en' | 'pt';
     const [movie, setMovie] = useState<Movie>();
     const [mentor, setMentor] = useState<Mentor>();
+    const [tip, setTip] = useState<Tip>();
 
 
     useEffect(() => {
@@ -47,7 +60,7 @@ export default function Dashboard() {
             .then(data => {
                 setMovie(data['movie']);
                 setMentor(data['mentor']);
-                console.log(data['mentor']);
+                setTip(data['tip']);
             })
             .catch(err => console.log('something failed', err));
     }, []);
@@ -68,7 +81,28 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>{t('dashboard.tip')} </Card>
+                <Card>
+                    <div className="p-4 bg-muted rounded-md shadow-inner">
+                        <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.tip')}</h2>
+
+                        {tip ? (
+                            <>
+                                <blockquote className="relative border-l-4 border-primary pl-3 text-gray-800 italic font-serif text-lg leading-relaxed">
+                                    <p className="pr-6">"{tip.title[lang]}"</p>
+                                </blockquote>
+                                <p className="mt-2 text-sm text-gray-600">{tip.description[lang]}</p>
+                            </>
+
+
+                        ) : (
+                            <p className="text-sm text-gray-500">{t('dashboard.loading')}</p>
+                        )}
+
+
+                    </div>
+
+
+                </Card>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
