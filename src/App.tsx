@@ -6,7 +6,13 @@ import Sidebar from './components/layout/Sidebar.tsx';
 // import Footer from './components/layout/Footer.tsx';
 import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
+import Habits from './routes/Habits.tsx';
+import Calendar from './routes/Calendar.tsx';
+import Stats from './routes/Stats.tsx';
+import Tips from './routes/Settings.tsx';
 import About from './routes/About.tsx';
+import Settings from './routes/Settings.tsx';
+
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -41,6 +47,60 @@ function AnimatedRoutes() {
           }
         />
         <Route
+          path="/habits"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Habits />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Calendar />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/stats"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Stats />
+            </motion.div>
+          }
+        />
+
+        <Route
+          path="/tips"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Tips />
+            </motion.div>
+          }
+        />
+
+        <Route
           path="/about"
           element={
             <motion.div
@@ -50,6 +110,19 @@ function AnimatedRoutes() {
               transition={{ duration: 0.3 }}
             >
               <About />
+            </motion.div>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Settings />
             </motion.div>
           }
         />

@@ -39,7 +39,7 @@ export default function Sidebar() {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/habits"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
                                     hover:bg-gray-100 dark:hover:bg-gray-700 group"
                             >
@@ -50,7 +50,7 @@ export default function Sidebar() {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/calendar"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
                                     hover:bg-gray-100 dark:hover:bg-gray-700 group"
                             >
@@ -60,7 +60,7 @@ export default function Sidebar() {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/stats"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
                                     hover:bg-gray-100 dark:hover:bg-gray-700 group"
                             >
@@ -70,7 +70,7 @@ export default function Sidebar() {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/tips"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
                                     hover:bg-gray-100 dark:hover:bg-gray-700 group"
                             >
@@ -90,7 +90,7 @@ export default function Sidebar() {
                         </li>
                         <li>
                             <Link
-                                to="/about"
+                                to="/settings"
                                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
                                     hover:bg-gray-100 dark:hover:bg-gray-700 group"
                             >
