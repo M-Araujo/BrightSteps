@@ -149,7 +149,8 @@ export default function Dashboard() {
 
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>{t('dashboard.mentors')}
+                <Card>
+                    <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.mentors')}</h2>
 
                     {mentor && (
                         <>
