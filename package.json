@@ -15,6 +15,7 @@
     "@emotion/styled": "^11.14.0",
     "@headlessui/react": "^2.2.3",
     "@heroicons/react": "^2.2.0",
+    "@hookform/resolvers": "^5.0.1",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "@tailwindcss/vite": "^4.1.6",
@@ -24,8 +25,10 @@
     "lucide-react": "^0.511.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.4",
     "react-i18next": "^15.5.1",
-    "tailwindcss": "^4.1.6"
+    "tailwindcss": "^4.1.6",
+    "zod": "^3.25.20"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

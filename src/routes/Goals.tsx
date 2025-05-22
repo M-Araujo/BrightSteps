@@ -1,8 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea, Datepicker } from "flowbite-react";
-
+import { goalSchema } from '../schemas/goalschema';
+import type { GoalFormData } from '../schemas/goalschema';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Goal = {
     id: number;
@@ -15,11 +17,23 @@ type Goal = {
     endDate?: string;
 };
 
+
 export default function Goals() {
     const { i18n, t } = useTranslation();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
     const [goals, setGoals] = useState<Goal[]>([]);
     const [openModal, setOpenModal] = useState<boolean>(false);
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<GoalFormData>({ resolver: zodResolver(goalSchema) });
+    const [formData, setFormDataa] = useState({
+        title: '',
+        description: '',
+        startDate: '',
+        endDate: ''
+    });
+
+    const subimtForm = () => {
+        console.log('form submitted');
+    }
 
     useEffect(() => {
         fetch("https://brighsteps-api.vercel.app/api/goals")
@@ -40,41 +54,43 @@ export default function Goals() {
                     <ModalBody>
                         <div className="space-y-6">
                             <h3 className="text-xl font-medium text-gray-900 dark:text-white">Create goal</h3>
-
-                            <div>
-                                <div className="mb-2 block">
-                                    <Label htmlFor="title">Title</Label>
-                                </div>
-                                <TextInput id="title" type="text" required />
-                            </div>
-
-                            <div>
-                                <div className="mb-2 block">
-                                    <Label htmlFor="description">Description</Label>
-                                </div>
-                                <Textarea id="title" />
-                            </div>
-
-                            <div className="grid grid-cols-2 gap-4">
+                            <form onSubmit={handleSubmit((data) => console.log(data))} className="space-y-6">
                                 <div>
                                     <div className="mb-2 block">
-                                        <Label htmlFor="start-date">Start date</Label>
+                                        <Label htmlFor="title">Title</Label>
                                     </div>
-                                    <Datepicker id="start-date" />
+                                    <TextInput id="title" type="text" required />
                                 </div>
 
                                 <div>
                                     <div className="mb-2 block">
-                                        <Label htmlFor="end-date">End date</Label>
+                                        <Label htmlFor="description">Description</Label>
                                     </div>
-                                    <Datepicker id="end-date" />
+                                    <Textarea id="title" />
                                 </div>
-                            </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <div className="mb-2 block">
+                                            <Label htmlFor="start-date">Start date</Label>
+                                        </div>
+                                        <Datepicker id="start-date" />
+                                    </div>
+
+                                    <div>
+                                        <div className="mb-2 block">
+                                            <Label htmlFor="end-date">End date</Label>
+                                        </div>
+                                        <Datepicker id="end-date" />
+                                    </div>
+                                </div>
 
 
-                            <div className="w-full">
-                                <Button>Submit</Button>
-                            </div>
+                                <div className="w-full">
+                                    <Button>Submit</Button>
+                                </div>
+                            </form>
+
 
                         </div>
                     </ModalBody>
