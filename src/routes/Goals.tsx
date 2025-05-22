@@ -1,5 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea, Datepicker } from "flowbite-react";
+
 
 type Goal = {
     id: number;
@@ -16,6 +19,7 @@ export default function Goals() {
     const { i18n, t } = useTranslation();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
     const [goals, setGoals] = useState<Goal[]>([]);
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
     useEffect(() => {
         fetch("https://brighsteps-api.vercel.app/api/goals")
@@ -29,9 +33,53 @@ export default function Goals() {
             <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('goals.title', 'Goals')}</h1>
 
             <div className="flex justify-end mb-4">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm rounded-lg shadow transition">
-                    + Add goal
-                </button>
+
+                <Button onClick={() => setOpenModal(true)}>+ Add goal</Button>
+                <Modal show={openModal} size="xl" popup onClose={() => setOpenModal(false)} >
+                    <ModalHeader />
+                    <ModalBody>
+                        <div className="space-y-6">
+                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Create goal</h3>
+
+                            <div>
+                                <div className="mb-2 block">
+                                    <Label htmlFor="title">Title</Label>
+                                </div>
+                                <TextInput id="title" type="text" required />
+                            </div>
+
+                            <div>
+                                <div className="mb-2 block">
+                                    <Label htmlFor="description">Description</Label>
+                                </div>
+                                <Textarea id="title" />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <div className="mb-2 block">
+                                        <Label htmlFor="start-date">Start date</Label>
+                                    </div>
+                                    <Datepicker id="start-date" />
+                                </div>
+
+                                <div>
+                                    <div className="mb-2 block">
+                                        <Label htmlFor="end-date">End date</Label>
+                                    </div>
+                                    <Datepicker id="end-date" />
+                                </div>
+                            </div>
+
+
+                            <div className="w-full">
+                                <Button>Submit</Button>
+                            </div>
+
+                        </div>
+                    </ModalBody>
+                </Modal>
+
             </div>
 
 
