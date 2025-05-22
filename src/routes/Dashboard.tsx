@@ -69,7 +69,19 @@ export default function Dashboard() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>{t('dashboard.welcome')}</Card>
+                <Card>
+                    <div className="max-w-md mx-auto text-center py-6 px-4">
+                        <p className="text-2xl font-semibold text-indigo-600 mb-2">
+                            {t('dashboard.welcome')}
+                        </p>
+                        <p className="text-base text-gray-700 leading-relaxed">
+                            {t('dashboard.description')}
+                        </p>
+                    </div>
+
+
+
+                </Card>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">

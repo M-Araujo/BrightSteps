@@ -10,7 +10,8 @@
         "settings": "Configurações"
     },
     "dashboard": {
-        "welcome": "Bem-vindo ao BrightSteps — o teu rastreador pessoal de hábitos para criares melhores rotinas, um passo de cada vez.",
+        "welcome": "Bem-vindo ao BrightSteps —",
+        "description": "seu rastreador pessoal de hábitos para construir rotinas melhores, um passo de cada vez.",
         "card1": "Este será outro cartão",
         "summary": "Resumo de objetivos",
         "tip": "Dica do dia",

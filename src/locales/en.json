@@ -11,7 +11,8 @@
   } ,
 
   "dashboard": {
-      "welcome": "Welcome to BrightSteps — your personal habit tracker to build better routines, one step at a time.",
+      "welcome": "Welcome to BrightSteps — ",
+      "description": "your personal habit tracker to build better routines, one step at a time.",
       "card1": "This is going to be another card",
       "summary": "Goals summary",
       "tip": "Tip of the day",
