@@ -88,31 +88,31 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
-
-                    <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.habits')}</h2>
-
+                <Card className="h-[12rem] overflow-y-auto pr-2 p-4 bg-white rounded-lg shadow-sm">
+                    <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('dashboard.habits')}</h2>
 
                     {habits && habits.map((goal) => (
-                        <div key={goal.id} className="mb-6">
-                            <h3 className="text-md font-semibold text-indigo-700 mb-2">
+                        <div key={goal.id} className="mb-6 border-b border-indigo-100 pb-4 last:border-0 last:pb-0">
+                            <h3 className="text-md font-semibold text-indigo-600 mb-3 uppercase tracking-wide border-b border-indigo-300 pb-1">
                                 {goal.title?.[lang] ?? goal.title.en}
                             </h3>
 
                             {goal.habits.map((habit) => (
-                                <div key={habit.id} className="flex items-center gap-2 mb-2">
+                                <div
+                                    key={habit.id}
+                                    className="flex items-center gap-3 mb-2 p-2 rounded-md cursor-pointer hover:bg-indigo-50 transition-colors"
+                                >
                                     <Checkbox id={`habit-${habit.id}`} />
-                                    <Label htmlFor={`habit-${habit.id}`}>
+                                    <Label htmlFor={`habit-${habit.id}`} className="cursor-pointer select-none">
                                         {habit.title?.[lang] ?? habit.title?.en}
                                     </Label>
                                 </div>
                             ))}
                         </div>
                     ))}
-
-
-
                 </Card>
+
+
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
