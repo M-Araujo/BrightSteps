@@ -57,6 +57,7 @@ export default function Dashboard() {
     useEffect(() => {
         localStorage.clear();
         if (localStorage.getItem('goalsAndHabits')) {
+            console.log('1');
             const localHabits = localStorage.getItem('goalsAndHabits');
             setHabits(JSON.parse(localHabits));
             console.log(localHabits);
@@ -79,10 +80,35 @@ export default function Dashboard() {
                     setHabits(data['goals']);
                     localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
                     console.log(localStorage.getItem('goalsAndHabits'));
+
                 })
                 .catch(err => console.log('something failed', err));
         }
     }, []);
+
+
+
+    useEffect(() => {
+        let currentDay = new Date().getDay();
+        let weekday = currentDay === 0 ? 7 : currentDay;
+
+        if (!habits || habits.length === 0) return;
+
+        const todaysHabits = () => {
+            return habits.map((goal) => {
+                const filteredHabits = goal.habits.filter((habit) => {
+                    return habit.frequency.includes(weekday);
+                });
+                return {
+                    ...goal,
+                    habits: filteredHabits,
+                };
+            }).filter(goal => goal.habits.length > 0);
+        }
+
+        setHabits(todaysHabits());
+    }, [habits])
+
 
 
     return (
