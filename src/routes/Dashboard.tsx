@@ -72,7 +72,7 @@ export default function Dashboard() {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>
+                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
                     <div className="max-w-md mx-auto text-center py-6 px-4">
                         <p className="text-2xl font-semibold text-indigo-600 mb-2">
                             {t('dashboard.welcome')}
@@ -88,7 +88,7 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>
+                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
 
                     <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.habits')}</h2>
 
@@ -116,11 +116,11 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>{t('dashboard.summary')} </Card>
+                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">{t('dashboard.summary')} </Card>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>
+                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
 
                         <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.tip')}</h2>
 
@@ -140,7 +140,7 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>
+                <Card className="h-[30rem] flex flex-col justify-between">
                     <h2 className="text-lg font-semibold mb-2">{t('dashboard.inspiration')}</h2>
 
                     {!movie ? (
@@ -148,13 +148,13 @@ export default function Dashboard() {
                     ) : (
                         <>
                             {movie.title?.[lang] && (
-                                <p className="text-md font-medium text-primary mb-1">
+                                    <p className="text-md font-medium text-primary mb-1 min-h-[3rem]">
                                     {movie.title[lang]}
                                 </p>
                             )}
 
                             {movie.description?.[lang] && (
-                                <p className="text-sm text-gray-700 mb-3">
+                                    <p className="text-sm text-gray-700 mb-3 line-clamp-3 min-h-[4rem]">
                                     {movie.description[lang]}
                                 </p>
                             )}
@@ -183,19 +183,19 @@ export default function Dashboard() {
 
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>
+                <Card className="h-[30rem] flex flex-col justify-between">
                     <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.mentors')}</h2>
 
                     {mentor && (
                         <>
                             {mentor.title?.[lang] && (
-                                <p className="text-md font-medium text-primary mb-1">
+                                <p className="text-md font-medium text-primary mb-1 min-h-[3rem]">
                                     {mentor.title[lang]}
                                 </p>
                             )}
 
                             {mentor.description?.[lang] && (
-                                <p className="text-sm text-gray-700 mb-3">
+                                <p className="text-sm text-gray-700 mb-3 line-clamp-3 min-h-[4rem]">
                                     {mentor.description[lang]}
                                 </p>
                             )}
