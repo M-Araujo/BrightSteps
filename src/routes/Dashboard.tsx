@@ -88,7 +88,7 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-y-auto pr-2 p-4 bg-white rounded-lg shadow-sm">
+                <Card className="h-[12rem] overflow-y-auto pr-2 p-4 rounded-lg ">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('dashboard.habits')}</h2>
 
                     {habits && habits.map((goal) => (
