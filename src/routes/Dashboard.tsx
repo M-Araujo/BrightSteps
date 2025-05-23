@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import Card from './../components/ui/Card.tsx';
 import { useEffect, useState } from 'react';
-// only import what you want to use
 import { Checkbox, Label } from "flowbite-react";
 
 type Movie = {
@@ -54,18 +53,34 @@ export default function Dashboard() {
     const [tip, setTip] = useState<Tip>();
     const [habits, setHabits] = useState();
 
-    useEffect(() => {
-        fetch("https://brighsteps-api.vercel.app/api/dashboard")
-            .then(res => res.json())
-            .then(data => {
-                setMovie(data['movie']);
-                setMentor(data['mentor']);
-                setTip(data['tip']);
-                setHabits(data['goals']);
 
-                console.log(data);
-            })
-            .catch(err => console.log('something failed', err));
+    useEffect(() => {
+
+        if (localStorage.getItem('goalsAndHabits')) {
+            const localHabits = localStorage.getItem('goalsAndHabits');
+            setHabits(JSON.parse(localHabits));
+            fetch("https://brighsteps-api.vercel.app/api/dashboard-basic")
+                .then(res => res.json())
+                .then(data => {
+                    setMovie(data['movie']);
+                    setMentor(data['mentor']);
+                    setTip(data['tip']);
+                })
+                .catch(err => console.log('something failed', err));
+        } else {
+
+            fetch("https://brighsteps-api.vercel.app/api/dashboard-complete")
+                .then(res => res.json())
+                .then(data => {
+                    setMovie(data['movie']);
+                    setMentor(data['mentor']);
+                    setTip(data['tip']);
+                    setHabits(data['goals']);
+                    localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
+                    console.log(localStorage.getItem('goalsAndHabits'));
+                })
+                .catch(err => console.log('something failed', err));
+        }
     }, []);
 
 
@@ -81,9 +96,6 @@ export default function Dashboard() {
                             {t('dashboard.description')}
                         </p>
                     </div>
-
-
-
                 </Card>
             </div>
 
@@ -111,8 +123,6 @@ export default function Dashboard() {
                         </div>
                     ))}
                 </Card>
-
-
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
