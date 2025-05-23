@@ -121,8 +121,10 @@ export default function Dashboard() {
 
             <div className="sm:col-span-2 lg:col-span-2">
                 <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
-
-                        <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.tip')}</h2>
+                    <div className="flex flex-col justify-center h-full px-4 overflow-y-auto">
+                        <h2 className="text-lg font-semibold text-gray-800 mb-2">
+                            {t('dashboard.tip')}
+                        </h2>
 
                         {tip ? (
                             <>
@@ -131,11 +133,10 @@ export default function Dashboard() {
                                 </blockquote>
                                 <p className="mt-2 text-sm text-gray-600">{tip.description[lang]}</p>
                             </>
-
-
                         ) : (
                             <p className="text-sm text-gray-500">{t('dashboard.loading')}</p>
-                    )}
+                        )}
+                    </div>
                 </Card>
             </div>
 
