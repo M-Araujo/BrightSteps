@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import Card from './../components/ui/Card.tsx';
 import { useEffect, useState } from 'react';
-
-
+// only import what you want to use
+import { Checkbox, Label } from "flowbite-react";
 
 type Movie = {
     id: number;
@@ -52,7 +52,7 @@ export default function Dashboard() {
     const [movie, setMovie] = useState<Movie>();
     const [mentor, setMentor] = useState<Mentor>();
     const [tip, setTip] = useState<Tip>();
-
+    const [habits, setHabits] = useState();
 
     useEffect(() => {
         fetch("https://brighsteps-api.vercel.app/api/dashboard")
@@ -61,6 +61,9 @@ export default function Dashboard() {
                 setMovie(data['movie']);
                 setMentor(data['mentor']);
                 setTip(data['tip']);
+                setHabits(data['goals']);
+
+                console.log(data);
             })
             .catch(err => console.log('something failed', err));
     }, []);
@@ -85,7 +88,31 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card>{t('dashboard.card1')}</Card>
+                <Card>
+
+                    <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.habits')}</h2>
+
+
+                    {habits && habits.map((goal) => (
+                        <div key={goal.id} className="mb-6">
+                            <h3 className="text-md font-semibold text-indigo-700 mb-2">
+                                {goal.title?.[lang] ?? goal.title.en}
+                            </h3>
+
+                            {goal.habits.map((habit) => (
+                                <div key={habit.id} className="flex items-center gap-2 mb-2">
+                                    <Checkbox id={`habit-${habit.id}`} />
+                                    <Label htmlFor={`habit-${habit.id}`}>
+                                        {habit.title?.[lang] ?? habit.title?.en}
+                                    </Label>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+
+
+
+                </Card>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
@@ -94,7 +121,7 @@ export default function Dashboard() {
 
             <div className="sm:col-span-2 lg:col-span-2">
                 <Card>
-                    <div className="p-4 bg-muted rounded-md shadow-inner">
+
                         <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.tip')}</h2>
 
                         {tip ? (
@@ -108,12 +135,7 @@ export default function Dashboard() {
 
                         ) : (
                             <p className="text-sm text-gray-500">{t('dashboard.loading')}</p>
-                        )}
-
-
-                    </div>
-
-
+                    )}
                 </Card>
             </div>
 
