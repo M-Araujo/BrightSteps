@@ -55,10 +55,11 @@ export default function Dashboard() {
 
 
     useEffect(() => {
-
+        localStorage.clear();
         if (localStorage.getItem('goalsAndHabits')) {
             const localHabits = localStorage.getItem('goalsAndHabits');
             setHabits(JSON.parse(localHabits));
+            console.log(localHabits);
             fetch("https://brighsteps-api.vercel.app/api/dashboard-basic")
                 .then(res => res.json())
                 .then(data => {
@@ -159,13 +160,13 @@ export default function Dashboard() {
                     ) : (
                         <>
                             {movie.title?.[lang] && (
-                                    <p className="text-md font-medium text-primary mb-1 min-h-[3rem]">
+                                    <p className="text-md font-medium text-primary mb-1 min-h-[3rem] leading-normal">
                                     {movie.title[lang]}
                                 </p>
                             )}
 
                             {movie.description?.[lang] && (
-                                    <p className="text-sm text-gray-700 mb-3 line-clamp-3 min-h-[4rem]">
+                                    <p className="text-sm text-gray-700 mb-3 line-clamp-3 min-h-[4rem] leading-normal">
                                     {movie.description[lang]}
                                 </p>
                             )}
@@ -200,13 +201,13 @@ export default function Dashboard() {
                     {mentor && (
                         <>
                             {mentor.title?.[lang] && (
-                                <p className="text-md font-medium text-primary mb-1 min-h-[3rem]">
+                                <p className="text-md font-medium text-primary mb-1 min-h-[3rem] leading-normal">
                                     {mentor.title[lang]}
                                 </p>
                             )}
 
                             {mentor.description?.[lang] && (
-                                <p className="text-sm text-gray-700 mb-3 line-clamp-3 min-h-[4rem]">
+                                <p className="text-sm text-gray-700 mb-3 line-clamp-3 min-h-[4rem] leading-normal">
                                     {mentor.description[lang]}
                                 </p>
                             )}
