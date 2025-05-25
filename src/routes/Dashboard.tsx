@@ -25,6 +25,7 @@ type Mentor = {
     author: string;
     image?: string;
     type: string;
+    link?: string;
     description: {
         en?: string;
         pt?: string;
@@ -43,6 +44,24 @@ type Tip = {
     }
 }
 
+type Habit = {
+    id: number;
+    title: {
+        en?: string;
+        pt?: string;
+    };
+    frequency: number[];
+}
+
+type Goal = {
+    id: number;
+    title: {
+        en?: string;
+        pt?: string;
+    };
+    habits: Habit[];
+}
+
 
 export default function Dashboard() {
 
@@ -51,14 +70,14 @@ export default function Dashboard() {
     const [movie, setMovie] = useState<Movie>();
     const [mentor, setMentor] = useState<Mentor>();
     const [tip, setTip] = useState<Tip>();
-    const [habits, setHabits] = useState();
-    const [allHabits, setAllHabits] = useState([]);
-    const [todaysHabits, setTodaysHabits] = useState([]);
+    const [habits, setHabits] = useState<Goal[]>();
+    const [allHabits, setAllHabits] = useState<Goal[]>([]);
+    const [todaysHabits, setTodaysHabits] = useState<Goal[]>([]);
 
     useEffect(() => {
 
         if (localStorage.getItem('goalsAndHabits')) {
-            const localHabits = JSON.parse(localStorage.getItem('goalsAndHabits'));
+            const localHabits = JSON.parse(localStorage.getItem('goalsAndHabits') || '[]');
             setHabits(localHabits);
             setAllHabits(localHabits);
 
@@ -91,8 +110,8 @@ export default function Dashboard() {
     useEffect(() => {
         if (!habits || habits.length === 0) return;
 
-        let currentDay = new Date().getDay();
-        let weekday = currentDay === 0 ? 7 : currentDay;
+        const currentDay = new Date().getDay();
+        const weekday = currentDay === 0 ? 7 : currentDay;
 
 
         const filtered = allHabits.map((goal) => {
@@ -106,7 +125,7 @@ export default function Dashboard() {
         }).filter((goal) => goal.habits.length > 0);
 
         setTodaysHabits(filtered);
-    }, [allHabits])
+    }, [allHabits, habits])
 
 
 
