@@ -1,10 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea, Datepicker } from "flowbite-react";
-import { goalSchema } from '../schemas/goalschema';
-import type { GoalFormData } from '../schemas/goalschema';
+import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea } from "flowbite-react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 type Goal = {
     id: number;
@@ -16,6 +13,12 @@ type Goal = {
     startDate?: string;
     endDate?: string;
 };
+type GoalFormData = {
+    title: string;
+    description?: string;
+    startDate: string;
+    endDate: string;
+}
 
 
 export default function Goals() {
@@ -23,16 +26,10 @@ export default function Goals() {
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
     const [goals, setGoals] = useState<Goal[]>([]);
     const [openModal, setOpenModal] = useState<boolean>(false);
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<GoalFormData>({ resolver: zodResolver(goalSchema) });
-    const [formData, setFormDataa] = useState({
-        title: '',
-        description: '',
-        startDate: '',
-        endDate: ''
-    });
-
-    const subimtForm = () => {
-        console.log('form submitted');
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<GoalFormData>();
+    const startDate = watch('startDate');
+    const onSubmit = (data: GoalFormData) => {
+        console.group('form data: ', data);
     }
 
     useEffect(() => {
@@ -49,24 +46,36 @@ export default function Goals() {
             <div className="flex justify-end mb-4">
 
                 <Button onClick={() => setOpenModal(true)}>+ Add goal</Button>
-                <Modal show={openModal} size="xl" popup onClose={() => setOpenModal(false)} >
+                <Modal show={openModal} size="3xl" popup onClose={() => setOpenModal(false)}>
                     <ModalHeader />
-                    <ModalBody>
+                    <ModalBody className="overflow-visible max-h-none">
                         <div className="space-y-6">
                             <h3 className="text-xl font-medium text-gray-900 dark:text-white">Create goal</h3>
-                            <form onSubmit={handleSubmit((data) => console.log(data))} className="space-y-6">
+                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                                 <div>
                                     <div className="mb-2 block">
                                         <Label htmlFor="title">Title</Label>
                                     </div>
-                                    <TextInput id="title" type="text" required />
+                                    <TextInput type="text" {...register("title", {
+                                        required: "Title is required",
+                                        minLength: { value: 3, message: "Minimum 3 characters" },
+                                        maxLength: { value: 100, message: "Maximum 100 characters" }
+                                    })} />
+                                    {errors.title && (
+                                        <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
+                                    )}
                                 </div>
 
                                 <div>
                                     <div className="mb-2 block">
                                         <Label htmlFor="description">Description</Label>
                                     </div>
-                                    <Textarea id="title" />
+                                    <Textarea  {...register('description', {
+                                        maxLength: { value: 200, message: "Maximum 200 characters" }
+                                    })} />
+                                    {errors.description && (
+                                        <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
+                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
@@ -74,28 +83,43 @@ export default function Goals() {
                                         <div className="mb-2 block">
                                             <Label htmlFor="start-date">Start date</Label>
                                         </div>
-                                        <Datepicker id="start-date" />
+                                        <input type="date" {...register('startDate', {
+                                            required: "The start date is required"
+                                        })} />
+                                        {errors.startDate && (
+                                            <p className="mt-1 text-sm text-red-600">{errors.startDate.message}</p>
+                                        )}
+
                                     </div>
 
                                     <div>
                                         <div className="mb-2 block">
                                             <Label htmlFor="end-date">End date</Label>
                                         </div>
-                                        <Datepicker id="end-date" />
+                                        <input type="date" {...register('endDate', {
+                                            required: "The end date is required",
+                                            validate: value => {
+                                                if (!value) return "End date is required";
+                                                if (startDate && value < startDate) {
+                                                    return "End date cannot be before start date";
+                                                }
+                                                return true;
+                                            }
+                                        })} />
+                                        {errors.endDate && (
+                                            <p className="mt-1 text-sm text-red-600">{errors.endDate.message}</p>
+                                        )}
+
                                     </div>
                                 </div>
 
-
                                 <div className="w-full">
-                                    <Button>Submit</Button>
+                                    <Button type="submit">Submit</Button>
                                 </div>
                             </form>
-
-
                         </div>
                     </ModalBody>
                 </Modal>
-
             </div>
 
 
