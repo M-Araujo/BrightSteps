@@ -52,15 +52,16 @@ export default function Dashboard() {
     const [mentor, setMentor] = useState<Mentor>();
     const [tip, setTip] = useState<Tip>();
     const [habits, setHabits] = useState();
-
+    const [allHabits, setAllHabits] = useState([]);
+    const [todaysHabits, setTodaysHabits] = useState([]);
 
     useEffect(() => {
-        localStorage.clear();
+
         if (localStorage.getItem('goalsAndHabits')) {
-            console.log('1');
-            const localHabits = localStorage.getItem('goalsAndHabits');
-            setHabits(JSON.parse(localHabits));
-            console.log(localHabits);
+            const localHabits = JSON.parse(localStorage.getItem('goalsAndHabits'));
+            setHabits(localHabits);
+            setAllHabits(localHabits);
+
             fetch("https://brighsteps-api.vercel.app/api/dashboard-basic")
                 .then(res => res.json())
                 .then(data => {
@@ -70,7 +71,6 @@ export default function Dashboard() {
                 })
                 .catch(err => console.log('something failed', err));
         } else {
-
             fetch("https://brighsteps-api.vercel.app/api/dashboard-complete")
                 .then(res => res.json())
                 .then(data => {
@@ -78,8 +78,8 @@ export default function Dashboard() {
                     setMentor(data['mentor']);
                     setTip(data['tip']);
                     setHabits(data['goals']);
+                    setAllHabits(data['goals']);
                     localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
-                    console.log(localStorage.getItem('goalsAndHabits'));
 
                 })
                 .catch(err => console.log('something failed', err));
@@ -89,25 +89,24 @@ export default function Dashboard() {
 
 
     useEffect(() => {
+        if (!habits || habits.length === 0) return;
+
         let currentDay = new Date().getDay();
         let weekday = currentDay === 0 ? 7 : currentDay;
 
-        if (!habits || habits.length === 0) return;
 
-        const todaysHabits = () => {
-            return habits.map((goal) => {
-                const filteredHabits = goal.habits.filter((habit) => {
-                    return habit.frequency.includes(weekday);
-                });
-                return {
-                    ...goal,
-                    habits: filteredHabits,
-                };
-            }).filter(goal => goal.habits.length > 0);
-        }
+        const filtered = allHabits.map((goal) => {
+            const filteredHabits = goal.habits.filter((habit) => habit.frequency.includes(weekday)
 
-        setHabits(todaysHabits());
-    }, [habits])
+            );
+            return {
+                ...goal,
+                habits: filteredHabits,
+            }
+        }).filter((goal) => goal.habits.length > 0);
+
+        setTodaysHabits(filtered);
+    }, [allHabits])
 
 
 
@@ -130,7 +129,7 @@ export default function Dashboard() {
                 <Card className="h-[12rem] overflow-y-auto pr-2 p-4 rounded-lg ">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('dashboard.habits')}</h2>
 
-                    {habits && habits.map((goal) => (
+                    {todaysHabits && todaysHabits.map((goal) => (
                         <div key={goal.id} className="mb-6 border-b border-indigo-100 pb-4 last:border-0 last:pb-0">
                             <h3 className="text-md font-semibold text-indigo-600 mb-3 uppercase tracking-wide border-b border-indigo-300 pb-1">
                                 {goal.title?.[lang] ?? goal.title.en}
