@@ -97,7 +97,7 @@ export default function Goals() {
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <div className="mb-2 block">
-                                            <Label htmlFor="start-date">Start date</Label>
+                                            <Label htmlFor="start-date">{t('goals.startDate')}</Label>
                                         </div>
                                         <input type="date" {...register('startDate', {
                                             required: t('common.requiredField')
@@ -110,7 +110,7 @@ export default function Goals() {
 
                                     <div>
                                         <div className="mb-2 block">
-                                            <Label htmlFor="end-date">End date</Label>
+                                            <Label htmlFor="end-date">{t('goals.endDate')}</Label>
                                         </div>
                                         <input type="date" {...register('endDate', {
                                             required: t('common.requiredField'),
@@ -139,11 +139,12 @@ export default function Goals() {
             </div>
 
 
-            <div className="grid grid-cols-4 font-semibold text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow-sm mb-2">
+            <div className="grid grid-cols-5 font-semibold text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow-sm mb-2">
                 <span>🎯 {t('goals.start')}</span>
                 <span>📅 {t('goals.start')}</span>
                 <span>📆 {t('goals.end')}</span>
                 <span>📊 {t('goals.status')}</span>
+                <span>📊 {t('goals.actions')}</span>
             </div>
 
             {goals && goals.length === 0 && (

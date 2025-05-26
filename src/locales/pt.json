@@ -27,7 +27,10 @@
         "start": "Início",
         "end": "Fim",
         "status": "Estado",
-        "noGoals": "🌱 Sem objetivos. Tempo para sonhar em grande!"
+        "actions": "Ações",
+        "noGoals": "🌱 Sem objetivos. Tempo para sonhar em grande!",
+        "inProgress": "Em progresso",
+        "done": "Feito!"
     },
 
     "about": {

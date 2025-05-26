@@ -1,4 +1,8 @@
 
+import { useTranslation } from 'react-i18next';
+import { Pencil, Trash2 } from 'lucide-react';
+
+
 type Goal = {
     id: number;
     title: {
@@ -16,12 +20,12 @@ type GoalRowProps = {
 };
 
 export default function GoalRow({ goal, lang }: GoalRowProps) {
-
+    const { t } = useTranslation();
     return (
         <>
             <div
                 key={goal.id}
-                className="grid grid-cols-4 items-center px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md"
+                className="grid grid-cols-5 items-center px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md"
             >
 
                 <span className={goal.completed ? "line-through text-gray-500" : "text-gray-800"}>
@@ -37,9 +41,20 @@ export default function GoalRow({ goal, lang }: GoalRowProps) {
                             }`}
                     >
                         {goal.completed ? "🎉" : "🛠️"}
-                        {goal.completed ? "All done!" : "In progress"}
+                        {goal.completed ? t('goals.done') : t('goals.inProgress')}
                     </span>
                 </div>
+
+
+                <div className="flex items-center gap-2">
+                    <button className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
+                        <Pencil size={18} className="stroke-current" />
+                    </button>
+                    <button className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete">
+                        <Trash2 size={18} className="stroke-current" />
+                    </button>
+                </div>
+
             </div>
         </>
     );

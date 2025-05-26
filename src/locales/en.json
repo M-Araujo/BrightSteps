@@ -28,7 +28,10 @@
       "start": "Start",
       "end": "End",
       "status": "Status",
-      "noGoals": "🌱 No goals yet. Time to dream big!"
+      "actions": "Actions",
+      "noGoals": "🌱 No goals yet. Time to dream big!",
+      "inProgress": "In progress",
+      "done": "All done!"
     },
 
     "about": {
