@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import GoalRow from './../components/ui/GoalRow.tsx';
+import toast from 'react-hot-toast';
 
 type Goal = {
     id: number;
@@ -47,6 +48,7 @@ export default function Goals() {
             return updated;
         });
 
+        toast.success('Goal added successfully!');
         setOpenModal(false);
     }
     //localStorage.clear();

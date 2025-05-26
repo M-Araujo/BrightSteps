@@ -12,6 +12,7 @@ import Stats from './routes/Stats.tsx';
 import Tips from './routes/Settings.tsx';
 import About from './routes/About.tsx';
 import Settings from './routes/Settings.tsx';
+import { Toaster } from 'react-hot-toast';
 
 
 function AnimatedRoutes() {
@@ -19,6 +20,7 @@ function AnimatedRoutes() {
 
   return (
     <AnimatePresence mode="wait">
+      <Toaster position="top-right" />
       <Routes location={location} key={location.pathname}>
         <Route
           path="/"
