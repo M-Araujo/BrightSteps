@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea } from "flowbite-react";
 import { useForm } from "react-hook-form";
+import GoalRow from './../components/ui/GoalRow.tsx';
 
 type Goal = {
     id: number;
@@ -153,27 +154,7 @@ export default function Goals() {
 
             <div className="space-y-2">
                 {goals && goals.map((goal) => (
-                    <div
-                        key={goal.id}
-                        className="grid grid-cols-4 items-center px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md"
-                    >
-                        <span className={goal.completed ? "line-through text-gray-500" : "text-gray-800"}>
-                            {goal.title[lang] ?? goal.title.en}
-                        </span>
-
-                        <span className="text-gray-500">{goal.startDate ?? '—'}</span>
-                        <span className="text-gray-500">{goal.endDate ?? '—'}</span>
-
-                        <div className="flex justify-start">
-                            <span
-                                className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-full font-semibold ${goal.completed ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
-                                    }`}
-                            >
-                                {goal.completed ? "🎉" : "🛠️"}
-                                {goal.completed ? "All done!" : "In progress"}
-                            </span>
-                        </div>
-                    </div>
+                    <GoalRow goal={goal} key={goal.id} lang={lang} />
                 ))}
             </div>
         </div>
