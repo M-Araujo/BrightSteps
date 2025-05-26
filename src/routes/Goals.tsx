@@ -15,7 +15,6 @@ type Goal = {
 };
 type GoalFormData = {
     title: string;
-    description?: string;
     startDate: string;
     endDate: string;
 }
@@ -28,15 +27,43 @@ export default function Goals() {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm<GoalFormData>();
     const startDate = watch('startDate');
+
     const onSubmit = (data: GoalFormData) => {
-        console.group('form data: ', data);
+        const newGoal: Goal = {
+            id: Math.floor(Math.random() * 1000000),
+            title: {
+                en: data.title,
+                pt: data.title
+            },
+            completed: false,
+            startDate: data.startDate,
+            endDate: data.endDate,
+        }
+
+        setGoals(goals => {
+            const updated = [...goals, newGoal];
+            localStorage.setItem('goalsAndHabits', JSON.stringify(updated));
+            return updated;
+        });
+
+        setOpenModal(false);
     }
+    //localStorage.clear();
 
     useEffect(() => {
-        fetch("https://brighsteps-api.vercel.app/api/goals")
-            .then(res => res.json())
-            .then(data => setGoals(data))
-            .catch(err => console.log('Something failed', err));
+        if (localStorage.getItem('goalsAndHabits')) {
+            const localHabits = JSON.parse(localStorage.getItem('goalsAndHabits') || []);
+            setGoals(localHabits);
+        } else {
+            fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
+                .then(res => res.json())
+                .then(data => {
+                    setGoals(data);
+                    localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
+                })
+                .catch(err => console.log('Something failed', err));
+        }
+
     }, []);
 
     return (
@@ -63,18 +90,6 @@ export default function Goals() {
                                     })} />
                                     {errors.title && (
                                         <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <div className="mb-2 block">
-                                        <Label htmlFor="description">Description</Label>
-                                    </div>
-                                    <Textarea  {...register('description', {
-                                        maxLength: { value: 200, message: "Maximum 200 characters" }
-                                    })} />
-                                    {errors.description && (
-                                        <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
                                     )}
                                 </div>
 
@@ -130,14 +145,14 @@ export default function Goals() {
                 <span>📊 Status</span>
             </div>
 
-            {goals.length === 0 && (
+            {goals && goals.length === 0 && (
                 <p className="text-center text-gray-500 py-6">
                     🌱 No goals yet. Time to dream big!
                 </p>
             )}
 
             <div className="space-y-2">
-                {goals.map((goal) => (
+                {goals && goals.map((goal) => (
                     <div
                         key={goal.id}
                         className="grid grid-cols-4 items-center px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md"

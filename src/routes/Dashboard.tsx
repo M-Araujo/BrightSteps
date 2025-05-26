@@ -75,7 +75,7 @@ export default function Dashboard() {
     const [todaysHabits, setTodaysHabits] = useState<Goal[]>([]);
 
     useEffect(() => {
-
+        //  localStorage.clear();
         if (localStorage.getItem('goalsAndHabits')) {
             const localHabits = JSON.parse(localStorage.getItem('goalsAndHabits') || '[]');
             setHabits(localHabits);
@@ -113,9 +113,9 @@ export default function Dashboard() {
         const currentDay = new Date().getDay();
         const weekday = currentDay === 0 ? 7 : currentDay;
 
-
         const filtered = allHabits.map((goal) => {
-            const filteredHabits = goal.habits.filter((habit) => habit.frequency.includes(weekday)
+            const goalHabits = goal.habits ?? [];
+            const filteredHabits = goalHabits.filter((habit) => habit.frequency.includes(weekday)
 
             );
             return {
@@ -126,7 +126,6 @@ export default function Dashboard() {
 
         setTodaysHabits(filtered);
     }, [allHabits, habits])
-
 
 
     return (
