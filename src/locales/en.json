@@ -21,6 +21,11 @@
       "habits": "Habits"
     },
 
+    "goals": {
+      "add": "+ Add goal",
+      "createGoal": "create goal"
+    },
+
     "about": {
         "title": "About",
         "welcome": "Welcome to My Habit Tracker Portfolio!",
@@ -35,6 +40,14 @@
             "🔐 Explore a sandbox mode with limited functionality to safely test features without affecting data."
           ]
       }
+    },
+    "common": {
+      "title": "Title",
+      "requiredField": "Required field",
+      "min3Chars": "Minimum 3 characters required",
+      "max100Chars": "Maximum of 100 characters",
+      "endDateTooEarly": "End date cannot be before start date",
+      "submit": "Submit"
     }
   }
   

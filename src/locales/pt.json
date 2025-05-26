@@ -20,6 +20,11 @@
         "habits": "Hábitos"
     },
 
+    "goals": {
+        "add": "+ Adicionar objetivo",
+        "createGoal": "Criar objetivo"
+    },
+
     "about": {
         "title": "Sobre",
         "welcome": "Bem-vindo ao meu Portfólio de Rastreio de Hábitos!",
@@ -34,5 +39,13 @@
                 "🔐 Explore um modo sandbox com funcionalidades limitadas para testar recursos em segurança sem afetar os dados."
             ]
         }
+    },
+    "common": {
+        "title": "Título",
+        "requiredField": "Campo obrigatório",
+        "min3Chars": "Mínimo de 3 caracteres",
+        "max100Chars": "Maximo 100 characteres",
+        "endDateTooEarly": "A data de fim tem ser posterior à data de início.",
+        "submit": "Submeter"
     }
 }

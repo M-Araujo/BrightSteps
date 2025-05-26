@@ -73,21 +73,21 @@ export default function Goals() {
 
             <div className="flex justify-end mb-4">
 
-                <Button onClick={() => setOpenModal(true)}>+ Add goal</Button>
+                <Button onClick={() => setOpenModal(true)}>{t('goals.add')}</Button>
                 <Modal show={openModal} size="3xl" popup onClose={() => setOpenModal(false)}>
                     <ModalHeader />
                     <ModalBody className="overflow-visible max-h-none">
                         <div className="space-y-6">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">Create goal</h3>
+                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">{t('goals.createGoal')}</h3>
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                                 <div>
                                     <div className="mb-2 block">
-                                        <Label htmlFor="title">Title</Label>
+                                        <Label htmlFor="title">{t('common.title')}</Label>
                                     </div>
                                     <TextInput type="text" {...register("title", {
-                                        required: "Title is required",
-                                        minLength: { value: 3, message: "Minimum 3 characters" },
-                                        maxLength: { value: 100, message: "Maximum 100 characters" }
+                                        required: { value: true, message: t('common.requiredField') },
+                                        minLength: { value: 3, message: t('common.min3Chars') },
+                                        maxLength: { value: 100, message: t('common.max100Chars') }
                                     })} />
                                     {errors.title && (
                                         <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
@@ -100,7 +100,7 @@ export default function Goals() {
                                             <Label htmlFor="start-date">Start date</Label>
                                         </div>
                                         <input type="date" {...register('startDate', {
-                                            required: "The start date is required"
+                                            required: t('common.requiredField')
                                         })} />
                                         {errors.startDate && (
                                             <p className="mt-1 text-sm text-red-600">{errors.startDate.message}</p>
@@ -113,11 +113,11 @@ export default function Goals() {
                                             <Label htmlFor="end-date">End date</Label>
                                         </div>
                                         <input type="date" {...register('endDate', {
-                                            required: "The end date is required",
+                                            required: t('common.requiredField'),
                                             validate: value => {
-                                                if (!value) return "End date is required";
+                                                if (!value) return t('common.requiredField');
                                                 if (startDate && value < startDate) {
-                                                    return "End date cannot be before start date";
+                                                    return t('common.endDateTooEarly');
                                                 }
                                                 return true;
                                             }
@@ -130,7 +130,7 @@ export default function Goals() {
                                 </div>
 
                                 <div className="w-full">
-                                    <Button type="submit">Submit</Button>
+                                    <Button type="submit">{t('common.submit')}</Button>
                                 </div>
                             </form>
                         </div>
