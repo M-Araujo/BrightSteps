@@ -140,15 +140,15 @@ export default function Goals() {
 
 
             <div className="grid grid-cols-4 font-semibold text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow-sm mb-2">
-                <span>🎯 Goal</span>
-                <span>📅 Start</span>
-                <span>📆 End</span>
-                <span>📊 Status</span>
+                <span>🎯 {t('goals.start')}</span>
+                <span>📅 {t('goals.start')}</span>
+                <span>📆 {t('goals.end')}</span>
+                <span>📊 {t('goals.status')}</span>
             </div>
 
             {goals && goals.length === 0 && (
                 <p className="text-center text-gray-500 py-6">
-                    🌱 No goals yet. Time to dream big!
+                    {t('goals.noGoals')}
                 </p>
             )}
 

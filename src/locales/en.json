@@ -23,7 +23,12 @@
 
     "goals": {
       "add": "+ Add goal",
-      "createGoal": "create goal"
+      "createGoal": "create goal",
+      "goal": "Goal",
+      "start": "Start",
+      "end": "End",
+      "status": "Status",
+      "noGoals": "🌱 No goals yet. Time to dream big!"
     },
 
     "about": {

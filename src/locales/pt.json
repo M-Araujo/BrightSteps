@@ -22,7 +22,12 @@
 
     "goals": {
         "add": "+ Adicionar objetivo",
-        "createGoal": "Criar objetivo"
+        "createGoal": "Criar objetivo",
+        "goal": "Objetivo",
+        "start": "Início",
+        "end": "Fim",
+        "status": "Estado",
+        "noGoals": "🌱 Sem objetivos. Tempo para sonhar em grande!"
     },
 
     "about": {
