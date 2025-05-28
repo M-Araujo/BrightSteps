@@ -164,9 +164,9 @@ export default function Goals() {
 
 
             <div className="grid grid-cols-5 font-semibold text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow-sm mb-2">
-                <span>🎯 {t('goals.start')}</span>
-                <span>📅 {t('goals.start')}</span>
-                <span>📆 {t('goals.end')}</span>
+                <span>🎯 {t('goals.goal')}</span>
+                <span>📅 {t('goals.startDate')}</span>
+                <span>📆 {t('goals.endDate')}</span>
                 <span>📊 {t('goals.status')}</span>
                 <span>📊 {t('goals.actions')}</span>
             </div>

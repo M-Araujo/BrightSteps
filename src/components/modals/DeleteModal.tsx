@@ -23,9 +23,13 @@ export default function DeleteModal({ show, onClose, onConfirm, itemName }: Dele
                         {`Are you sure you want to delete ${itemName ?? 'this item'}?`}
                     </p>
                     <div className="flex justify-end gap-2">
-                        <Button color="failure" onClick={onConfirm}>
+                        <Button
+                            onClick={onConfirm}
+                            className="bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-md shadow-sm transition"
+                        >
                             Delete
                         </Button>
+
                     </div>
                 </div>
             </ModalBody>
