@@ -55,5 +55,13 @@
         "max100Chars": "Maximo 100 characteres",
         "endDateTooEarly": "A data de fim tem ser posterior à data de início.",
         "submit": "Submeter"
+    },
+    "modals": {
+        "submit": "Submeter",
+        "cancel": "Cancelar",
+        "delete": "Apagar",
+        "areYouSure": "Tem a certeza que pretende apagar",
+        "confirmDelete": "Confirmar ação",
+        "defaultItem": "este item"
     }
 }

@@ -56,6 +56,14 @@
       "max100Chars": "Maximum of 100 characters",
       "endDateTooEarly": "End date cannot be before start date",
       "submit": "Submit"
+    },
+    "modals": {
+      "submit": "Submit",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "areYouSure": "Are you sure you want to delete",
+      "confirmDelete": "Confirm deletion",
+      "defaultItem": "this item"
     }
   }
   
