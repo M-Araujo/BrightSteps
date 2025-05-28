@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Label, Modal, ModalBody, ModalHeader, TextInput, Textarea } from "flowbite-react";
+import { Button, Label, Modal, ModalBody, ModalHeader, TextInput } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
+import DeleteModal from './../components/modals/DeleteModal.tsx';
 
 type Goal = {
     id: number;
@@ -29,6 +30,9 @@ export default function Goals() {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const { register, handleSubmit, watch, formState: { errors } } = useForm<GoalFormData>();
     const startDate = watch('startDate');
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
+
 
     const onSubmit = (data: GoalFormData) => {
         const newGoal: Goal = {
@@ -66,8 +70,26 @@ export default function Goals() {
                 })
                 .catch(err => console.log('Something failed', err));
         }
-
     }, []);
+
+    // set the goal to delete
+    const handleDeleteRequest = (goal: Goal) => {
+        setGoalToDelete(goal);
+        setShowDeleteModal(true);
+    }
+
+    // shows modal
+    const handleConfirmDelete = () => {
+        const filteredGoals = goals.filter((goal) => {
+            return goal.id != goalToDelete?.id;
+        });
+
+        setGoals(filteredGoals);
+        setShowDeleteModal(false);
+        toast.success('Goal deleted successfully!');
+        localStorage.setItem('goalsAndHabits', JSON.stringify(filteredGoals));
+        // TODO convinha ter uma função helper para fazer o update para o localstorage
+    }
 
     return (
         <div className="max-w-4xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
@@ -157,9 +179,11 @@ export default function Goals() {
 
             <div className="space-y-2">
                 {goals && goals.map((goal) => (
-                    <GoalRow goal={goal} key={goal.id} lang={lang} />
+                    <GoalRow goal={goal} key={goal.id} lang={lang} onDeleteRequest={handleDeleteRequest} />
                 ))}
             </div>
+
+            <DeleteModal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} onConfirm={handleConfirmDelete} itemName={goalToDelete?.title[lang]} />
         </div>
     );
 }

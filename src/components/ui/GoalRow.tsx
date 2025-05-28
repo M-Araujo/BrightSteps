@@ -17,10 +17,18 @@ type Goal = {
 type GoalRowProps = {
     goal: Goal;
     lang: string;
+    onDeleteRequest: (goal: Goal) => void;
 };
 
-export default function GoalRow({ goal, lang }: GoalRowProps) {
+export default function GoalRow({ goal, lang, onDeleteRequest }: GoalRowProps) {
     const { t } = useTranslation();
+
+
+    const confirmDelete = (id: number) => {
+        console.log(id);
+        console.log('confirm delete called');
+    };
+
     return (
         <>
             <div
@@ -50,7 +58,7 @@ export default function GoalRow({ goal, lang }: GoalRowProps) {
                     <button className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
                         <Pencil size={18} className="stroke-current" />
                     </button>
-                    <button className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete">
+                    <button className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete" onClick={() => onDeleteRequest(goal)}>
                         <Trash2 size={18} className="stroke-current" />
                     </button>
                 </div>
