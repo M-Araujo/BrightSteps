@@ -178,7 +178,7 @@ export default function Goals() {
 
                                         <div className="flex justify-end items-center gap-2 pt-4">
 
-                                            <Button color="gray" > {t('modals.cancel')}</Button>
+                                            <Button color="gray" onClick={() => setOpenModal(false)}> {t('modals.cancel')}</Button>
                                             <Button
                                                 type="submit"
                                                 color="success"
