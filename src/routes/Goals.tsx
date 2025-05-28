@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Label, Modal, ModalBody, ModalHeader, TextInput } from "flowbite-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
 import DeleteModal from './../components/modals/DeleteModal.tsx';
+
 
 type Goal = {
     id: number;
@@ -99,68 +101,101 @@ export default function Goals() {
             <div className="flex justify-end mb-4">
 
                 <Button onClick={() => setOpenModal(true)}>{t('goals.add')}</Button>
-                <Modal show={openModal} size="3xl" popup onClose={() => setOpenModal(false)}>
-                    <ModalHeader />
-                    <ModalBody className="overflow-visible max-h-none">
-                        <div className="space-y-6">
-                            <h3 className="text-xl font-medium text-gray-900 dark:text-white">{t('goals.createGoal')}</h3>
-                            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                                <div>
-                                    <div className="mb-2 block">
-                                        <Label htmlFor="title">{t('common.title')}</Label>
-                                    </div>
-                                    <TextInput type="text" {...register("title", {
-                                        required: { value: true, message: t('common.requiredField') },
-                                        minLength: { value: 3, message: t('common.min3Chars') },
-                                        maxLength: { value: 100, message: t('common.max100Chars') }
-                                    })} />
-                                    {errors.title && (
-                                        <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
-                                    )}
-                                </div>
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="start-date">{t('goals.startDate')}</Label>
+                <AnimatePresence>
+                    {openModal && (
+                        <motion.div
+                            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+                            onClick={() => setOpenModal(false)}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                        >
+                            <motion.div
+                                role="dialog"
+                                aria-modal="true"
+                                aria-labelledby="modal-title"
+                                aria-describedby="modal-description"
+                                onClick={(e) => e.stopPropagation()}
+                                className="bg-white rounded-lg shadow-lg max-w-md w-full p-6"
+                                initial={{ scale: 0.95, y: 40, opacity: 0 }}
+                                animate={{ scale: 1, y: 0, opacity: 1 }}
+                                exit={{ scale: 0.95, y: 40, opacity: 0 }}
+                                transition={{ duration: 0.25 }}
+                            >
+
+                                <div className="space-y-6">
+                                    <h3 className="text-xl font-medium text-gray-900 dark:text-white">{t('goals.createGoal')}</h3>
+                                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                                        <div>
+                                            <div className="mb-2 block">
+                                                <Label htmlFor="title">{t('common.title')}</Label>
+                                            </div>
+                                            <TextInput type="text" {...register("title", {
+                                                required: { value: true, message: t('common.requiredField') },
+                                                minLength: { value: 3, message: t('common.min3Chars') },
+                                                maxLength: { value: 100, message: t('common.max100Chars') }
+                                            })} />
+                                            {errors.title && (
+                                                <p className="mt-1 text-sm text-red-600">{errors.title.message}</p>
+                                            )}
                                         </div>
-                                        <input type="date" {...register('startDate', {
-                                            required: t('common.requiredField')
-                                        })} />
-                                        {errors.startDate && (
-                                            <p className="mt-1 text-sm text-red-600">{errors.startDate.message}</p>
-                                        )}
 
-                                    </div>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label htmlFor="start-date">{t('goals.startDate')}</Label>
+                                                </div>
+                                                <input type="date" {...register('startDate', {
+                                                    required: t('common.requiredField')
+                                                })} />
+                                                {errors.startDate && (
+                                                    <p className="mt-1 text-sm text-red-600">{errors.startDate.message}</p>
+                                                )}
 
-                                    <div>
-                                        <div className="mb-2 block">
-                                            <Label htmlFor="end-date">{t('goals.endDate')}</Label>
+                                            </div>
+
+                                            <div>
+                                                <div className="mb-2 block">
+                                                    <Label htmlFor="end-date">{t('goals.endDate')}</Label>
+                                                </div>
+                                                <input type="date" {...register('endDate', {
+                                                    required: t('common.requiredField'),
+                                                    validate: value => {
+                                                        if (!value) return t('common.requiredField');
+                                                        if (startDate && value < startDate) {
+                                                            return t('common.endDateTooEarly');
+                                                        }
+                                                        return true;
+                                                    }
+                                                })} />
+                                                {errors.endDate && (
+                                                    <p className="mt-1 text-sm text-red-600">{errors.endDate.message}</p>
+                                                )}
+
+                                            </div>
                                         </div>
-                                        <input type="date" {...register('endDate', {
-                                            required: t('common.requiredField'),
-                                            validate: value => {
-                                                if (!value) return t('common.requiredField');
-                                                if (startDate && value < startDate) {
-                                                    return t('common.endDateTooEarly');
-                                                }
-                                                return true;
-                                            }
-                                        })} />
-                                        {errors.endDate && (
-                                            <p className="mt-1 text-sm text-red-600">{errors.endDate.message}</p>
-                                        )}
 
-                                    </div>
+                                        <div className="flex justify-end items-center gap-2 pt-4">
+
+                                            <Button color="gray" > {t('modals.cancel')}</Button>
+                                            <Button
+                                                type="submit"
+                                                color="success"
+                                                className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2 rounded-md shadow-md transition transform hover:scale-[1.05]"
+                                            >
+                                                {t('modals.submit')}
+                                            </Button>
+                                        </div>
+                                    </form>
                                 </div>
 
-                                <div className="w-full">
-                                    <Button type="submit">{t('common.submit')}</Button>
-                                </div>
-                            </form>
-                        </div>
-                    </ModalBody>
-                </Modal>
+
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
             </div>
 
 
