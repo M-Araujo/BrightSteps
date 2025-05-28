@@ -28,7 +28,7 @@ export default function Goals() {
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
     const [goals, setGoals] = useState<Goal[]>([]);
     const [openModal, setOpenModal] = useState<boolean>(false);
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<GoalFormData>();
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<GoalFormData>();
     const startDate = watch('startDate');
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
@@ -54,6 +54,7 @@ export default function Goals() {
 
         toast.success('Goal added successfully!');
         setOpenModal(false);
+        reset();
     }
     //localStorage.clear();
 
