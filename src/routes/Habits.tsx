@@ -6,10 +6,9 @@ import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
 
 export default function Habits() {
 
-    // const [goals, setGoals] = useState([]);
     const { i18n, t } = useTranslation();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
-    const goals = useGoalsAndHabits();
+    const [goals, setGoals] = useGoalsAndHabits();
 
 
     return (
@@ -44,7 +43,7 @@ export default function Habits() {
                             <div className="flex justify-start">{goal.title[lang]}</div>
                             <div className="flex justify-start">
                                 {habit.frequency.map((item, index) => (
-                                    <span className="flex justify-start text-xs">{t(`habits.days.${item}`)} {index < habit.frequency.length - 1 ? ', ' : ''}</span>
+                                    <span className="flex justify-start text-xs" key={item}>{t(`habits.days.${item}`)} {index < habit.frequency.length - 1 ? ', ' : ''}</span>
                                 ))}
                             </div>
                             <div className="flex items-center gap-2">

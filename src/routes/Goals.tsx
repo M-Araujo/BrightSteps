@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
 import DeleteModal from './../components/modals/DeleteModal.tsx';
-
+import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
 
 type Goal = {
     id: number;
@@ -28,7 +28,7 @@ type GoalFormData = {
 export default function Goals() {
     const { i18n, t } = useTranslation();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
-    const [goals, setGoals] = useState<Goal[]>([]);
+    const [goals, setGoals] = useGoalsAndHabits();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<GoalFormData>();
     const startDate = watch('startDate'); // the purpose is dates validation
@@ -59,21 +59,6 @@ export default function Goals() {
         reset();
     }
     //localStorage.clear();
-
-    useEffect(() => {
-        if (localStorage.getItem('goalsAndHabits')) {
-            const localHabits = JSON.parse(localStorage.getItem('goalsAndHabits') || []);
-            setGoals(localHabits);
-        } else {
-            fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
-                .then(res => res.json())
-                .then(data => {
-                    setGoals(data);
-                    localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
-                })
-                .catch(err => console.log('Something failed', err));
-        }
-    }, []);
 
     // set the goal to delete
     const handleDeleteRequest = (goal: Goal) => {

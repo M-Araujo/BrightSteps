@@ -19,5 +19,5 @@ export default function useGoalsAndHabits() {
         }
     }, []);
 
-    return goals;
+    return [goals, setGoals];
 }
