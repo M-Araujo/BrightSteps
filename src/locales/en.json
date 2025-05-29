@@ -48,7 +48,8 @@
       "goal": "Goal",
       "frequency": "Frequecny",
       "actions": "Actions",
-      "add": "+ Add habit"
+      "add": "+ Add habit",
+      "noHabits": "No habits"
 
     },
 

@@ -1,29 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Label, TextInput } from "flowbite-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from 'react';
 import { Pencil, Trash2 } from 'lucide-react';
+import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
 
 export default function Habits() {
 
-    const [goals, setGoals] = useState([]);
+    // const [goals, setGoals] = useState([]);
     const { i18n, t } = useTranslation();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
+    const goals = useGoalsAndHabits();
 
-    useEffect(() => {
-        if (localStorage.getItem('goalsAndHabits')) {
-            const localGoals = JSON.parse(localStorage.getItem('goalsAndHabits') || []);
-            setGoals(localGoals);
-        } else {
-            fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
-                .then(res => res.json())
-                .then(data => {
-                    setGoals(data);
-                    localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
-                })
-                .catch(err => console.log('comething failed', err))
-        }
-    }, []);
 
     return (
 
@@ -33,7 +20,7 @@ export default function Habits() {
                 <Button>{t('habits.add')}</Button>
             </div>
 
-            <div className="grid grid-cols-5 font-semibold text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow-sm mb-2">
+            <div className="grid grid-cols-4 font-semibold text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow-sm mb-2">
                 <span>🎯 {t('habits.title')}</span>
                 <span>📅 {t('habits.goal')}</span>
                 <span>📆 {t('habits.frequency')}</span>
@@ -42,7 +29,7 @@ export default function Habits() {
 
             {goals && goals.length === 0 && (
                 <p className="text-center text-gray-500 py-6">
-                    no habits
+                    {t('habits.noHabits')}
                 </p>
             )}
 
@@ -51,7 +38,7 @@ export default function Habits() {
                     goal.habits?.map((habit: any) => (
                         <div
                             key={habit.id}
-                            className="grid grid-cols-5 items-center px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md"
+                            className="grid grid-cols-4 items-center px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md"
                         >
                             <div className="flex justify-start">{habit.title[lang]}</div>
                             <div className="flex justify-start">{goal.title[lang]}</div>
@@ -72,9 +59,6 @@ export default function Habits() {
                     ))
                 )}
             </div>
-
-
-
         </div>
     );
 }

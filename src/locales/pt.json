@@ -47,7 +47,8 @@
         "goal": "Objetivo",
         "frequency": "Frequência",
         "actions": "Ações",
-        "add": "+ Adicionar hábito"
+        "add": "+ Adicionar hábito",
+        "noHabits": "Sem hábitos"
     },
 
     "about": {
