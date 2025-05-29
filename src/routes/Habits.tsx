@@ -1,15 +1,14 @@
 import { useTranslation } from 'react-i18next';
-import { Button, Label, TextInput } from "flowbite-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "flowbite-react";
 import { Pencil, Trash2 } from 'lucide-react';
 import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
+import type { Goal } from '../types';
 
 export default function Habits() {
 
     const { i18n, t } = useTranslation();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
-    const [goals, setGoals] = useGoalsAndHabits();
-
+    const [goals] = useGoalsAndHabits<Goal>();
 
     return (
 

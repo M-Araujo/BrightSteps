@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Label, TextInput } from "flowbite-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -91,7 +91,7 @@ export default function Goals() {
                     {openModal && (
                         <motion.div
                             className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-                            onClick={() => setOpenModal(false)}
+                            onClick={() => { setOpenModal(false); reset() }}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -163,7 +163,7 @@ export default function Goals() {
 
                                         <div className="flex justify-end items-center gap-2 pt-4">
 
-                                            <Button color="gray" onClick={() => setOpenModal(false)}> {t('modals.cancel')}</Button>
+                                            <Button color="gray" onClick={() => { setOpenModal(false); reset(); }}> {t('modals.cancel')}</Button>
                                             <Button
                                                 type="submit"
                                                 color="success"
@@ -174,13 +174,10 @@ export default function Goals() {
                                         </div>
                                     </form>
                                 </div>
-
-
                             </motion.div>
                         </motion.div>
                     )}
                 </AnimatePresence>
-
             </div>
 
 

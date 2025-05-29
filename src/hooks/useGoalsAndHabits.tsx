@@ -1,23 +1,41 @@
 import { useState, useEffect } from 'react';
 
-export default function useGoalsAndHabits() {
+// Optional: remove this Goal type if you're importing it elsewhere
+type Goal = {
+    id: number;
+    title: {
+        en: string;
+        pt: string;
+    };
+    completed: boolean;
+    startDate?: string;
+    endDate?: string;
+};
 
-    const [goals, setGoals] = useState([]);
+export default function useGoalsAndHabits<T = Goal>() {
+    const [goals, setGoals] = useState<T[]>([]);
 
     useEffect(() => {
-        if (localStorage.getItem('goalsAndHabits')) {
-            const localGoals = JSON.parse(localStorage.getItem('goalsAndHabits') || []);
-            setGoals(localGoals);
+        const stored = localStorage.getItem('goalsAndHabits');
+
+        if (stored) {
+            try {
+                const localGoals = JSON.parse(stored) as T[];
+                setGoals(localGoals);
+            } catch (err) {
+                console.error("Error parsing localStorage:", err);
+            }
         } else {
             fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
                 .then(res => res.json())
                 .then(data => {
-                    setGoals(data);
-                    localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
+                    const fetchedGoals = data.goals as T[]; // Cast to T[]
+                    setGoals(fetchedGoals);
+                    localStorage.setItem('goalsAndHabits', JSON.stringify(fetchedGoals));
                 })
-                .catch(err => console.log('comething failed', err))
+                .catch(err => console.error('Something failed:', err));
         }
     }, []);
 
-    return [goals, setGoals];
+    return [goals, setGoals] as const;
 }
