@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Label, Modal, ModalBody, ModalHeader, TextInput } from "flowbite-react";
+import { Button, Label, TextInput } from "flowbite-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import GoalRow from './../components/ui/GoalRow.tsx';
@@ -31,7 +31,7 @@ export default function Goals() {
     const [goals, setGoals] = useState<Goal[]>([]);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<GoalFormData>();
-    const startDate = watch('startDate');
+    const startDate = watch('startDate'); // the purpose is dates validation
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
 

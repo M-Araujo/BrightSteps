@@ -75,7 +75,7 @@ export default function Dashboard() {
     const [todaysHabits, setTodaysHabits] = useState<Goal[]>([]);
 
     useEffect(() => {
-        //  localStorage.clear();
+        //localStorage.clear();
         if (localStorage.getItem('goalsAndHabits')) {
             const localHabits = JSON.parse(localStorage.getItem('goalsAndHabits') || '[]');
             setHabits(localHabits);

@@ -33,6 +33,23 @@
         "done": "Feito!"
     },
 
+    "habits": {
+        "days": {
+            "1": "S",
+            "2": "T",
+            "3": "Q",
+            "4": "Q",
+            "5": "S",
+            "6": "S",
+            "7": "D"
+        },
+        "title": "Título",
+        "goal": "Objetivo",
+        "frequency": "Frequência",
+        "actions": "Ações",
+        "add": "+ Adicionar hábito"
+    },
+
     "about": {
         "title": "Sobre",
         "welcome": "Bem-vindo ao meu Portfólio de Rastreio de Hábitos!",
