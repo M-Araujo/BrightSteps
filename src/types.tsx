@@ -27,6 +27,12 @@ export type GoalRowProps = {
     lang: Lang;
     onDeleteRequest: (goal: Goal) => void;
 };
+export type HabitRowProps = {
+    goal: Goal;
+    habit: Habit;
+    lang: 'en' | 'pt';
+}
+
 
 export type GoalFormData = {
     title: string;

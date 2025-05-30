@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from "flowbite-react";
-import { Pencil, Trash2 } from 'lucide-react';
 import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
-import type { Goal, Habit } from '../types';
+import type { Goal } from '../types';
+import HabitRow from '../components/ui/HabitRow.tsx';
 
 export default function Habits() {
 
@@ -33,27 +33,8 @@ export default function Habits() {
 
             <div className="space-y-2">
                 {goals.map(goal =>
-                    goal.habits?.map((habit: Habit) => (
-                        <div
-                            key={habit.id}
-                            className="grid grid-cols-4 items-center px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md"
-                        >
-                            <div className="flex justify-start">{habit.title[lang]}</div>
-                            <div className="flex justify-start">{goal.title[lang]}</div>
-                            <div className="flex justify-start">
-                                {habit.frequency.map((item: number, index: number) => (
-                                    <span className="flex justify-start text-xs" key={item}>{t(`habits.days.${item}`)} {index < habit.frequency.length - 1 ? ', ' : ''}</span>
-                                ))}
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <button className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
-                                    <Pencil size={18} />
-                                </button>
-                                <button className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete">
-                                    <Trash2 size={18} />
-                                </button>
-                            </div>
-                        </div>
+                    goal.habits?.map(habit => (
+                        <HabitRow key={habit.id} goal={goal} habit={habit} lang={lang} />
                     ))
                 )}
             </div>
