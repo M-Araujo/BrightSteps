@@ -1,10 +1,13 @@
+
+export type Lang = 'en' | 'pt';
+
 export type Habit = {
     id: number;
     title: {
         en: string;
         pt: string;
     };
-    frequency: string[];
+    frequency: number[];
 };
 
 export type Goal = {
@@ -17,4 +20,57 @@ export type Goal = {
     startDate?: string;
     endDate?: string;
     habits?: Habit[];
-  };
+};
+
+export type GoalRowProps = {
+    goal: Goal;
+    lang: Lang;
+    onDeleteRequest: (goal: Goal) => void;
+};
+
+export type GoalFormData = {
+    title: string;
+    startDate: string;
+    endDate: string;
+}
+
+export type Movie = {
+    id: number;
+    title: {
+        en?: string;
+        pt?: string;
+    },
+    description: {
+        en?: string;
+        pt?: string;
+    },
+    link?: string
+};
+
+export type Mentor = {
+    id: number;
+    title: {
+        en?: string;
+        pt?: string;
+    };
+    author: string;
+    image?: string;
+    type: string;
+    link?: string;
+    description: {
+        en?: string;
+        pt?: string;
+    }
+}
+
+export type Tip = {
+    id: number,
+    title: {
+        en: string;
+        pt: string;
+    },
+    description: {
+        en: string;
+        pt: string;
+    }
+}

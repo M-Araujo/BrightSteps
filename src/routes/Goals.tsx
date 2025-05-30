@@ -7,22 +7,7 @@ import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
 import DeleteModal from './../components/modals/DeleteModal.tsx';
 import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
-
-type Goal = {
-    id: number;
-    title: {
-        en: string;
-        pt: string;
-    };
-    completed: boolean;
-    startDate?: string;
-    endDate?: string;
-};
-type GoalFormData = {
-    title: string;
-    startDate: string;
-    endDate: string;
-}
+import type { Goal, GoalFormData } from '../types';
 
 
 export default function Goals() {
@@ -84,9 +69,7 @@ export default function Goals() {
             <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('goals.title', 'Goals')}</h1>
 
             <div className="flex justify-end mb-4">
-
                 <Button onClick={() => setOpenModal(true)}>{t('goals.add')}</Button>
-
                 <AnimatePresence>
                     {openModal && (
                         <motion.div

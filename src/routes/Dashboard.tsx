@@ -2,66 +2,7 @@ import { useTranslation } from 'react-i18next'
 import Card from './../components/ui/Card.tsx';
 import { useEffect, useState } from 'react';
 import { Checkbox, Label } from "flowbite-react";
-
-type Movie = {
-    id: number;
-    title: {
-        en?: string;
-        pt?: string;
-    },
-    description: {
-        en?: string;
-        pt?: string;
-    },
-    link?: string
-};
-
-type Mentor = {
-    id: number;
-    title: {
-        en?: string;
-        pt?: string;
-    };
-    author: string;
-    image?: string;
-    type: string;
-    link?: string;
-    description: {
-        en?: string;
-        pt?: string;
-    }
-}
-
-type Tip = {
-    id: number,
-    title: {
-        en: string;
-        pt: string;
-    },
-    description: {
-        en: string;
-        pt: string;
-    }
-}
-
-type Habit = {
-    id: number;
-    title: {
-        en?: string;
-        pt?: string;
-    };
-    frequency: number[];
-}
-
-type Goal = {
-    id: number;
-    title: {
-        en?: string;
-        pt?: string;
-    };
-    habits: Habit[];
-}
-
+import type { Goal, Movie, Mentor, Tip } from '../types';
 
 export default function Dashboard() {
 
@@ -99,30 +40,28 @@ export default function Dashboard() {
                     setHabits(data['goals']);
                     setAllHabits(data['goals']);
                     localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
-
                 })
                 .catch(err => console.log('something failed', err));
         }
     }, []);
 
 
-
     useEffect(() => {
         if (!habits || habits.length === 0) return;
 
         const currentDay = new Date().getDay();
-        const weekday = currentDay === 0 ? 7 : currentDay;
+        const weekday = currentDay === 0 ? 7 : currentDay; // Sunday=7, Monday=1, etc.
 
         const filtered = allHabits.map((goal) => {
             const goalHabits = goal.habits ?? [];
-            const filteredHabits = goalHabits.filter((habit) => habit.frequency.includes(weekday)
-
+            const filteredHabits = goalHabits.filter((habit) =>
+                habit.frequency.includes(weekday)
             );
             return {
                 ...goal,
                 habits: filteredHabits,
-            }
-        }).filter((goal) => goal.habits.length > 0);
+            };
+        }).filter(goal => goal.habits.length > 0);
 
         setTodaysHabits(filtered);
     }, [allHabits, habits])
@@ -153,7 +92,7 @@ export default function Dashboard() {
                                 {goal.title?.[lang] ?? goal.title.en}
                             </h3>
 
-                            {goal.habits.map((habit) => (
+                            {goal.habits?.map((habit) => (
                                 <div
                                     key={habit.id}
                                     className="flex items-center gap-3 mb-2 p-2 rounded-md cursor-pointer hover:bg-indigo-50 transition-colors"

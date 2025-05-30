@@ -1,16 +1,6 @@
 import { useState, useEffect } from 'react';
+import type { Goal } from '../types';
 
-// Optional: remove this Goal type if you're importing it elsewhere
-type Goal = {
-    id: number;
-    title: {
-        en: string;
-        pt: string;
-    };
-    completed: boolean;
-    startDate?: string;
-    endDate?: string;
-};
 
 export default function useGoalsAndHabits<T = Goal>() {
     const [goals, setGoals] = useState<T[]>([]);
