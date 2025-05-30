@@ -81,3 +81,8 @@ export type Tip = {
         pt: string;
     }
 }
+
+export interface HabitFormProps {
+    show: boolean;
+    onClose: () => void;
+}
