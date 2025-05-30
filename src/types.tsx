@@ -41,6 +41,12 @@ export type GoalFormData = {
     endDate: string;
 }
 
+export type HabitsFormData = {
+    title: string;
+    goalId: number;
+    frequency: [];
+}
+
 export type Movie = {
     id: number;
     title: {
