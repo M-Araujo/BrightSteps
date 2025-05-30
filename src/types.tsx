@@ -31,6 +31,7 @@ export type HabitRowProps = {
     goal: Goal;
     habit: Habit;
     lang: 'en' | 'pt';
+    onDeleteRequest: (habit: Habit) => void;
 }
 
 

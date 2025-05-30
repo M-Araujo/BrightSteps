@@ -2,7 +2,7 @@ import type { HabitRowProps } from '../../types';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-export default function HabitRow({ goal, habit, lang }: HabitRowProps) {
+export default function HabitRow({ goal, habit, lang, onDeleteRequest }: HabitRowProps) {
 
     const { t } = useTranslation();
 
@@ -23,7 +23,7 @@ export default function HabitRow({ goal, habit, lang }: HabitRowProps) {
                     <button className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
                         <Pencil size={18} />
                     </button>
-                    <button className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete">
+                    <button className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete" onClick={() => onDeleteRequest(habit)}>
                         <Trash2 size={18} />
                     </button>
                 </div>

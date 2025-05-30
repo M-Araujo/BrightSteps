@@ -1,14 +1,39 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from "flowbite-react";
+import { useState } from 'react';
+import type { Habit } from '../types';
 import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
-import type { Goal } from '../types';
 import HabitRow from '../components/ui/HabitRow.tsx';
+import DeleteModal from './../components/modals/DeleteModal.tsx';
+import toast from 'react-hot-toast';
 
 export default function Habits() {
 
     const { i18n, t } = useTranslation();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
-    const [goals] = useGoalsAndHabits<Goal>();
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const [habitToDelete, setHabitToDelete] = useState<Habit | null>(null);
+    const [goals, setGoals] = useGoalsAndHabits();
+
+    // set the habit to delete
+    const handleDeleteRequest = (habit: Habit) => {
+        setHabitToDelete(habit);
+        setShowDeleteModal(true);
+    }
+
+    // shows modal
+    const handleConfirmDelete = () => {
+        const filteredHabits = goals.map(goal => ({
+            ...goal,
+            habits: goal.habits?.filter(habit => habit.id !== habitToDelete?.id) || []
+        }));
+
+        setGoals(filteredHabits);
+        setShowDeleteModal(false);
+        toast.success('Habit deleted successfully!');
+        localStorage.setItem('goalsAndHabits', JSON.stringify(filteredHabits));
+        // TODO convinha ter uma função helper para fazer o update para o localstorage
+    }
 
     return (
 
@@ -34,10 +59,11 @@ export default function Habits() {
             <div className="space-y-2">
                 {goals.map(goal =>
                     goal.habits?.map(habit => (
-                        <HabitRow key={habit.id} goal={goal} habit={habit} lang={lang} />
+                        <HabitRow key={habit.id} goal={goal} habit={habit} lang={lang} onDeleteRequest={handleDeleteRequest} />
                     ))
                 )}
             </div>
+            <DeleteModal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} onConfirm={handleConfirmDelete} itemName={habitToDelete?.title[lang]} />
         </div>
     );
 }
