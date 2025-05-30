@@ -23,6 +23,7 @@ export default function Modal({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
+                    onClick={onClose}
                 >
                     <motion.div
                         className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 space-y-4"
