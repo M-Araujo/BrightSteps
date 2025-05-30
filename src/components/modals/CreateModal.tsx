@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "flowbite-react";
 
 interface ModalProps {
     show: boolean;
@@ -12,8 +14,15 @@ interface ModalProps {
 }
 
 export default function Modal({
-    show, title, onClose, onConfirm, children, confirmText = 'Confirm', cancelText = 'Cancel'
+    show,
+    title,
+    onClose,
+    onConfirm,
+    children
 }: ModalProps) {
+    const { t } = useTranslation();
+
+    if (!show) return null;
 
     return (
         <AnimatePresence>
@@ -36,10 +45,15 @@ export default function Modal({
                         {title && <h2 className="text-lg font-semibold">{title}</h2>}
                         <div>{children}</div>
                         <div className="flex justify-end space-x-2 mt-4">
-                            <button onClick={onClose} className="px-4 py-2 text-gray-600 hover:text-gray-800">{cancelText}</button>
-                            {onConfirm && (
-                                <button onClick={onConfirm} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">{confirmText}</button>
-                            )}
+                            <Button color="gray" onClick={onClose}> {t('modals.cancel')}</Button>
+                            <Button
+                                onClick={onConfirm}
+                                type="submit"
+                                color="success"
+                                className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2 rounded-md shadow-md transition transform hover:scale-[1.05]"
+                            >
+                                {t('modals.submit')}
+                            </Button>
                         </div>
                     </motion.div>
                 </motion.div>
@@ -47,7 +61,3 @@ export default function Modal({
         </AnimatePresence>
     );
 }
-
-
-
-
