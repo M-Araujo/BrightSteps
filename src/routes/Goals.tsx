@@ -6,14 +6,14 @@ import { useForm } from "react-hook-form";
 import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
 import DeleteModal from './../components/modals/DeleteModal.tsx';
-import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
+import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits.tsx';
 import type { Goal, GoalFormData } from '../types';
 
 
 export default function Goals() {
     const { i18n, t } = useTranslation();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
-    const [goals, setGoals] = useGoalsAndHabits();
+    const { goals, updateGoals } = useGoalsAndHabits();
     const [openModal, setOpenModal] = useState<boolean>(false);
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<GoalFormData>();
     const startDate = watch('startDate'); // the purpose is dates validation
@@ -33,7 +33,7 @@ export default function Goals() {
             endDate: data.endDate,
         }
 
-        setGoals(goals => {
+        updateGoals(goals => {
             const updated = [...goals, newGoal];
             localStorage.setItem('goalsAndHabits', JSON.stringify(updated));
             return updated;
@@ -57,7 +57,7 @@ export default function Goals() {
             return goal.id != goalToDelete?.id;
         });
 
-        setGoals(filteredGoals);
+        updateGoals(filteredGoals);
         setShowDeleteModal(false);
         toast.success('Goal deleted successfully!');
         localStorage.setItem('goalsAndHabits', JSON.stringify(filteredGoals));

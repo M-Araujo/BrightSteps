@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import type { Goal } from '../types';
 
 interface GoalsAndHabitsContextType {
@@ -7,9 +8,10 @@ interface GoalsAndHabitsContextType {
 }
 
 const GoalsAndHabitsContext = createContext<GoalsAndHabitsContextType | undefined>(undefined);
+export { GoalsAndHabitsContext }; // Named export
 
 export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
-    const [goals, setGoals] = useState<Goal[]>([]); // Fix: Goal[] instead of Goal
+    const [goals, setGoals] = useState<Goal[]>([]);
 
     useEffect(() => {
         const stored = localStorage.getItem('goalsAndHabits');
@@ -21,7 +23,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
                 console.error('Error parsing localStorage', err);
             }
         } else {
-            fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits") // Fix: Correct URL
+            fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
                 .then(res => res.json())
                 .then(data => {
                     const fetchedGoals = data.goals as Goal[];
@@ -32,9 +34,9 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
         }
     }, []);
 
-    const updateGoals = (newGoals: Goal[]) => { // Fix: Function name to updateGoals
+    const updateGoals = (newGoals: Goal[]) => {
         setGoals(newGoals);
-        localStorage.setItem('goalsAndHabits', JSON.stringify(newGoals)); // Fix: Correct key
+        localStorage.setItem('goalsAndHabits', JSON.stringify(newGoals));
     };
 
     return (
@@ -42,12 +44,4 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
             {children}
         </GoalsAndHabitsContext.Provider>
     );
-}
-
-export function useGoalsAndHabits() {
-    const context = useContext(GoalsAndHabitsContext);
-    if (!context) {
-        throw new Error('useGoalsAndHabits must be used within a GoalsAndHabitsProvider');
-    }
-    return context;
 }

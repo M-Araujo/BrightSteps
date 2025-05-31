@@ -1,9 +1,10 @@
 import { Label, TextInput, Select, Checkbox, Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import { useGoalsAndHabits } from '../../hooks/GoalsAndHabitsContext';
-import type { HabitFormProps, Goal, HabitsFormData } from '../../types.tsx';
+import { useGoalsAndHabits } from '../../hooks/useGoalsAndHabits';
 import Modal from '../modals/CreateModal.tsx';
+import toast from 'react-hot-toast';
+import type { HabitFormProps, HabitsFormData } from '../../types.tsx';
 
 export default function HabitForm({ show, onClose }: HabitFormProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<HabitsFormData>();
@@ -36,6 +37,7 @@ export default function HabitForm({ show, onClose }: HabitFormProps) {
 
         updateGoals(updatedGoals);
         onClose();
+        toast.success('Habit created successfully!');
     }
 
     return (
