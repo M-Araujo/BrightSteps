@@ -3,13 +3,13 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Topbar from './components/layout/Topbar.tsx';
 import Sidebar from './components/layout/Sidebar.tsx';
-// import Footer from './components/layout/Footer.tsx';
+import { GoalsAndHabitsProvider } from './hooks/GoalsAndHabitsContext';
 import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
 import Habits from './routes/Habits.tsx';
 import Calendar from './routes/Calendar.tsx';
 import Stats from './routes/Stats.tsx';
-import Tips from './routes/Settings.tsx';
+import Tips from './routes/Tips.tsx';
 import About from './routes/About.tsx';
 import Settings from './routes/Settings.tsx';
 import { Toaster } from 'react-hot-toast';
@@ -19,8 +19,10 @@ function AnimatedRoutes() {
   const location = useLocation();
 
   return (
+    <GoalsAndHabitsProvider>
     <AnimatePresence mode="wait">
       <Toaster position="top-right" />
+
       <Routes location={location} key={location.pathname}>
         <Route
           path="/"
@@ -60,7 +62,8 @@ function AnimatedRoutes() {
               <Habits />
             </motion.div>
           }
-        />
+          />
+
         <Route
           path="/calendar"
           element={
@@ -128,8 +131,10 @@ function AnimatedRoutes() {
             </motion.div>
           }
         />
-      </Routes>
-    </AnimatePresence>
+        </Routes>
+
+      </AnimatePresence>
+    </GoalsAndHabitsProvider>
   );
 }
 

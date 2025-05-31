@@ -27,5 +27,10 @@ export default function useGoalsAndHabits<T = Goal>() {
         }
     }, []);
 
-    return [goals, setGoals] as const;
+    const updateGoals = (newGoals: T[]) => {
+        setGoals(newGoals);
+        localStorage.setItem('goalsAndHabits', JSON.stringify(newGoals));
+    }
+
+    return [goals, updateGoals] as const;
 }

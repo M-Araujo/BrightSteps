@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from "flowbite-react";
 import { useState } from 'react';
 import type { Habit } from '../types';
-import useGoalsAndHabits from '../hooks/useGoalsAndHabits.tsx';
+import { useGoalsAndHabits } from '../hooks/GoalsAndHabitsContext';
 import HabitRow from '../components/ui/HabitRow.tsx';
 import DeleteModal from './../components/modals/DeleteModal.tsx';
 import toast from 'react-hot-toast';
@@ -14,7 +14,7 @@ export default function Habits() {
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [habitToDelete, setHabitToDelete] = useState<Habit | null>(null);
-    const [goals, setGoals] = useGoalsAndHabits();
+    const { goals, setGoals } = useGoalsAndHabits();
     const [showAddModal, setShowAddModal] = useState(false);
 
     // set the habit to delete

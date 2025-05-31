@@ -1,17 +1,16 @@
-
-import Modal from '../modals/CreateModal.tsx';
 import { Label, TextInput, Select, Checkbox, Button } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import useGoalsAndHabits from '../../hooks/useGoalsAndHabits.tsx';
+import { useGoalsAndHabits } from '../../hooks/GoalsAndHabitsContext';
 import type { HabitFormProps, Goal, HabitsFormData } from '../../types.tsx';
-
+import Modal from '../modals/CreateModal.tsx';
 
 export default function HabitForm({ show, onClose }: HabitFormProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<HabitsFormData>();
     const { i18n, t } = useTranslation();
-    const [goals] = useGoalsAndHabits<Goal>();
+    const { goals, updateGoals } = useGoalsAndHabits();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
+
 
     const daysOfWeek = Array.from({ length: 7 }, (_, i) => ({
         value: i + 1, // 1 to 7
@@ -19,8 +18,24 @@ export default function HabitForm({ show, onClose }: HabitFormProps) {
     }));
 
     const onSubmit = (formData: HabitsFormData) => {
-        console.log('on submit');
-        console.log('formdata', formData);
+        const newHabit = {
+            id: Math.floor(Math.random() * 1000000),
+            title: {
+                en: formData.title,
+                pt: formData.title
+            },
+            goalId: formData.goalId,
+            frequency: formData.frequency
+        }
+
+        const updatedGoals = goals.map(goal => {
+            if (goal.id !== Number(newHabit.goalId)) return goal;
+            const updatedHabits = goal.habits ? [...goal.habits, newHabit] : [newHabit];
+            return { ...goal, habits: updatedHabits };
+        });
+
+        updateGoals(updatedGoals);
+        onClose();
     }
 
     return (
@@ -29,7 +44,6 @@ export default function HabitForm({ show, onClose }: HabitFormProps) {
                 show={show}
                 title="Add habit"
                 onClose={onClose}>
-
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div>
                         <div className="mb-2 block">
