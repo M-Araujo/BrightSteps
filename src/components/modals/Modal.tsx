@@ -1,7 +1,5 @@
 import type { ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "flowbite-react";
 
 interface ModalProps {
     show: boolean;
@@ -20,7 +18,6 @@ export default function Modal({
     onConfirm,
     children
 }: ModalProps) {
-    const { t } = useTranslation();
 
     return (
         <AnimatePresence>

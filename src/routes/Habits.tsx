@@ -4,9 +4,10 @@ import { useState } from 'react';
 import type { Habit } from '../types';
 import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 import HabitRow from '../components/ui/HabitRow.tsx';
-import DeleteModal from './../components/modals/DeleteModal.tsx';
+//import DeleteModal from './../components/modals/DeleteModal.tsx';
 import toast from 'react-hot-toast';
-import HabitForm from '../components/forms/HabitForm.tsx';
+import HabitForm from '../components/modals/forms/HabitForm.tsx';
+import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
 
 export default function Habits() {
 
@@ -25,6 +26,8 @@ export default function Habits() {
 
     // shows modal
     const handleConfirmDelete = () => {
+
+        console.log('handle confirm delet called!!');
         const filteredHabits = goals.map(goal => ({
             ...goal,
             habits: goal.habits?.filter(habit => habit.id !== habitToDelete?.id) || []
@@ -67,7 +70,9 @@ export default function Habits() {
             </div>
 
             <HabitForm show={showAddModal} onClose={() => setShowAddModal(false)} />
-            <DeleteModal show={showDeleteModal} onClose={() => setShowDeleteModal(false)} onConfirm={handleConfirmDelete} itemName={habitToDelete?.title[lang]} />  
+
+            <DeleteConfirmation show={showDeleteModal} onConfirm={handleConfirmDelete} onClose={() => setShowDeleteModal(false)} />
+
         </div>
     );
 }
