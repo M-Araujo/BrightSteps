@@ -16,6 +16,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         const stored = localStorage.getItem('goalsAndHabits');
         if (stored) {
+            // console.log('inside context', stored);
             try {
                 const localGoals = JSON.parse(stored) as Goal[];
                 setGoals(localGoals);

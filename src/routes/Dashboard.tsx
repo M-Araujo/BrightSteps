@@ -3,6 +3,7 @@ import Card from './../components/ui/Card.tsx';
 import { useEffect, useState } from 'react';
 import { Checkbox, Label } from "flowbite-react";
 import type { Goal, Movie, Mentor, Tip } from '../types';
+import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 
 export default function Dashboard() {
 
@@ -11,48 +12,33 @@ export default function Dashboard() {
     const [movie, setMovie] = useState<Movie>();
     const [mentor, setMentor] = useState<Mentor>();
     const [tip, setTip] = useState<Tip>();
-    const [habits, setHabits] = useState<Goal[]>();
-    const [allHabits, setAllHabits] = useState<Goal[]>([]);
+    //const [habits, setHabits] = useState<Goal[]>();
+    //const [allHabits, setAllHabits] = useState<Goal[]>([]);
     const [todaysHabits, setTodaysHabits] = useState<Goal[]>([]);
+    const { goals } = useGoalsAndHabits();
 
     useEffect(() => {
         //localStorage.clear();
-        if (localStorage.getItem('goalsAndHabits')) {
-            const localHabits = JSON.parse(localStorage.getItem('goalsAndHabits') || '[]');
-            setHabits(localHabits);
-            setAllHabits(localHabits);
 
-            fetch("https://brighsteps-api.vercel.app/api/dashboard-basic")
-                .then(res => res.json())
-                .then(data => {
-                    setMovie(data['movie']);
-                    setMentor(data['mentor']);
-                    setTip(data['tip']);
-                })
-                .catch(err => console.log('something failed', err));
-        } else {
-            fetch("https://brighsteps-api.vercel.app/api/dashboard-complete")
-                .then(res => res.json())
-                .then(data => {
-                    setMovie(data['movie']);
-                    setMentor(data['mentor']);
-                    setTip(data['tip']);
-                    setHabits(data['goals']);
-                    setAllHabits(data['goals']);
-                    localStorage.setItem('goalsAndHabits', JSON.stringify(data['goals']));
-                })
-                .catch(err => console.log('something failed', err));
-        }
+        fetch("https://brighsteps-api.vercel.app/api/dashboard")
+            .then(res => res.json())
+            .then(data => {
+                setMovie(data['movie']);
+                setMentor(data['mentor']);
+                setTip(data['tip']);
+            })
+            .catch(err => console.log('something failed', err));
+
     }, []);
 
 
     useEffect(() => {
-        if (!habits || habits.length === 0) return;
+
+        if (!goals || goals.length === 0) return;
 
         const currentDay = new Date().getDay();
         const weekday = currentDay === 0 ? 7 : currentDay; // Sunday=7, Monday=1, etc.
-
-        const filtered = allHabits.map((goal) => {
+        const filtered = goals.map((goal) => {
             const goalHabits = goal.habits ?? [];
             const filteredHabits = goalHabits.filter((habit) =>
                 habit.frequency.includes(weekday)
@@ -62,9 +48,9 @@ export default function Dashboard() {
                 habits: filteredHabits,
             };
         }).filter(goal => goal.habits.length > 0);
-
         setTodaysHabits(filtered);
-    }, [allHabits, habits])
+    }, [goals])
+
 
 
     return (
@@ -215,16 +201,10 @@ export default function Dashboard() {
                                             className="w-full h-full rounded-xl"
                                         ></iframe>
                                     </div>
-                                )
-
+                                    )
                             )}
-
-
                         </>
-
                     )}
-
-
                 </Card>
             </div>
         </div>

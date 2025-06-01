@@ -26,7 +26,7 @@ export default function HabitForm({ show, onClose }: HabitFormProps) {
                 pt: formData.title
             },
             goalId: formData.goalId,
-            frequency: formData.frequency
+            frequency: Array.isArray(formData.frequency) ? formData.frequency.map(Number).filter(n => !isNaN(n)) : [7]
         }
 
         const updatedGoals = goals.map(goal => {
