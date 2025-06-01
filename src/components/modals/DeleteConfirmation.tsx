@@ -13,11 +13,11 @@ export default function DeleteConfirmation({ show, onClose, onConfirm, title }: 
             onClose={onClose}
         >
             <p id="modal-description" className="text-gray-700 mb-6">
-                Are you sure you want to delete {title}?
+                {t('modals.areYouSure')} <span className="font-semibold">"{title}"</span>?
             </p>
             <div className="flex justify-end space-x-2">
                 <Button color="gray" onClick={onClose}>
-                    {t('modals.cancel', 'Cancel')}
+                    {t('modals.cancel')}
                 </Button>
                 <Button
                     color="failure"

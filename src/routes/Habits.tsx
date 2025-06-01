@@ -4,7 +4,6 @@ import { useState } from 'react';
 import type { Habit } from '../types';
 import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 import HabitRow from '../components/ui/HabitRow.tsx';
-//import DeleteModal from './../components/modals/DeleteModal.tsx';
 import toast from 'react-hot-toast';
 import HabitForm from '../components/modals/forms/HabitForm.tsx';
 import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
@@ -27,8 +26,6 @@ export default function Habits() {
 
     // shows modal
     const handleConfirmDelete = () => {
-
-        console.log('handle confirm delet called!!');
         const filteredHabits = goals.map(goal => ({
             ...goal,
             habits: goal.habits?.filter(habit => habit.id !== habitToDelete?.id) || []
@@ -38,7 +35,6 @@ export default function Habits() {
         setShowDeleteModal(false);
         toast.success('Habit deleted successfully!');
         localStorage.setItem('goalsAndHabits', JSON.stringify(filteredHabits));
-        // TODO convinha ter uma função helper para fazer o update para o localstorage
     }
 
     return (
@@ -71,7 +67,6 @@ export default function Habits() {
             </div>
 
             <HabitForm show={showAddModal} onClose={() => setShowAddModal(false)} />
-
             <DeleteConfirmation title={habitToDelete?.title[lang]} show={showDeleteModal} onConfirm={handleConfirmDelete} onClose={() => {
                 setHabitToDelete(null); setShowDeleteModal(false)
             }} />

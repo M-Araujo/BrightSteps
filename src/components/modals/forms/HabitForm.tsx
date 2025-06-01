@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { useGoalsAndHabits } from '../../../hooks/useGoalsAndHabits.tsx';
 import Modal from '../Modal.tsx';
 import toast from 'react-hot-toast';
-import type { HabitFormProps, HabitsFormData } from '../../../types.tsx';
+import type { FormProps, HabitsFormData } from '../../../types.tsx';
 
-export default function HabitForm({ show, onClose }: HabitFormProps) {
+export default function HabitForm({ show, onClose }: FormProps) {
     const { register, handleSubmit, formState: { errors } } = useForm<HabitsFormData>();
     const { i18n, t } = useTranslation();
     const { goals, updateGoals } = useGoalsAndHabits();
