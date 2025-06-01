@@ -92,3 +92,10 @@ export interface HabitFormProps {
     show: boolean;
     onClose: () => void;
 }
+
+export interface DeleteConfirmationProps {
+    show: boolean;
+    onClose: () => void;
+    onConfirm?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    title?: string;
+}

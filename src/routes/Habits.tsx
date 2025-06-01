@@ -20,6 +20,7 @@ export default function Habits() {
 
     // set the habit to delete
     const handleDeleteRequest = (habit: Habit) => {
+        console.log('habit to delete called');
         setHabitToDelete(habit);
         setShowDeleteModal(true);
     }
@@ -71,7 +72,9 @@ export default function Habits() {
 
             <HabitForm show={showAddModal} onClose={() => setShowAddModal(false)} />
 
-            <DeleteConfirmation show={showDeleteModal} onConfirm={handleConfirmDelete} onClose={() => setShowDeleteModal(false)} />
+            <DeleteConfirmation title={habitToDelete?.title[lang]} show={showDeleteModal} onConfirm={handleConfirmDelete} onClose={() => {
+                setHabitToDelete(null); setShowDeleteModal(false)
+            }} />
 
         </div>
     );
