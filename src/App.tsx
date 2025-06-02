@@ -1,8 +1,9 @@
-import './App.css';
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import Topbar from './components/layout/Topbar.tsx';
-import Sidebar from './components/layout/Sidebar.tsx';
+import './App.css';
+import Topbar from './components/layout/Topbar';
+import Sidebar from './components/layout/Sidebar';
 import { GoalsAndHabitsProvider } from './hooks/GoalsAndHabitsContext';
 import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
@@ -14,23 +15,20 @@ import About from './routes/About.tsx';
 import Settings from './routes/Settings.tsx';
 import { Toaster } from 'react-hot-toast';
 
-
 function AnimatedRoutes() {
   const location = useLocation();
 
   return (
-    <GoalsAndHabitsProvider>
     <AnimatePresence mode="wait">
       <Toaster position="top-right" />
-
       <Routes location={location} key={location.pathname}>
         <Route
           path="/"
           element={
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <Dashboard />
@@ -41,9 +39,9 @@ function AnimatedRoutes() {
           path="/goals"
           element={
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <Goals />
@@ -54,23 +52,22 @@ function AnimatedRoutes() {
           path="/habits"
           element={
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <Habits />
             </motion.div>
           }
-          />
-
+        />
         <Route
           path="/calendar"
           element={
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <GoalsCalendar />
@@ -81,37 +78,35 @@ function AnimatedRoutes() {
           path="/stats"
           element={
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <Stats />
             </motion.div>
           }
         />
-
         <Route
           path="/tips"
           element={
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <Tips />
             </motion.div>
           }
         />
-
         <Route
           path="/about"
           element={
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <About />
@@ -122,36 +117,42 @@ function AnimatedRoutes() {
           path="/settings"
           element={
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
               <Settings />
             </motion.div>
           }
         />
-        </Routes>
-
-      </AnimatePresence>
-    </GoalsAndHabitsProvider>
+      </Routes>
+    </AnimatePresence>
   );
 }
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const closeSidebar = () => setIsSidebarOpen(false);
+
   return (
     <BrowserRouter>
       <div className="flex flex-col min-h-screen">
-        <Topbar />
+        <Topbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
         <main className="flex flex-1">
-          <Sidebar />
-          <div className="p-4 w-full ml-0 sm:ml-64 text-left">
-            <div className="p-4 mt-14">
-              <AnimatedRoutes />
+          <Sidebar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
+          <div
+            className={`flex-1 p-4 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0 sm:ml-64'
+              } mt-16`}
+          >
+            <div className="p-4">
+              <GoalsAndHabitsProvider>
+                <AnimatedRoutes />
+              </GoalsAndHabitsProvider>
             </div>
           </div>
         </main>
-        {/* <Footer /> */}
       </div>
     </BrowserRouter>
   );
