@@ -39,7 +39,7 @@ export default function Habits() {
 
     return (
 
-        <div className="max-w-4xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
+        <div className="max-w-5xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
             <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('goals.title', 'Habits')}</h1>
             <div className="flex justify-end mb-4">
                 <Button onClick={() => setShowAddModal(true)}>{t('habits.add')}</Button>

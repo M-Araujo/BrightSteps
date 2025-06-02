@@ -9,7 +9,7 @@ export default function GoalsCalendar() {
     const localizer = momentLocalizer(moment);
     const { t } = useTranslation();
     return (
-        <div className="max-w-4xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
+        <div className="max-w-5xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
             <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('menu.calendar')}</h1>
 
             <div style={{ height: 700 }}>

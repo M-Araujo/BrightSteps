@@ -20,7 +20,7 @@ export default function GoalRow({ goal, lang, onDeleteRequest }: GoalRowProps) {
                 <span className="text-gray-500">{goal.startDate ?? '—'}</span>
                 <span className="text-gray-500">{goal.endDate ?? '—'}</span>
 
-                <div className="flex justify-start">
+                <div className="">
                     <span
                         className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-full font-semibold ${goal.completed ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
                             }`}>
@@ -29,7 +29,7 @@ export default function GoalRow({ goal, lang, onDeleteRequest }: GoalRowProps) {
                     </span>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="gap-2">
                     <button className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
                         <Pencil size={18} className="stroke-current" />
                     </button>
