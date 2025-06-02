@@ -5,6 +5,7 @@ import type { Goal } from '../types';
 interface GoalsAndHabitsContextType {
     goals: Goal[];
     updateGoals: (newGoals: Goal[]) => void;
+    resetGoals: () => void;
 }
 
 const GoalsAndHabitsContext = createContext<GoalsAndHabitsContextType | undefined>(undefined);
@@ -40,8 +41,14 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('goalsAndHabits', JSON.stringify(newGoals));
     };
 
+    const resetGoals = () => {
+        setGoals([]);
+        localStorage.removeItem('goalsAndHabits');
+
+    }
+
     return (
-        <GoalsAndHabitsContext.Provider value={{ goals, updateGoals }}>
+        <GoalsAndHabitsContext.Provider value={{ goals, updateGoals, resetGoals }}>
             {children}
         </GoalsAndHabitsContext.Provider>
     );

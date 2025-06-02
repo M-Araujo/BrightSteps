@@ -66,6 +66,12 @@
             ]
         }
     },
+    "settings": {
+        "settings": "Configurações",
+        "reset": "Reiniciar",
+        "resetConfirmation": "Tem a certeza que pretende apagar todos os seus dados?",
+        "actionCannotBeUndone": "Esta ação não poderá ser desfeita."
+    },
     "common": {
         "title": "Título",
         "requiredField": "Campo obrigatório",
@@ -80,6 +86,7 @@
         "delete": "Apagar",
         "areYouSure": "Tem a certeza que pretende apagar",
         "confirmDelete": "Confirmar ação",
-        "defaultItem": "este item"
+        "defaultItem": "este item",
+        "reset": "Reiniciar"
     }
 }
