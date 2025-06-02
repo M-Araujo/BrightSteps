@@ -7,7 +7,7 @@ import { GoalsAndHabitsProvider } from './hooks/GoalsAndHabitsContext';
 import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
 import Habits from './routes/Habits.tsx';
-import Calendar from './routes/Calendar.tsx';
+import GoalsCalendar from './routes/GoalsCalendar.tsx';
 import Stats from './routes/Stats.tsx';
 import Tips from './routes/Tips.tsx';
 import About from './routes/About.tsx';
@@ -73,7 +73,7 @@ function AnimatedRoutes() {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              <Calendar />
+              <GoalsCalendar />
             </motion.div>
           }
         />
