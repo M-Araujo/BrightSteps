@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LayoutDashboard, Target, Repeat, Calendar, BarChart, Lightbulb, Info, Settings } from "lucide-react";
 
 export default function Sidebar() {
     const { t } = useTranslation();
     const iconClass = "w-5 h-5 text-gray-600 group-hover:text-blue-600 transition";
+    const linkClass = 'flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group';
+    const activeClass = 'bg-gray-100 dark:bg-gray-700';
 
     return (
         <>
@@ -17,86 +19,77 @@ export default function Sidebar() {
                 <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800 text-left">
                     <ul className="space-y-2 font-medium">
                         <li>
-                            <Link
+                            <NavLink
                                 to="/"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
                             >
                                 <LayoutDashboard className={iconClass} />
                                 <span className="ms-3">{t('menu.dashboard')}</span>
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link
+                            <NavLink
                                 to="/goals"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                            >
+                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}>
                                 <Target className={iconClass} />
                                 <span className="flex-1 ms-3 whitespace-nowrap">{t('menu.goals')}</span>
 
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <a
-                                href="/habits"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            <NavLink
+                                to="/habits"
+                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
                             >
                                 <Repeat className={iconClass} />
                                 <span className="flex-1 ms-3 whitespace-nowrap">{t('menu.habits')}</span>
 
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <a
-                                href="/calendar"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            <NavLink
+                                to="/calendar"
+                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
                             >
                                 <Calendar className={iconClass} />
                                 <span className="flex-1 ms-3 whitespace-nowrap">{t('menu.calendar')}</span>
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <a
-                                href="/stats"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            <NavLink
+                                to="/stats"
+                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
                             >
                                 <BarChart className={iconClass} />
                                 <span className="flex-1 ms-3 whitespace-nowrap">{t('menu.stats')}</span>
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <a
-                                href="/tips"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                            <NavLink
+                                to="/tips"
+                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
                             >
                                 <Lightbulb className={iconClass} />
                                 <span className="flex-1 ms-3 whitespace-nowrap">{t('menu.tips')}</span>
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link
+                            <NavLink
                                 to="/about"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
                             >
                                 <Info className={iconClass} />
                                 <span className="flex-1 ms-3 whitespace-nowrap">{t('menu.about')}</span>
-                            </Link>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link
+                            <NavLink
                                 to="/settings"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white
-                                    hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                className={({ isActive }) => ` ${linkClass} ${isActive ? activeClass : ''}`}
                             >
                                 <Settings className={iconClass} />
                                 <span className="flex-1 ms-3 whitespace-nowrap">{t('menu.settings')}</span>
-                            </Link>
+                            </NavLink>
                         </li>
                     </ul>
                 </div>
