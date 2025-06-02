@@ -20,7 +20,16 @@ export default function Settings() {
     return (
         <div className="max-w-4xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
             <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('menu.settings', 'Settings')}</h1>
-            <div className="flex justify-end mb-4">
+
+            <div className="flex justify-start mb-4">
+                <div>
+                    {t('settings.resetAllData')}
+                </div>
+
+            </div>
+            <div className="flex justify-start mb-4">
+
+
                 <Button onClick={() => setShow(true)}> {t('settings.reset')}</Button>
             </div>
 

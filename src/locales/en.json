@@ -72,7 +72,8 @@
     "settings": "Settings",
     "reset": "Reset",
     "resetConfirmation": "Are you sure you want to delete all your data?",
-    "actionCannotBeUndone": "This action cannot be undone"
+    "actionCannotBeUndone": "This action cannot be undone",
+    "resetAllData": "Reset all your data from this platform?"
   },
 
   "common": {
