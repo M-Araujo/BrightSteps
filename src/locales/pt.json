@@ -51,6 +51,11 @@
         "noHabits": "Sem hábitos"
     },
 
+    "tips": {
+        "title": "Título",
+        "description": "Descrição"
+    },
+
     "about": {
         "title": "Sobre",
         "welcome": "Bem-vindo ao meu Portfólio de Rastreio de Hábitos!",

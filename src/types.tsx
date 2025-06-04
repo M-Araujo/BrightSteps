@@ -27,6 +27,16 @@ export type GoalRowProps = {
     onDeleteRequest: (goal: Goal) => void;
 };
 
+export type TipRowProps = {
+    tip: {
+        id: number;
+        title: { en: string; pt: string };
+        description: { en: string; pt: string };
+    };
+    lang: Lang;
+};
+
+
 export type HabitRowProps = {
     goal: Goal;
     habit: Habit;

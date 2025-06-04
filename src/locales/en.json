@@ -53,6 +53,11 @@
 
   },
 
+  "tips": {
+    "title": "Title",
+    "description": "Description"
+  },
+
   "about": {
     "title": "About",
     "welcome": "Welcome to My Habit Tracker Portfolio!",

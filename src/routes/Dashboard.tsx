@@ -12,8 +12,6 @@ export default function Dashboard() {
     const [movie, setMovie] = useState<Movie>();
     const [mentor, setMentor] = useState<Mentor>();
     const [tip, setTip] = useState<Tip>();
-    //const [habits, setHabits] = useState<Goal[]>();
-    //const [allHabits, setAllHabits] = useState<Goal[]>([]);
     const [todaysHabits, setTodaysHabits] = useState<Goal[]>([]);
     const { goals } = useGoalsAndHabits();
 
