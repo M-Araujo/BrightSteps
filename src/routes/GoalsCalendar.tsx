@@ -2,8 +2,9 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useTranslation } from 'react-i18next';
-import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits.tsx';
+import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 import { useCallback, useState } from 'react';
+import type { Habit } from '../types';
 
 interface Goal {
     id: number;
@@ -12,8 +13,17 @@ interface Goal {
     startDate: string;
     endDate?: string;
     completed?: boolean;
-    habits?: any[];
+    habits?: Habit[];
 }
+
+interface CalendarEvent {
+    id: number;
+    title: string;
+    start: Date;
+    end: Date;
+}
+
+type CalendarView = 'month' | 'week' | 'day' | 'work_week' | 'agenda'; // Include all View types
 
 export default function GoalsCalendar() {
     moment.locale('en-GB');
@@ -21,41 +31,39 @@ export default function GoalsCalendar() {
     const { t, i18n } = useTranslation();
     const { goals } = useGoalsAndHabits();
 
-    const [date, setDate] = useState(new Date());
-    const [view, setView] = useState('month');
+    const [date, setDate] = useState<Date>(new Date());
+    const [view, setView] = useState<CalendarView>('month');
 
-    const events = goals.map((item: Goal) => ({
-        id: item.id,
-        title: item.title[i18n.language] || 'Untitled Goal',
-        start: moment(item.startDate).toDate(),
-        end: moment(item.endDate || item.startDate).toDate(),
-    }));
+    const events: CalendarEvent[] = goals.map((item: Goal) => {
+        const start = moment(item.startDate).toDate();
+        const end = item.endDate ? moment(item.endDate).toDate() : start;
+        return {
+            id: item.id,
+            title: item.title[i18n.language as 'en' | 'pt'] || 'Untitled Goal',
+            start: isNaN(start.getTime()) ? new Date() : start,
+            end: isNaN(end.getTime()) ? start : end,
+        };
+    });
 
-    const handleNavigate = useCallback((newDate: Date, view: string, action: string) => {
+    const handleNavigate = useCallback((newDate: Date) => {
         setDate(newDate);
     }, []);
 
-    const handleView = useCallback((newView: string) => {
+    const handleView = useCallback((newView: CalendarView) => {
         setView(newView);
     }, []);
 
-
-    const handleSelectEvent = useCallback((event: object) => {
-        // console.log('Event selected:', event);
+    const handleSelectEvent = useCallback((event: CalendarEvent) => {
+        console.log('Event selected:', event);
     }, []);
 
-    const handleSelectSlot = useCallback((slotInfo: object) => {
-        // console.log('Slot selected:', slotInfo);
+    const handleSelectSlot = useCallback((slotInfo: { start: Date; end: Date }) => {
+        console.log('Slot selected:', slotInfo);
     }, []);
-
-    const testButtonClick = () => {
-        // console.log('Test button clicked');
-    };
 
     return (
         <div className="max-w-5xl mx-auto px-4 py-10 bg-gray-50 rounded-xl shadow-md">
             <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('menu.calendar')}</h1>
-
             <div style={{ height: 700, position: 'relative' }}>
                 <Calendar
                     className="custom-calendar"
@@ -70,7 +78,7 @@ export default function GoalsCalendar() {
                     onView={handleView}
                     onSelectEvent={handleSelectEvent}
                     onSelectSlot={handleSelectSlot}
-                    views={['month', 'week', 'day']}
+                    views={['month', 'week', 'day']} // UI limited to these views
                     selectable
                     style={{ zIndex: 1 }}
                 />

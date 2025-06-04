@@ -11,7 +11,7 @@ export default function GoalRow({ goal, lang, onDeleteRequest }: GoalRowProps) {
         <>
             <div
                 key={goal.id}
-                className="grid grid-cols-5 items-center px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md">
+                className="grid grid-cols-5 px-4 py-3 bg-white rounded-lg shadow transition hover:shadow-md">
 
                 <span className={goal.completed ? "line-through text-gray-500" : "text-gray-800"}>
                     {goal.title[lang] ?? goal.title.en}
@@ -22,7 +22,7 @@ export default function GoalRow({ goal, lang, onDeleteRequest }: GoalRowProps) {
 
                 <div className="">
                     <span
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 text-xs rounded-full font-semibold ${goal.completed ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
+                        className={`inline-flex  gap-1 px-2 py-0.5 text-xs rounded-full font-semibold ${goal.completed ? "bg-green-100 text-green-800" : "bg-yellow-100 text-yellow-800"
                             }`}>
                         {goal.completed ? "🎉" : "🛠️"}
                         {goal.completed ? t('goals.done') : t('goals.inProgress')}
