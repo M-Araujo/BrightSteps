@@ -54,7 +54,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
 
         const filteredHabits = goals.map((goal) => {
 
-            const updatedHabits = goal['habits'].map(element => {
+            const updatedHabits = goal['habits']?.map(element => {
                 if (element.id == id) {
                     let completions = element.completions || [];
                     if (completions.includes(todaysDate)) {

@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import Card from './../components/ui/Card.tsx';
 import { useEffect, useState } from 'react';
+import type { ChangeEvent } from 'react';
 import { Checkbox, Label } from "flowbite-react";
-import type { Goal, Movie, Mentor, Tip } from '../types';
+import type { Goal, Movie, Mentor, Tip, Habit } from '../types';
 import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use'
@@ -53,10 +54,7 @@ export default function Dashboard() {
     }, [goals])
 
 
-    const handleCheckboxChange = (event) => {
-
-        console.log(event.target.id);
-
+    const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked == true) {
             showConfetti(true);
             setTimeout(function () {
@@ -64,10 +62,16 @@ export default function Dashboard() {
             }, 7000);
         }
 
-        updateHabit(event.target.id);
+        updateHabit(Number(event.target.id));
+        // TODO filter goals only that are todays goals
+    }
 
-        // populate the checkbox in case of completed
-
+    const isHabitCompletedForToday = (habit: Habit) => {
+        const todaysDate = new Date().toISOString().slice(0, 10);
+        if (habit['completions'].includes(todaysDate)) {
+            return true;
+        }
+        return false;
     }
 
     return (
@@ -111,7 +115,7 @@ export default function Dashboard() {
                                     key={habit.id}
                                     className="flex items-center gap-3 mb-2 p-2 rounded-md cursor-pointer hover:bg-indigo-50 transition-colors"
                                 >
-                                    <Checkbox onChange={(e) => handleCheckboxChange(e)} id={`${habit.id}`} />
+                                    <Checkbox checked={isHabitCompletedForToday(habit)} onChange={(e) => handleCheckboxChange(e)} id={`${habit.id}`} />
                                     <Label htmlFor={`${habit.id}`} className="cursor-pointer select-none">
                                         {habit.title?.[lang] ?? habit.title?.en}
                                     </Label>

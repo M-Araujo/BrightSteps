@@ -7,6 +7,7 @@ export type Habit = {
         pt: string;
     };
     frequency: number[];
+    completions: string[];
 };
 
 export type Goal = {
