@@ -6,6 +6,7 @@ interface GoalsAndHabitsContextType {
     goals: Goal[];
     updateGoals: (newGoals: Goal[]) => void;
     resetGoals: () => void;
+    updateHabit: (id: number) => void;
 }
 
 const GoalsAndHabitsContext = createContext<GoalsAndHabitsContextType | undefined>(undefined);
@@ -47,8 +48,37 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
 
     }
 
+    const updateHabit = (id: number) => {
+
+        const todaysDate = new Date().toISOString().slice(0, 10);
+
+        const filteredHabits = goals.map((goal) => {
+
+            const updatedHabits = goal['habits'].map(element => {
+                if (element.id == id) {
+                    let completions = element.completions || [];
+                    if (completions.includes(todaysDate)) {
+                        const dateIndex = element['completions'].indexOf(todaysDate);
+                        if (dateIndex > -1) {
+                            completions = completions.filter((date) => date !== todaysDate);
+                            return { ...element, completions };
+                        }
+                    } else {
+                        completions = [...completions, todaysDate];
+                        return { ...element, completions };
+                    }
+                }
+                return element;
+            });
+            return { ...goal, habits: updatedHabits };
+        });
+
+        setGoals(filteredHabits);
+        localStorage.setItem('goalsAndHabits', JSON.stringify(filteredHabits));
+    }
+
     return (
-        <GoalsAndHabitsContext.Provider value={{ goals, updateGoals, resetGoals }}>
+        <GoalsAndHabitsContext.Provider value={{ goals, updateGoals, resetGoals, updateHabit }}>
             {children}
         </GoalsAndHabitsContext.Provider>
     );

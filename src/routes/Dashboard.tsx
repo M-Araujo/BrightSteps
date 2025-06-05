@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { Checkbox, Label } from "flowbite-react";
 import type { Goal, Movie, Mentor, Tip } from '../types';
 import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use'
 
 export default function Dashboard() {
 
@@ -13,7 +15,9 @@ export default function Dashboard() {
     const [mentor, setMentor] = useState<Mentor>();
     const [tip, setTip] = useState<Tip>();
     const [todaysHabits, setTodaysHabits] = useState<Goal[]>([]);
-    const { goals } = useGoalsAndHabits();
+    const { goals, updateHabit } = useGoalsAndHabits();
+    const [confetti, showConfetti] = useState(false);
+    const { width, height } = useWindowSize()
 
     useEffect(() => {
         //localStorage.clear();
@@ -26,7 +30,6 @@ export default function Dashboard() {
                 setTip(data['tip']);
             })
             .catch(err => console.log('something failed', err));
-
     }, []);
 
 
@@ -50,9 +53,36 @@ export default function Dashboard() {
     }, [goals])
 
 
+    const handleCheckboxChange = (event) => {
+
+        console.log(event.target.id);
+
+        if (event.target.checked == true) {
+            showConfetti(true);
+            setTimeout(function () {
+                showConfetti(false);
+            }, 7000);
+        }
+
+        updateHabit(event.target.id);
+
+        // populate the checkbox in case of completed
+
+    }
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+
+            <div className="fixed inset-0 z-50 pointer-events-none">
+                {confetti && (
+                    <Confetti
+                        width={width}
+                        height={height}
+                        tweenDuration={1000}
+                    />
+                )}
+            </div>
+
             <div className="sm:col-span-2 lg:col-span-2">
                 <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
                     <div className="max-w-md mx-auto text-center py-6 px-4">
@@ -81,8 +111,8 @@ export default function Dashboard() {
                                     key={habit.id}
                                     className="flex items-center gap-3 mb-2 p-2 rounded-md cursor-pointer hover:bg-indigo-50 transition-colors"
                                 >
-                                    <Checkbox id={`habit-${habit.id}`} />
-                                    <Label htmlFor={`habit-${habit.id}`} className="cursor-pointer select-none">
+                                    <Checkbox onChange={(e) => handleCheckboxChange(e)} id={`${habit.id}`} />
+                                    <Label htmlFor={`${habit.id}`} className="cursor-pointer select-none">
                                         {habit.title?.[lang] ?? habit.title?.en}
                                     </Label>
                                 </div>
