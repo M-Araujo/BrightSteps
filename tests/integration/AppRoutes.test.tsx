@@ -7,6 +7,8 @@ import "@testing-library/jest-dom";
 import { GoalsAndHabitsProvider } from "../../src/hooks/GoalsAndHabitsContext";
 
 beforeAll(() => {
+    // Suppress React Router warnings
+    jest.spyOn(console, "warn").mockImplementation(() => { });
     global.fetch = jest.fn(() =>
         Promise.resolve({
             json: () =>
@@ -30,7 +32,12 @@ beforeAll(() => {
     ) as jest.Mock;
 });
 
+beforeEach(() => {
+    i18n.changeLanguage("en"); // Ensure English for "Welcome"
+});
+
 afterAll(() => {
+    (console.warn as jest.Mock).mockReset(); // Reset console.warn mock
     (global.fetch as jest.Mock).mockRestore();
 });
 
@@ -48,8 +55,6 @@ describe("App routing", () => {
             </GoalsAndHabitsProvider>
         );
 
-        // Wait for a known element that appears after Dashboard finishes loading:
-        //   e.g. the “Welcome” text or the movie title “Test Movie.”
-        expect(await screen.findByText(/Brightsteps/i)).toBeInTheDocument();
+        expect(await screen.findByText(/Welcome/i)).toBeInTheDocument();
     });
 });
