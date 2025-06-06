@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { Goal } from '../types';
+import { Goal } from '../types';
+
 
 interface GoalsAndHabitsContextType {
     goals: Goal[];
@@ -15,10 +16,21 @@ export { GoalsAndHabitsContext }; // Named export
 export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
     const [goals, setGoals] = useState<Goal[]>([]);
 
+    const fetchGoals = () => {
+        fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
+            .then(res => res.json())
+            .then(data => {
+                const fetchedGoals = data.goals as Goal[];
+                setGoals(fetchedGoals);
+                localStorage.setItem('goalsAndHabits', JSON.stringify(fetchedGoals));
+            })
+            .catch(err => console.error('Something failed', err));
+    }
+
+
     useEffect(() => {
         const stored = localStorage.getItem('goalsAndHabits');
         if (stored) {
-            // console.log('inside context', stored);
             try {
                 const localGoals = JSON.parse(stored) as Goal[];
                 setGoals(localGoals);
@@ -26,14 +38,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
                 console.error('Error parsing localStorage', err);
             }
         } else {
-            fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
-                .then(res => res.json())
-                .then(data => {
-                    const fetchedGoals = data.goals as Goal[];
-                    setGoals(fetchedGoals);
-                    localStorage.setItem('goalsAndHabits', JSON.stringify(fetchedGoals));
-                })
-                .catch(err => console.error('Something failed', err));
+            fetchGoals();
         }
     }, []);
 
@@ -44,8 +49,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
 
     const resetGoals = () => {
         setGoals([]);
-        localStorage.removeItem('goalsAndHabits');
-
+        fetchGoals();
     }
 
     const updateHabit = (id: number) => {
