@@ -5,6 +5,7 @@ import Goals from "../../src/routes/Goals";
 import Habits from "../../src/routes/Habits";
 import Calendar from "../../src/routes/GoalsCalendar";
 import Stats from "../../src/routes/Stats";
+import About from "../../src/routes/About";
 
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/i18n";
@@ -180,9 +181,21 @@ describe("App routing", () => {
         expect(await screen.findByText(/Stats/i)).toBeInTheDocument();
     });
 
+    test("renders about page", async () => {
+        render(
+            <I18nextProvider i18n={i18n}>
+                <MemoryRouter initialEntries={["/about"]}>
+                    <Routes>
+                        <Route path="/about" element={<About />} />
+                    </Routes>
+                </MemoryRouter>
+            </I18nextProvider>
+        );
+        expect(await screen.findByRole('heading', { name: /About/i })).toBeInTheDocument();
+    });
 
 
-    // acerca
+
     // configuraç~es
 
 });
