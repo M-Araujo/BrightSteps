@@ -6,7 +6,7 @@ import Habits from "../../src/routes/Habits";
 import Calendar from "../../src/routes/GoalsCalendar";
 import Stats from "../../src/routes/Stats";
 import About from "../../src/routes/About";
-
+import Settings from "../../src/routes/Settings";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/i18n";
 import "@testing-library/jest-dom";
@@ -194,8 +194,20 @@ describe("App routing", () => {
         expect(await screen.findByRole('heading', { name: /About/i })).toBeInTheDocument();
     });
 
-
-
-    // configuraç~es
+    test("renders settings page", async () => {
+        localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
+        render(
+            <GoalsAndHabitsProvider>
+                <I18nextProvider i18n={i18n}>
+                    <MemoryRouter initialEntries={["/settings"]}>
+                        <Routes>
+                            <Route path="/settings" element={<Settings />} />
+                        </Routes>
+                    </MemoryRouter>
+                </I18nextProvider>
+            </GoalsAndHabitsProvider>
+        );
+        expect(await screen.findByRole('heading', { name: /Settings/i })).toBeInTheDocument();
+    });
 
 });
