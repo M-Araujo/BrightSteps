@@ -1,10 +1,25 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "../../src/routes/Dashboard";
+import Goals from "../../src/routes/Goals";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/i18n";
 import "@testing-library/jest-dom";
 import { GoalsAndHabitsProvider } from "../../src/hooks/GoalsAndHabitsContext";
+
+
+// mocks the localstorage
+const mockLocalStorage = (() => {
+    let store: { [key: string]: string } = {};
+    return {
+        getItem: (key: string) => store[key] || null,
+        setItem: (key: string, value: string) => (store[key] = value),
+        removeItem: (key: string) => delete store[key],
+        clear: () => (store = {}),
+    }
+})();
+Object.defineProperty(global, 'localStorage', { value: mockLocalStorage });
+
 
 beforeAll(() => {
     // Suppress React Router warnings
@@ -56,5 +71,24 @@ describe("App routing", () => {
         );
 
         expect(await screen.findByText(/Welcome/i)).toBeInTheDocument();
+    });
+
+
+
+    test("renders Goals page", async () => {
+        await act(async () => {
+            render(
+                <GoalsAndHabitsProvider>
+                    <I18nextProvider i18n={i18n}>
+                        <MemoryRouter initialEntries={["/goals"]}>
+                            <Routes>
+                                <Route path="/goals" element={<Goals />} />
+                            </Routes>
+                        </MemoryRouter>
+                    </I18nextProvider>
+                </GoalsAndHabitsProvider>
+            );
+        })
+
     });
 });

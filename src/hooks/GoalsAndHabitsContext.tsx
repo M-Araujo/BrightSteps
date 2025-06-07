@@ -16,6 +16,25 @@ export { GoalsAndHabitsContext }; // Named export
 export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
     const [goals, setGoals] = useState<Goal[]>([]);
 
+    const validateGoals = (data: unknown): data is Goal[] => {
+        return (
+            Array.isArray(data) &&
+            data.every(
+                g =>
+                    typeof g === 'object' &&
+                    'id' in g &&
+                    'title' in g &&
+                    typeof g.title === 'object' &&
+                    'en' in g.title &&
+                    'pt' in g.title &&
+                    'completed' in g &&
+                    'startDate' in g &&
+                    'endDate' in g
+            )
+        );
+    }
+
+
     const fetchGoals = () => {
         fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
             .then(res => res.json())
@@ -24,18 +43,30 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
                 setGoals(fetchedGoals);
                 localStorage.setItem('goalsAndHabits', JSON.stringify(fetchedGoals));
             })
-            .catch(err => console.error('Something failed', err));
+            .catch(err => {
+                console.log('api fetched failed', err);
+                setGoals([]);
+            });
     }
 
 
     useEffect(() => {
         const stored = localStorage.getItem('goalsAndHabits');
-        if (stored) {
+        if (stored && stored !== 'undefined') {
             try {
-                const localGoals = JSON.parse(stored) as Goal[];
-                setGoals(localGoals);
+                const localGoals = JSON.parse(stored);
+                if (validateGoals(localGoals)) {
+                    setGoals(localGoals);
+                } else {
+                    console.log('invalid goals in loalstorage');
+                    localStorage.removeItem('goalsAndHabits');
+                    fetchGoals();
+                }
+
             } catch (err) {
-                console.error('Error parsing localStorage', err);
+                console.log('Error parsing localStorage', err);
+                localStorage.removeItem('goalsAndHabits');
+                fetchGoals();
             }
         } else {
             fetchGoals();
@@ -49,6 +80,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
 
     const resetGoals = () => {
         setGoals([]);
+        localStorage.removeItem('goalsAndHabits');
         fetchGoals();
     }
 

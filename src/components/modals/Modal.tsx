@@ -15,7 +15,6 @@ export default function Modal({
     show,
     title,
     onClose,
-    onConfirm,
     children
 }: ModalProps) {
 
