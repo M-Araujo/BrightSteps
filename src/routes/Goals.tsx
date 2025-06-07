@@ -52,8 +52,6 @@ export default function Goals() {
         <div className="max-w-5xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
             <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('goals.title', 'Goals')}</h1>
 
-
-
             {canCreateGoal ?
                 <div className="flex justify-end mb-4">
                     <Button onClick={() => setOpenModal(true)}>{t('goals.add')}</Button>

@@ -11,6 +11,7 @@ export default function HabitForm({ show, onClose }: FormProps) {
     const { i18n, t } = useTranslation();
     const { goals, updateGoals } = useGoalsAndHabits();
     const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
+    const maxHabitsPerGoal: number = 10;
 
 
     const daysOfWeek = Array.from({ length: 7 }, (_, i) => ({
@@ -79,7 +80,11 @@ export default function HabitForm({ show, onClose }: FormProps) {
                             })}>
                                 <option value=""></option>
                                 {goals.map((goal, index) => (
-                                    <option value={goal.id} key={goal.id || index}>{goal.title[lang]}</option>
+                                    <option
+                                        value={goal.id}
+                                        key={goal.id || index}
+                                        disabled={goal?.habits?.length >= maxHabitsPerGoal}
+                                    >{goal.title[lang]}  {goal?.habits?.length >= maxHabitsPerGoal ? '(max habit reached)' : ''}</option>
                                 ))}
                             </Select>
                         }
