@@ -49,11 +49,12 @@ describe("App routing", () => {
                 {
                     id: 1,
                     title: { en: 'Test Habit', pt: 'Hábito de Teste' },
+                    goalId: 1,
                     frequency: [1, 2, 3],
-                    completions: [],
+                    completions: ['2025-01-01'],
                 },
             ],
-        }
+        },
     ];
 
     test('renders Dashboard page on /dashboard route', async () => {
@@ -150,7 +151,7 @@ describe("App routing", () => {
     test("renders calendar page", async () => {
         localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
 
-        await act(() => {
+        await act(async () => {
             render(
                 <GoalsAndHabitsProvider>
                     <I18nextProvider i18n={i18n}>
@@ -163,6 +164,7 @@ describe("App routing", () => {
                 </GoalsAndHabitsProvider>
             );
         });
+        expect(await screen.findByText(/Calendar/i)).toBeInTheDocument();
     });
 
 
