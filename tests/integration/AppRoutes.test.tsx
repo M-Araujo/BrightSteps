@@ -3,6 +3,7 @@ import { MemoryRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "../../src/routes/Dashboard";
 import Goals from "../../src/routes/Goals";
 import Habits from "../../src/routes/Habits";
+import Calendar from "../../src/routes/GoalsCalendar";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/i18n";
 import "@testing-library/jest-dom";
@@ -144,4 +145,30 @@ describe("App routing", () => {
         expect(await screen.findByText(/Habits/i)).toBeInTheDocument();
         expect(await screen.findByText(/Test Habit/i)).toBeInTheDocument();
     });
+
+
+    test("renders calendar page", async () => {
+        localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
+
+        await act(() => {
+            render(
+                <GoalsAndHabitsProvider>
+                    <I18nextProvider i18n={i18n}>
+                        <MemoryRouter initialEntries={["/calendar"]}>
+                            <Routes>
+                                <Route path="/calendar" element={<Calendar />} />
+                            </Routes>
+                        </MemoryRouter>
+                    </I18nextProvider>
+                </GoalsAndHabitsProvider>
+            );
+        });
+    });
+
+
+
+    // estatísticas
+    // acerca
+    // configuraç~es
+
 });

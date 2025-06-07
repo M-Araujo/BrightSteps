@@ -3,7 +3,11 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "target": "ESNext",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src", "tests"]
 }
+

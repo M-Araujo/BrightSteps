@@ -1,27 +1,3 @@
-/*export default {
-  preset: "ts-jest/presets/default-esm",
-  testEnvironment: "jsdom",
-  moduleNameMapper: {
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-  },
-  transform: {
-    "^.+\\.tsx?$": [
-      "ts-jest",
-      {
-        useESM: true,
-        tsconfig: "tsconfig.jest.json",
-      },
-    ],
-  },
-  extensionsToTreatAsEsm: [".ts", ".tsx"],
-  globals: {
-    "ts-jest": {
-      useESM: true,
-    },
-  },
-};
-*/
-
 export default {
   preset: "ts-jest/presets/default-esm",
   testEnvironment: "jsdom",
@@ -37,6 +13,7 @@ export default {
   },
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",
+    "\\.(css|less|scss|sass)$": "<rootDir>/src/__mocks__/styleMock.js",
   },
-  setupFilesAfterEnv: ["<rootDir>/tests/setupTests.ts"], // Add this
+  setupFilesAfterEnv: ["<rootDir>/tests/setupTests.ts"],
 };
