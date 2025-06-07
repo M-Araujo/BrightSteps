@@ -2,6 +2,7 @@ export type Lang = 'en' | 'pt';
 
 export type Habit = {
     id: number;
+    goalId: number,
     title: {
         en: string;
         pt: string;
@@ -55,6 +56,7 @@ export type HabitsFormData = {
     title: string;
     goalId: number;
     frequency: number[];
+    completions?: string[];
 };
 
 export type Movie = {

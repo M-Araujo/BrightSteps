@@ -2,6 +2,7 @@ import { render, screen, act } from "@testing-library/react";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "../../src/routes/Dashboard";
 import Goals from "../../src/routes/Goals";
+import Habits from "../../src/routes/Habits";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/i18n";
 import "@testing-library/jest-dom";
@@ -20,44 +21,65 @@ const mockLocalStorage = (() => {
 })();
 Object.defineProperty(global, 'localStorage', { value: mockLocalStorage });
 
-
-beforeAll(() => {
-    // Suppress React Router warnings
-    jest.spyOn(console, "warn").mockImplementation(() => { });
-    global.fetch = jest.fn(() =>
-        Promise.resolve({
-            json: () =>
-                Promise.resolve({
-                    movie: {
-                        title: { en: "Test Movie", pt: "Filme de Teste" },
-                        description: { en: "Description", pt: "Descrição" },
-                        link: ""
-                    },
-                    mentor: {
-                        title: { en: "Test Mentor", pt: "Mentor de Teste" },
-                        description: { en: "Mentor Desc", pt: "Descrição Mentor" },
-                        image: ""
-                    },
-                    tip: {
-                        title: { en: "Test Tip", pt: "Dica de Teste" },
-                        description: { en: "Tip Desc", pt: "Descrição Dica" }
-                    }
-                })
-        })
-    ) as jest.Mock;
-});
-
 beforeEach(() => {
     i18n.changeLanguage("en"); // Ensure English for "Welcome"
+    localStorage.clear();
+    jest.spyOn(console, 'warn').mockImplementation(() => { });
 });
 
-afterAll(() => {
+afterEach(() => {
     (console.warn as jest.Mock).mockReset(); // Reset console.warn mock
     (global.fetch as jest.Mock).mockRestore();
 });
 
+
+
 describe("App routing", () => {
-    test("renders Dashboard page on /dashboard route", async () => {
+
+
+    const mockGoals = [
+        {
+            id: 1,
+            title: { en: 'Test Goal', pt: 'Meta de Teste' },
+            completed: false,
+            startDate: '2025-01-01',
+            endDate: '2025-12-31',
+            habits: [
+                {
+                    id: 1,
+                    title: { en: 'Test Habit', pt: 'Hábito de Teste' },
+                    frequency: [1, 2, 3],
+                    completions: [],
+                },
+            ],
+        }
+    ];
+
+    test('renders Dashboard page on /dashboard route', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                json: () =>
+                    Promise.resolve({
+                        mentor: {
+                            title: { en: 'Test Mentor', pt: 'Mentor de Teste' },
+                            description: { en: 'Mentor Desc', pt: 'Descrição Mentor' },
+                            image: '',
+                        },
+                        tip: {
+                            title: { en: 'Test Tip', pt: 'Dica de Teste' },
+                            description: { en: 'Tip Desc', pt: 'Descrição Dica' },
+                        },
+                        movie: {
+                            title: { en: 'Test Movie', pt: 'Filme de Teste' },
+                            description: { en: 'Movie Desc', pt: 'Descrição Filme' },
+                            link: '',
+                        },
+                        goals: mockGoals,
+                    }),
+            })
+        ) as jest.Mock;
+
+        await act(async () => {
         render(
             <GoalsAndHabitsProvider>
                 <I18nextProvider i18n={i18n}>
@@ -69,14 +91,22 @@ describe("App routing", () => {
                 </I18nextProvider>
             </GoalsAndHabitsProvider>
         );
+        });
 
         expect(await screen.findByText(/Welcome/i)).toBeInTheDocument();
+        expect(await screen.findByText(/Test Mentor/i)).toBeInTheDocument();
+        expect(await screen.findByText(/Test Tip/i)).toBeInTheDocument();
+        expect(await screen.findByText(/Test Movie/i)).toBeInTheDocument();
     });
 
 
 
     test("renders Goals page", async () => {
-        await act(async () => {
+        // simulate dashboard saving goals to localstorage
+        localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
+        await act(() => {
+
+
             render(
                 <GoalsAndHabitsProvider>
                     <I18nextProvider i18n={i18n}>
@@ -88,7 +118,30 @@ describe("App routing", () => {
                     </I18nextProvider>
                 </GoalsAndHabitsProvider>
             );
-        })
+        });
+        expect(await screen.findByText(/Goals/i)).toBeInTheDocument();
+        expect(await screen.findByText(/Test Goal/i)).toBeInTheDocument();
+    });
 
+    test("renders habits page", async () => {
+        localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
+        await act(() => {
+
+
+            render(
+                <GoalsAndHabitsProvider>
+                    <I18nextProvider i18n={i18n}>
+                        <MemoryRouter initialEntries={["/habits"]}>
+                            <Routes>
+                                <Route path="/habits" element={<Habits />} />
+                            </Routes>
+                        </MemoryRouter>
+                    </I18nextProvider>
+                </GoalsAndHabitsProvider>
+            );
+        });
+
+        expect(await screen.findByText(/Habits/i)).toBeInTheDocument();
+        expect(await screen.findByText(/Test Habit/i)).toBeInTheDocument();
     });
 });
