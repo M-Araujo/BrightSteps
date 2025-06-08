@@ -96,6 +96,7 @@
     "areYouSure": "Are you sure you want to delete",
     "confirmDelete": "Confirm deletion",
     "defaultItem": "this item",
-    "reset": "Reset"
+    "reset": "Reset",
+    "deleteItem": "Delete item"
     }
     }

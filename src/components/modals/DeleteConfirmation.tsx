@@ -9,7 +9,7 @@ export default function DeleteConfirmation({ show, onClose, onConfirm, title }: 
     return (
         <Modal
             show={show}
-            title={t('habits.delete', 'Delete Habit')}
+            title={t('modals.deleteItem')}
             onClose={onClose}
         >
             <p id="modal-description" className="text-gray-700 mb-6">

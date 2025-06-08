@@ -93,6 +93,7 @@
         "areYouSure": "Tem a certeza que pretende apagar",
         "confirmDelete": "Confirmar ação",
         "defaultItem": "este item",
-        "reset": "Reiniciar"
+        "reset": "Reiniciar",
+        "deleteItem": "Apagar item"
     }
 }
