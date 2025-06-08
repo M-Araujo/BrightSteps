@@ -6,7 +6,11 @@ import { useTranslation } from 'react-i18next';
 import type { FormProps, GoalsFormData, Goal } from '../../../types.tsx';
 import { useGoalsAndHabits } from '../../../hooks/useGoalsAndHabits.tsx';
 
-export default function GoalForm({ show, onClose, item, lang }: FormProps) {
+interface GoalFormProps extends Omit<FormProps, 'item'> {
+    item?: Goal;
+}
+
+export default function GoalForm({ show, onClose, item, lang }: GoalFormProps) {
     const { t } = useTranslation();
     const defaultValues = {
         title: item?.title[lang] || '',

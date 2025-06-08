@@ -86,7 +86,7 @@ export default function Goals() {
                 ))}
             </div>
 
-            <GoalForm show={openModal} onClose={() => setOpenModal(false)} />
+            <GoalForm lang={lang} show={openModal} onClose={() => setOpenModal(false)} />
             <DeleteConfirmation title={goalToDelete?.title[lang]} show={showDeleteModal} onConfirm={handleConfirmDelete} onClose={() => {
                 setGoalToDelete(null); setShowDeleteModal(false)
             }} />
