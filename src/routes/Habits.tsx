@@ -66,7 +66,7 @@ export default function Habits() {
                 )}
             </div>
 
-            <HabitForm show={showAddModal} onClose={() => setShowAddModal(false)} />
+            <HabitForm lang={lang} show={showAddModal} onClose={() => setShowAddModal(false)} />
             <DeleteConfirmation title={habitToDelete?.title[lang]} show={showDeleteModal} onConfirm={handleConfirmDelete} onClose={() => {
                 setHabitToDelete(null); setShowDeleteModal(false)
             }} />

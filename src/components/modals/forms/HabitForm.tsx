@@ -4,14 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { useGoalsAndHabits } from '../../../hooks/useGoalsAndHabits.tsx';
 import Modal from '../Modal.tsx';
 import toast from 'react-hot-toast';
-import type { FormProps, HabitsFormData } from '../../../types.tsx';
+import type { FormProps, HabitsFormData, Habit } from '../../../types.tsx';
 
-export default function HabitForm({ show, onClose }: FormProps) {
-    const { register, handleSubmit, formState: { errors } } = useForm<HabitsFormData>();
-    const { i18n, t } = useTranslation();
+interface HabitFormProps extends Omit<FormProps, 'item'> {
+    item?: Habit;
+}
+
+export default function HabitForm({ show, onClose, item, lang }: HabitFormProps) {
+    const defaultValues = {
+        title: item?.title[lang] || '',
+        goalId: item?.goalId || '',
+        frequency: item?.frequency || [],
+    }
+
+    const { register, handleSubmit, formState: { errors } } = useForm<HabitsFormData>({ defaultValues });
+    const { t } = useTranslation();
     const { goals, updateGoals } = useGoalsAndHabits();
-    const lang = i18n.language.startsWith('pt') ? 'pt' : 'en';
+
     const maxHabitsPerGoal: number = 10;
+
+    console.log(item);
 
 
     const daysOfWeek = Array.from({ length: 7 }, (_, i) => ({
@@ -20,33 +32,53 @@ export default function HabitForm({ show, onClose }: FormProps) {
     }));
 
     const onSubmit = (formData: HabitsFormData) => {
+        console.log('submitted called');
         const newHabit = {
-            id: Math.floor(Math.random() * 1000000),
+            id: item ? item.id : Math.floor(Math.random() * 1000000),
             title: {
                 en: formData.title,
                 pt: formData.title
             },
             goalId: formData.goalId,
             frequency: Array.isArray(formData.frequency) ? formData.frequency.map(Number).filter(n => !isNaN(n)) : [7],
-            completions: []
+            completions: item ? item.completions : []
         }
 
-        const updatedGoals = goals.map(goal => {
-            if (goal.id !== Number(newHabit.goalId)) return goal;
-            const updatedHabits = goal.habits ? [...goal.habits, newHabit] : [newHabit];
-            return { ...goal, habits: updatedHabits };
-        });
+        let updatedGoals = goals;
+        if (item) {
+            updatedGoals = goals.map((goal) => {
+                if (goal.id == newHabit.goalId) {
+                    const associatedHabits = goal['habits']?.map((habit) => {
+                        if (habit.id == item.id) {
+                            return newHabit;
+                        } else {
+                            return habit;
+                        }
+                    })
+                    return { ...goal, habits: associatedHabits }
+                } else {
+                    return goal;
+                }
+            });
+
+        } else {
+            updatedGoals = goals.map(goal => {
+                if (goal.id !== Number(newHabit.goalId)) return goal;
+                const updatedHabits = goal.habits ? [...goal.habits, newHabit] : [newHabit];
+                return { ...goal, habits: updatedHabits };
+            });
+        }
 
         updateGoals(updatedGoals);
         onClose();
-        toast.success('Habit created successfully!');
+        toast.success(item ? t('habits.updateSuccess') : t('habits.addSuccess'))
     }
 
     return (
         <>
             <Modal
                 show={show}
-                title="Add habit"
+                title={item ? t('habits.editHabit') : t('habits.addHabit')}
                 onClose={onClose}>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div>
@@ -110,11 +142,9 @@ export default function HabitForm({ show, onClose }: FormProps) {
                                             id={`day-${day.value}`}
                                             value={day.value}
                                             {...register("frequency", {
-                                                validate: (value) => {
-                                                    if (Array.isArray(value) && value.length > 0) return true;
-                                                    return 'required field';
-                                                }
+                                                validate: (value) => (Array.isArray(value) && value.length > 0) || 'required field',
                                             })}
+                                            defaultChecked={item?.frequency?.includes(day.value)}
                                         />
                                         {day.label}
                                     </Label>

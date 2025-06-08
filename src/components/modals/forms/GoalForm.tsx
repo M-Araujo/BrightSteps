@@ -21,11 +21,7 @@ export default function GoalForm({ show, onClose, item, lang }: GoalFormProps) {
     const startDate = watch('startDate');
     const { goals, updateGoals } = useGoalsAndHabits();
 
-
-    console.log('item', item);
-
     const onSubmit = (formData: GoalsFormData) => {
-        console.log('onSubmit ran');
 
         const dataGoal: Goal = {
             id: item ? item?.id : Math.floor(Math.random() * 1000000),

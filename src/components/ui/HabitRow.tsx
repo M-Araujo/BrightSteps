@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import type { HabitRowProps } from '../../types';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import HabitForm from '../../components/modals/forms/HabitForm.tsx';
 
 export default function HabitRow({ goal, habit, lang, onDeleteRequest }: HabitRowProps) {
 
     const { t } = useTranslation();
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <>
@@ -20,7 +23,7 @@ export default function HabitRow({ goal, habit, lang, onDeleteRequest }: HabitRo
                     ))}
                 </div>
                 <div className="flex items-center gap-2">
-                    <button className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
+                    <button onClick={() => setShowModal(true)} className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
                         <Pencil size={18} />
                     </button>
                     <button className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete" onClick={() => onDeleteRequest(habit)}>
@@ -28,7 +31,7 @@ export default function HabitRow({ goal, habit, lang, onDeleteRequest }: HabitRo
                     </button>
                 </div>
             </div>
-
+            <HabitForm item={habit} lang={lang} show={showModal} onClose={() => setShowModal(false)} />
         </>
     );
 }
