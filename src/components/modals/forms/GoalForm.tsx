@@ -6,36 +6,51 @@ import { useTranslation } from 'react-i18next';
 import type { FormProps, GoalsFormData, Goal } from '../../../types.tsx';
 import { useGoalsAndHabits } from '../../../hooks/useGoalsAndHabits.tsx';
 
-export default function GoalForm({ show, onClose }: FormProps) {
+export default function GoalForm({ show, onClose, item, lang }: FormProps) {
     const { t } = useTranslation();
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<GoalsFormData>({
-        defaultValues: {
-            title: '',
-            startDate: '',
-            endDate: '',
-        },
-    });
+    const defaultValues = {
+        title: item?.title[lang] || '',
+        startDate: item?.startDate || '',
+        endDate: item?.endDate || '',
+    }
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<GoalsFormData>({ defaultValues });
     const startDate = watch('startDate');
     const { goals, updateGoals } = useGoalsAndHabits();
 
+
+    console.log('item', item);
+
     const onSubmit = (formData: GoalsFormData) => {
-        const newGoal: Goal = {
-            id: Math.floor(Math.random() * 1000000),
+        console.log('onSubmit ran');
+
+        const dataGoal: Goal = {
+            id: item ? item?.id : Math.floor(Math.random() * 1000000),
             title: {
                 en: formData.title,
                 pt: formData.title,
             },
-            completed: false,
+            completed: item?.completed ?? false,
             startDate: formData.startDate,
             endDate: formData.endDate,
-            habits: [],
+            habits: item?.habits ?? [],
         };
 
-        const updatedGoals = [...goals, newGoal];
-        updateGoals(updatedGoals); 
-        localStorage.setItem('goalsAndHabits', JSON.stringify(updatedGoals));
+        let updatedGoals = goals;
 
-        toast.success(t('goals.addSuccess', 'Goal added successfully!'));
+        if (item) {
+            goals.map((goal) => {
+                if (goal.id == item.id) {
+                    updatedGoals = goals.map((goal) => goal.id === item.id ? { ...goal, ...dataGoal } : goal);
+                }
+            });
+        } else {
+            updatedGoals = [...goals, dataGoal];
+        }
+
+        updateGoals(updatedGoals);
+        localStorage.setItem('goalsAndHabits', JSON.stringify(updatedGoals))
+
+        toast.success(item ? t('goals.updateSuccess') : t('goals.addSuccess'));
         onClose();
         reset();
     };
@@ -54,6 +69,7 @@ export default function GoalForm({ show, onClose }: FormProps) {
                     <TextInput
                         id="title"
                         type="text"
+
                         {...register('title', {
                             required: { value: true, message: t('common.requiredField') },
                             minLength: { value: 3, message: t('common.min3Chars') },

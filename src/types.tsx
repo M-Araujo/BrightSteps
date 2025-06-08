@@ -14,12 +14,12 @@ export type Habit = {
 export type Goal = {
     id: number;
     title: {
-        en: string; // Non-optional
-        pt: string; // Non-optional
+        en: string;
+        pt: string; 
     };
     completed: boolean;
-    startDate: string; // Non-optional to match form validation
-    endDate: string; // Non-optional
+    startDate: string;
+    endDate: string; 
     habits?: Habit[];
 };
 
@@ -103,6 +103,8 @@ export type Tip = {
 export interface FormProps {
     show: boolean;
     onClose: () => void;
+    item?: Goal | Habit,
+    lang: Lang
 };
 
 export interface DeleteConfirmationProps {

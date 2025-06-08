@@ -1,11 +1,13 @@
-
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pencil, Trash2 } from 'lucide-react';
 import type { GoalRowProps } from '../../types';
+import GoalForm from '../../components/modals/forms/GoalForm.tsx';
 
 
 export default function GoalRow({ goal, lang, onDeleteRequest }: GoalRowProps) {
     const { t } = useTranslation();
+    const [openModal, setOpenModal] = useState<boolean>(false);
 
     return (
         <>
@@ -30,14 +32,15 @@ export default function GoalRow({ goal, lang, onDeleteRequest }: GoalRowProps) {
                 </div>
 
                 <div className="gap-2">
-                    <button className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
+                    <button onClick={() => setOpenModal(true)} className="text-gray-500 hover:text-blue-600 transition-colors" aria-label="Edit">
                         <Pencil size={18} className="stroke-current" />
                     </button>
-                    <button className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete" onClick={() => onDeleteRequest(goal)}>
+                    <button onClick={() => onDeleteRequest(goal)} className="text-gray-500 hover:text-red-600 transition-colors" aria-label="Delete">
                         <Trash2 size={18} className="stroke-current" />
                     </button>
                 </div>
             </div>
+            <GoalForm item={goal} lang={lang} show={openModal} onClose={() => setOpenModal(false)} />
         </>
     );
 }
