@@ -6,7 +6,8 @@ import { Checkbox, Label } from "flowbite-react";
 import type { Goal, Movie, Mentor, Tip, Habit } from '../types';
 import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 import Confetti from 'react-confetti';
-import { useWindowSize } from 'react-use'
+import { useWindowSize } from 'react-use';
+import axios from 'axios';
 
 export default function Dashboard() {
 
@@ -23,14 +24,18 @@ export default function Dashboard() {
     useEffect(() => {
         //localStorage.clear();
 
-        fetch("https://brighsteps-api.vercel.app/api/dashboard")
-            .then(res => res.json())
-            .then(data => {
+        axios.get('https://brighsteps-api.vercel.app/api/dashboard')
+            .then(function (response) {
+                const data = response['data'];
                 setMovie(data['movie']);
                 setMentor(data['mentor']);
                 setTip(data['tip']);
             })
-            .catch(err => console.log('something failed', err));
+            .catch(function (error) {
+                console.log('Oppps, something went wrong.');
+                console.log(error);
+            });
+
     }, []);
 
 

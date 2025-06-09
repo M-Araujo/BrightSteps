@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { Goal } from '../types';
+import axios from 'axios';
 
 
 interface GoalsAndHabitsContextType {
@@ -36,16 +37,15 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
 
 
     const fetchGoals = () => {
-        fetch("https://brighsteps-api.vercel.app/api/goalsAndHabits")
-            .then(res => res.json())
-            .then(data => {
-                const fetchedGoals = data.goals as Goal[];
+        axios.get('https://brighsteps-api.vercel.app/api/goalsAndHabits')
+            .then(function (response) {
+                const fetchedGoals = response['data'].goals as Goal[];
                 setGoals(fetchedGoals);
                 localStorage.setItem('goalsAndHabits', JSON.stringify(fetchedGoals));
             })
-            .catch(err => {
-                console.log('api fetched failed', err);
-                setGoals([]);
+            .catch(function (error) {
+                console.log('Oppps, something went wrong.');
+                console.log(error);
             });
     }
 
