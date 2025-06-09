@@ -45,7 +45,14 @@ export default function Dashboard() {
 
         const currentDay = new Date().getDay();
         const weekday = currentDay === 0 ? 7 : currentDay; // Sunday=7, Monday=1, etc.
-        const filtered = goals.map((goal) => {
+        const todayDate = new Date();
+
+        // filter goals to present only goals that are active today
+        const getActiveGoals = goals.filter((goal) => {
+            return todayDate > new Date(goal.startDate) && todayDate < new Date(goal.endDate);
+        });
+
+        const filtered = getActiveGoals.map((goal) => {
             const goalHabits = goal.habits ?? [];
             const filteredHabits = goalHabits.filter((habit) =>
                 habit.frequency.includes(weekday)
@@ -108,6 +115,8 @@ export default function Dashboard() {
             <div className="sm:col-span-2 lg:col-span-2">
                 <Card className="h-[12rem] overflow-y-auto pr-2 p-4 rounded-lg ">
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('dashboard.habits')}</h2>
+
+
 
                     {todaysHabits && todaysHabits.map((goal) => (
                         <div key={goal.id} className="mb-6 border-b border-indigo-100 pb-4 last:border-0 last:pb-0">
