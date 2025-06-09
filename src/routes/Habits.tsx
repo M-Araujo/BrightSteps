@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from "flowbite-react";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Habit } from '../types';
 import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 import HabitRow from '../components/ui/HabitRow.tsx';
@@ -16,6 +16,13 @@ export default function Habits() {
     const [habitToDelete, setHabitToDelete] = useState<Habit | null>(null);
     const { goals, updateGoals } = useGoalsAndHabits();
     const [showAddModal, setShowAddModal] = useState(false);
+
+
+    useEffect(() => {
+        console.log('i18n.language:', i18n.language);
+        console.log('i18n.isInitialized:', i18n.isInitialized);
+    }, [i18n.language, i18n.isInitialized]);
+
 
     // set the habit to delete
     const handleDeleteRequest = (habit: Habit) => {

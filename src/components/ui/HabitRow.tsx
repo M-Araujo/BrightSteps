@@ -8,6 +8,10 @@ export default function HabitRow({ goal, habit, lang, onDeleteRequest }: HabitRo
 
     const { t } = useTranslation();
     const [showModal, setShowModal] = useState(false);
+    console.log('goal', goal);
+    console.log('habit', habit);
+
+
 
     return (
         <>
