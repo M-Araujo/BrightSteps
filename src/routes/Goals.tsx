@@ -36,16 +36,8 @@ export default function Goals() {
         localStorage.setItem('goalsAndHabits', JSON.stringify(filteredGoals));
     }
 
-    const areGoalsUnderMaxLimit = () => {
-        if (goals.length < maxGoals) {
-            setCanCreateGoal(true);
-        } else {
-            setCanCreateGoal(false);
-        }
-    }
-
     useEffect(() => {
-        areGoalsUnderMaxLimit();
+        setCanCreateGoal(goals.length < maxGoals);
     }, [goals]);
 
     return (

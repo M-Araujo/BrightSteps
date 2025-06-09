@@ -13,7 +13,7 @@ interface HabitFormProps extends Omit<FormProps, 'item'> {
 export default function HabitForm({ show, onClose, item, lang }: HabitFormProps) {
     const defaultValues = {
         title: item?.title[lang] || '',
-        goalId: item?.goalId || '',
+        goalId: item?.goalId || 0,
         frequency: item?.frequency || [],
     }
 
@@ -101,22 +101,22 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
                         </div>
 
                         {goals &&
-                            <Select id="goalId"  {...register("goalId", {
+                            <Select id="goalId" {...register("goalId", {
                                 required: { value: true, message: t('common.requiredField') },
                                 validate: {
-                                    isNumber: (value) =>
-                                        !isNaN(Number(value)) || 'invalid number',
-                                    minValue: (value) => Number(value) >= 1 || 'min value 1'
-
-                                }
+                                    isNumber: (value) => !isNaN(Number(value)) || 'invalid number',
+                                    minValue: (value) => Number(value) >= 1 || 'min value 1',
+                                },
                             })}>
                                 <option value=""></option>
                                 {goals.map((goal, index) => (
                                     <option
                                         value={goal.id}
                                         key={goal.id || index}
-                                        disabled={goal?.habits?.length >= maxHabitsPerGoal}
-                                    >{goal.title[lang]}  {goal?.habits?.length >= maxHabitsPerGoal ? '(max habit reached)' : ''}</option>
+                                        disabled={(goal?.habits ?? []).length >= maxHabitsPerGoal}
+                                    >
+                                        {goal.title[lang]} {(goal?.habits ?? []).length >= maxHabitsPerGoal ? '(max habit reached)' : ''}
+                                    </option>
                                 ))}
                             </Select>
                         }
