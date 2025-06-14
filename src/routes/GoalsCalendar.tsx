@@ -4,25 +4,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useTranslation } from 'react-i18next';
 import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 import { useCallback, useState } from 'react';
-import type { Habit } from '../types';
+import type { Goal, CalendarEvent } from '../types';
 import PageTitle from './../components/ui/PageTitle.tsx';
-
-interface Goal {
-    id: number;
-    title: { en: string; pt: string };
-    patientId?: string;
-    startDate: string;
-    endDate?: string;
-    completed?: boolean;
-    habits?: Habit[];
-}
-
-interface CalendarEvent {
-    id: number;
-    title: string;
-    start: Date;
-    end: Date;
-}
 
 type CalendarView = 'month' | 'week' | 'day' | 'work_week' | 'agenda'; // Include all View types
 
@@ -63,7 +46,7 @@ export default function GoalsCalendar() {
     }, []);
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-10 bg-gray-50 rounded-xl shadow-md">
+        <div className="max-w-5xl mx-auto px-4 py-10 rounded-xl shadow-md bg-[var(--color-container)]">
             <PageTitle title={t('menu.calendar')} />
             <div style={{ height: 700, position: 'relative' }}>
                 <Calendar

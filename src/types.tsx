@@ -118,4 +118,11 @@ export interface DeleteConfirmationProps {
     title?: string;
 };
 
+export interface CalendarEvent {
+    id: number;
+    title: string;
+    start: Date;
+    end: Date;
+}
+
 export type ThemeMode = 'light' | 'dark';
