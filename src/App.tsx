@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import './App.css';
 import Topbar from './components/layout/Topbar';
 import Sidebar from './components/layout/Sidebar';
+import { ThemeProvider } from './context/ThemeContext';
 import { GoalsAndHabitsProvider } from './hooks/GoalsAndHabitsContext';
 import Dashboard from './routes/Dashboard.tsx';
 import Goals from './routes/Goals.tsx';
@@ -137,24 +138,30 @@ function App() {
   const closeSidebar = () => setIsSidebarOpen(false);
 
   return (
+    <ThemeProvider>
     <BrowserRouter>
       <div className="flex flex-col min-h-screen">
         <Topbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
         <main className="flex flex-1">
           <Sidebar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
-          <div
-            className={`flex-1 p-4 transition-all duration-300 ${isSidebarOpen ? 'ml-64' : 'ml-0 sm:ml-64'
-              } mt-16`}
-          >
+            <div
+              className={`
+                flex-1 p-6 mt-16 transition-all duration-300
+                ${isSidebarOpen ? 'ml-64' : 'ml-0 sm:ml-64'}
+               bg-[var(--color-main-bg)]
+                min-h-[calc(100vh-4rem)]
+              `}
+            >
             <div className="p-4">
               <GoalsAndHabitsProvider>
                 <AnimatedRoutes />
-              </GoalsAndHabitsProvider>
+                </GoalsAndHabitsProvider>
             </div>
           </div>
         </main>
       </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

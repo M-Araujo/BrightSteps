@@ -40,7 +40,6 @@ export default function Dashboard() {
 
 
     useEffect(() => {
-
         if (!goals || goals.length === 0) return;
 
         const currentDay = new Date().getDay();

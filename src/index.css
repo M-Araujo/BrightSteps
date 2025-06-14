@@ -2,16 +2,31 @@
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-:root {
-  /*
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-*/
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
+.theme-light {
+  --color-topbar-bg: #f3f4f6;
+  --color-sidebar-bg: #e2e8f0;
+  --color-main-bg: #ffffff;
+  --color-text: #1e293b;
+  --color-muted: #888;
+  --color-card: #f9fafb;
+  --color-primary: #2563eb;
+  --color-hover: #1e40af;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.theme-dark {
+  --color-topbar-bg: #2d3748;
+  --color-sidebar-bg: #334155;
+  --color-main-bg: #1A202C;
+  --color-text: #f3f4f6;
+  --color-muted: #94a3b8;
+  --color-card: #273549;
+  --color-primary: #3b82f6;
+  --color-hover: #60a5fa;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -20,20 +35,13 @@
 
 body {
   margin: 0;
-  display: flex;
   min-width: 320px;
   min-height: 100vh;
-  font-family: 'Montserrat',
-  sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
+a:hover {
+  color: var(--color-hover);
 }

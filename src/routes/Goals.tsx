@@ -33,7 +33,7 @@ export default function Goals() {
         updateGoals(filteredGoals);
         setShowDeleteModal(false);
         toast.success('Goal deleted successfully!');
-        localStorage.setItem('goalsAndHabits', JSON.stringify(filteredGoals));
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(filteredGoals));
     }
 
     useEffect(() => {

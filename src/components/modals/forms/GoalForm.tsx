@@ -48,7 +48,7 @@ export default function GoalForm({ show, onClose, item, lang }: GoalFormProps) {
         }
 
         updateGoals(updatedGoals);
-        localStorage.setItem('goalsAndHabits', JSON.stringify(updatedGoals))
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(updatedGoals))
 
         toast.success(item ? t('goals.updateSuccess') : t('goals.addSuccess'));
         onClose();

@@ -41,7 +41,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
             .then(function (response) {
                 const fetchedGoals = response['data'].goals as Goal[];
                 setGoals(fetchedGoals);
-                localStorage.setItem('goalsAndHabits', JSON.stringify(fetchedGoals));
+                localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(fetchedGoals));
             })
             .catch(function (error) {
                 console.log('Oppps, something went wrong.');
@@ -51,7 +51,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
 
 
     useEffect(() => {
-        const stored = localStorage.getItem('goalsAndHabits');
+        const stored = localStorage.getItem('brightsteps.goalsAndHabits');
         if (stored && stored !== 'undefined') {
             try {
                 const localGoals = JSON.parse(stored);
@@ -59,13 +59,13 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
                     setGoals(localGoals);
                 } else {
                     console.log('invalid goals in loalstorage');
-                    localStorage.removeItem('goalsAndHabits');
+                    localStorage.removeItem('brightsteps.goalsAndHabits');
                     fetchGoals();
                 }
 
             } catch (err) {
                 console.log('Error parsing localStorage', err);
-                localStorage.removeItem('goalsAndHabits');
+                localStorage.removeItem('brightsteps.goalsAndHabits');
                 fetchGoals();
             }
         } else {
@@ -75,12 +75,12 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
 
     const updateGoals = (newGoals: Goal[]) => {
         setGoals(newGoals);
-        localStorage.setItem('goalsAndHabits', JSON.stringify(newGoals));
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(newGoals));
     };
 
     const resetGoals = () => {
         setGoals([]);
-        localStorage.removeItem('goalsAndHabits');
+        localStorage.removeItem('brightsteps.goalsAndHabits');
         fetchGoals();
     }
 
@@ -110,7 +110,7 @@ export function GoalsAndHabitsProvider({ children }: { children: ReactNode }) {
         });
 
         setGoals(filteredHabits);
-        localStorage.setItem('goalsAndHabits', JSON.stringify(filteredHabits));
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(filteredHabits));
     }
 
     return (

@@ -108,7 +108,7 @@ describe("App routing", () => {
 
     test("renders Goals page", async () => {
         // simulate dashboard saving goals to localstorage
-        localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(mockGoals));
         await act(() => {
 
 
@@ -129,7 +129,7 @@ describe("App routing", () => {
     });
 
     test("renders habits page", async () => {
-        localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(mockGoals));
         await act(() => {
             render(
                 <GoalsAndHabitsProvider>
@@ -150,7 +150,7 @@ describe("App routing", () => {
 
 
     test("renders calendar page", async () => {
-        localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(mockGoals));
 
         await act(async () => {
             render(
@@ -195,7 +195,7 @@ describe("App routing", () => {
     });
 
     test("renders settings page", async () => {
-        localStorage.setItem('goalsAndHabits', JSON.stringify(mockGoals));
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(mockGoals));
         render(
             <GoalsAndHabitsProvider>
                 <I18nextProvider i18n={i18n}>

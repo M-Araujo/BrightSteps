@@ -113,3 +113,5 @@ export interface DeleteConfirmationProps {
     onConfirm?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     title?: string;
 };
+
+export type ThemeMode = 'light' | 'dark';

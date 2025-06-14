@@ -41,7 +41,7 @@ export default function Habits() {
         updateGoals(filteredHabits);
         setShowDeleteModal(false);
         toast.success('Habit deleted successfully!');
-        localStorage.setItem('goalsAndHabits', JSON.stringify(filteredHabits));
+        localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(filteredHabits));
     }
 
     return (
