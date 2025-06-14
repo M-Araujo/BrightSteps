@@ -86,7 +86,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-[var(--color-card)] rounded-xl shadow-xl">
 
             <div className="fixed inset-0 z-50 pointer-events-none">
                 {confetti && (
@@ -99,12 +99,12 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
+                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1 ">
                     <div className="max-w-md mx-auto text-center py-6 px-4">
                         <p className="text-2xl font-semibold text-indigo-600 mb-2">
                             {t('dashboard.welcome')}
                         </p>
-                        <p className="text-base text-gray-700 leading-relaxed">
+                        <p className="text-base leading-relaxed">
                             {t('dashboard.description')}
                         </p>
                     </div>
@@ -113,7 +113,7 @@ export default function Dashboard() {
 
             <div className="sm:col-span-2 lg:col-span-2">
                 <Card className="h-[12rem] overflow-y-auto pr-2 p-4 rounded-lg ">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-4">{t('dashboard.habits')}</h2>
+                    <h2 className="text-xl font-semibold mb-4">{t('dashboard.habits')}</h2>
 
 
 
@@ -126,10 +126,10 @@ export default function Dashboard() {
                             {goal.habits?.map((habit) => (
                                 <div
                                     key={habit.id}
-                                    className="flex items-center gap-3 mb-2 p-2 rounded-md cursor-pointer hover:bg-indigo-50 transition-colors"
+                                    className="flex items-center gap-3 mb-2 p-2 rounded-md cursor-pointer transition-colors"
                                 >
                                     <Checkbox checked={isHabitCompletedForToday(habit)} onChange={(e) => handleCheckboxChange(e)} id={`${habit.id}`} />
-                                    <Label htmlFor={`${habit.id}`} className="cursor-pointer select-none">
+                                    <Label htmlFor={`${habit.id}`} className="cursor-pointer select-none !text-[var(--color-text)]">
                                         {habit.title?.[lang] ?? habit.title?.en}
                                     </Label>
                                 </div>
@@ -140,25 +140,27 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">{t('dashboard.summary')} </Card>
+                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
+                    <h2 className="text-xl font-semibold mb-4">{t('dashboard.summary')}</h2>
+                </Card>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
                 <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
                     <div className="flex flex-col justify-center h-full px-4 overflow-y-auto">
-                        <h2 className="text-lg font-semibold text-gray-800 mb-2">
+                        <h2 className="text-lg font-semibold mb-2">
                             {t('dashboard.tip')}
                         </h2>
 
                         {tip ? (
                             <>
-                                <blockquote className="relative border-l-4 border-primary pl-3 text-gray-800 italic font-serif text-lg leading-relaxed">
+                                <blockquote className="relative border-l-4 border-primary pl-3 italic font-serif text-lg leading-relaxed">
                                     <p className="pr-6">"{tip.title[lang]}"</p>
                                 </blockquote>
-                                <p className="mt-2 text-sm text-gray-600">{tip.description[lang]}</p>
+                                <p className="mt-2 text-sm">{tip.description[lang]}</p>
                             </>
                         ) : (
-                            <p className="text-sm text-gray-500">{t('dashboard.loading')}</p>
+                                <p className="text-sm">{t('dashboard.loading')}</p>
                         )}
                     </div>
                 </Card>
@@ -169,17 +171,17 @@ export default function Dashboard() {
                     <h2 className="text-lg font-semibold mb-2">{t('dashboard.inspiration')}</h2>
 
                     {!movie ? (
-                        <p className="text-sm text-gray-500">{t('dashboard.loading')}</p>
+                        <p className="text-sm">{t('dashboard.loading')}</p>
                     ) : (
                         <>
                             {movie.title?.[lang] && (
-                                    <p className="text-md font-medium text-primary mb-1 min-h-[3rem] leading-normal">
+                                    <p className="text-md font-medium mb-1 min-h-[3rem] leading-normal">
                                     {movie.title[lang]}
                                 </p>
                             )}
 
                             {movie.description?.[lang] && (
-                                    <p className="text-sm text-gray-700 mb-3 line-clamp-3 min-h-[4rem] leading-normal">
+                                    <p className="text-sm mb-3 line-clamp-3 min-h-[4rem] leading-normal">
                                     {movie.description[lang]}
                                 </p>
                             )}
@@ -199,7 +201,7 @@ export default function Dashboard() {
 
 
                             {!movie.link && (
-                                <p className="text-xs text-gray-400 mt-2">{t('dashboard.noVideoAvailable')}</p>
+                                    <p className="text-xs mt-2">{t('dashboard.noVideoAvailable')}</p>
                             )}
                         </>
                     )}
@@ -209,18 +211,18 @@ export default function Dashboard() {
 
             <div className="sm:col-span-2 lg:col-span-2">
                 <Card className="h-[30rem] flex flex-col justify-between">
-                    <h2 className="text-lg font-semibold text-gray-800 mb-2">{t('dashboard.mentors')}</h2>
+                    <h2 className="text-lg font-semibold mb-2">{t('dashboard.mentors')}</h2>
 
                     {mentor && (
                         <>
                             {mentor.title?.[lang] && (
-                                <p className="text-md font-medium text-primary mb-1 min-h-[3rem] leading-normal">
+                                <p className="text-md font-medium mb-1 min-h-[3rem] leading-normal">
                                     {mentor.title[lang]}
                                 </p>
                             )}
 
                             {mentor.description?.[lang] && (
-                                <p className="text-sm text-gray-700 mb-3 line-clamp-3 min-h-[4rem] leading-normal">
+                                <p className="text-sm mb-3 line-clamp-3 min-h-[4rem] leading-normal">
                                     {mentor.description[lang]}
                                 </p>
                             )}
