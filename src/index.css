@@ -2,16 +2,16 @@
 @plugin "flowbite-react/plugin/tailwindcss";
 @source "../.flowbite-react/class-list.json";
 
-
 .theme-light {
-  --color-topbar-bg: #f8fafc;
-  --color-sidebar-bg: #f1f5f9;
+  --color-topbar-bg: #eef2f6;
+  --color-sidebar-bg: #e0e7f0;
   --color-main-bg: #ffffff;
-  --color-text: #213547;
-  --color-muted: #888;
-  --color-card: #f9fafb;
+  --color-text: #1a2e44;
+  --color-muted: #64748b;
+  --color-card: #f4f7fa;
   --color-primary: #2563eb;
-  --color-hover: #1e40af;
+  --color-hover: #1d4ed8;
+  --color-accent: #2b6cb0; /* New accent color for light mode */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -20,13 +20,14 @@
 
 .theme-dark {
   --color-topbar-bg: #1e293b;
-  --color-sidebar-bg: #273549;
-  --color-main-bg: #1A202C;
-  --color-text: #f3f4f6;
+  --color-sidebar-bg: #243c5a;
+  --color-main-bg: #15202b;
+  --color-text: #e5e7eb;
   --color-muted: #94a3b8;
-  --color-card: #273549;
+  --color-card: #243c5a;
   --color-primary: #3b82f6;
-  --color-hover: #60a5fa;
+  --color-hover: #2b6cb0;
+  --color-accent: #60a5fa; /* New accent color for dark mode */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -45,4 +46,3 @@ body {
 a:hover {
   color: var(--color-hover);
 }
-

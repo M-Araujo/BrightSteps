@@ -101,7 +101,7 @@ export default function Dashboard() {
             <div className="sm:col-span-2 lg:col-span-2">
                 <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1 ">
                     <div className="max-w-md mx-auto text-center py-6 px-4">
-                        <p className="text-2xl font-semibold text-indigo-600 mb-2">
+                        <p className="text-2xl font-semibold mb-2 text-[var(--color-accent)]">
                             {t('dashboard.welcome')}
                         </p>
                         <p className="text-base leading-relaxed">
@@ -119,7 +119,7 @@ export default function Dashboard() {
 
                     {todaysHabits && todaysHabits.map((goal) => (
                         <div key={goal.id} className="mb-6 border-b border-indigo-100 pb-4 last:border-0 last:pb-0">
-                            <h3 className="text-md font-semibold text-indigo-600 mb-3 uppercase tracking-wide border-b border-indigo-300 pb-1">
+                            <h3 className="text-md font-semibold text-[var(--color-accent)] mb-3 uppercase tracking-wide border-b border-indigo-300 pb-1">
                                 {goal.title?.[lang] ?? goal.title.en}
                             </h3>
 
