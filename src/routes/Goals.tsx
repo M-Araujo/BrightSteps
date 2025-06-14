@@ -32,7 +32,7 @@ export default function Goals() {
 
         updateGoals(filteredGoals);
         setShowDeleteModal(false);
-        toast.success('Goal deleted successfully!');
+        toast.success(t('common.deletedSuccessfully'));
         localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(filteredGoals));
     }
 
@@ -76,8 +76,6 @@ export default function Goals() {
                     {t('goals.noGoals')}
                 </p>
             )}
-
-
 
             <GoalForm lang={lang} show={openModal} onClose={() => setOpenModal(false)} />
             <DeleteConfirmation title={goalToDelete?.title[lang]} show={showDeleteModal} onConfirm={handleConfirmDelete} onClose={() => {

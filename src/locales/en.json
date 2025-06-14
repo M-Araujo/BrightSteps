@@ -23,7 +23,8 @@
 
   "goals": {
     "add": "+ Add goal",
-    "createGoal": "create goal",
+    "createGoal": "Create goal",
+    "editGoal": "Edit goal",
     "goal": "Goal",
     "startDate": "Start",
     "endDate": "End",
@@ -50,7 +51,8 @@
     "actions": "Actions",
     "add": "+ Add habit",
     "noHabits": "No habits",
-    "createHabit": "Create habit"
+    "createHabit": "Create habit",
+    "maxHabitReached": "max habit reached"
   },
 
   "tips": {
@@ -89,7 +91,11 @@
     "min3Chars": "Minimum 3 characters required",
     "max100Chars": "Maximum of 100 characters",
     "endDateTooEarly": "End date cannot be before start date",
-    "submit": "Submit"
+    "submit": "Submit",
+    "deletedSuccessfully": "Item deleted successfully",
+    "updatedSuccessfully": "Item updated successfully",
+    "minVal": "min val",
+    "invalidNumber": "invalid number"
   },
   "modals": {
     "submit": "Submit",

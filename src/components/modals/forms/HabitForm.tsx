@@ -71,7 +71,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
 
         updateGoals(updatedGoals);
         onClose();
-        toast.success(item ? t('habits.updateSuccess') : t('habits.addSuccess'))
+        toast.success(item ? t('common.deletedSuccessfully') : t('common.deletedSuccessfully'))
     }
 
     return (
@@ -104,8 +104,8 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
                             <Select id="goalId" {...register("goalId", {
                                 required: { value: true, message: t('common.requiredField') },
                                 validate: {
-                                    isNumber: (value) => !isNaN(Number(value)) || 'invalid number',
-                                    minValue: (value) => Number(value) >= 1 || 'min value 1',
+                                    isNumber: (value) => !isNaN(Number(value)) || t('common.invalidNumber'),
+                                    minValue: (value) => Number(value) >= 1 || t('common.minVal') + '1',
                                 },
                             })}>
                                 <option value=""></option>
@@ -115,7 +115,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
                                         key={goal.id || index}
                                         disabled={(goal?.habits ?? []).length >= maxHabitsPerGoal}
                                     >
-                                        {goal.title[lang]} {(goal?.habits ?? []).length >= maxHabitsPerGoal ? '(max habit reached)' : ''}
+                                        {goal.title[lang]} {(goal?.habits ?? []).length >= maxHabitsPerGoal ? '(' + t('habits.maxHabitReached') + ')' : ''}
                                     </option>
                                 ))}
                             </Select>
@@ -142,7 +142,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
                                             id={`day-${day.value}`}
                                             value={day.value}
                                             {...register("frequency", {
-                                                validate: (value) => (Array.isArray(value) && value.length > 0) || 'required field',
+                                                validate: (value) => (Array.isArray(value) && value.length > 0) || t('common.requiredField'),
                                             })}
                                             defaultChecked={item?.frequency?.includes(day.value)}
                                         />

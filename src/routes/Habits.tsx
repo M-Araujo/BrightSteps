@@ -23,7 +23,6 @@ export default function Habits() {
 
     // set the habit to delete
     const handleDeleteRequest = (habit: Habit) => {
-        console.log('habit to delete called');
         setHabitToDelete(habit);
         setShowDeleteModal(true);
     }
@@ -37,7 +36,7 @@ export default function Habits() {
 
         updateGoals(filteredHabits);
         setShowDeleteModal(false);
-        toast.success('Habit deleted successfully!');
+        toast.success(t('common.deletedSuccessfully'));
         localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(filteredHabits));
     }
 

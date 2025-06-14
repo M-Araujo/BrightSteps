@@ -50,7 +50,7 @@ export default function GoalForm({ show, onClose, item, lang }: GoalFormProps) {
         updateGoals(updatedGoals);
         localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(updatedGoals))
 
-        toast.success(item ? t('goals.updateSuccess') : t('goals.addSuccess'));
+        toast.success(item ? t('common.deletedSuccessfully') : t('common.deletedSuccessfully'));
         onClose();
         reset();
     };
@@ -58,7 +58,7 @@ export default function GoalForm({ show, onClose, item, lang }: GoalFormProps) {
     return (
         <Modal
             show={show}
-            title={t('goals.addGoal', 'Add Goal')}
+            title={item ? t('goals.editGoal') : t('goals.createGoal')}
             onClose={onClose}
         >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
