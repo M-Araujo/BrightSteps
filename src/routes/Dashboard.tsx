@@ -86,7 +86,7 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-[var(--color-card)] rounded-xl shadow-xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-[var(--color-container)] rounded-xl shadow-xl">
 
             <div className="fixed inset-0 z-50 pointer-events-none">
                 {confetti && (
@@ -112,10 +112,8 @@ export default function Dashboard() {
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-y-auto pr-2 p-4 rounded-lg ">
+                <Card className="h-[12rem] overflow-y-auto pr-2 p-4 rounded-lg">
                     <h2 className="text-xl font-semibold mb-4">{t('dashboard.habits')}</h2>
-
-
 
                     {todaysHabits && todaysHabits.map((goal) => (
                         <div key={goal.id} className="mb-6 border-b border-indigo-100 pb-4 last:border-0 last:pb-0">

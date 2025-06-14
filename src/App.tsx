@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import './App.css';
 import Topbar from './components/layout/Topbar';
 import Sidebar from './components/layout/Sidebar';
 import { ThemeProvider } from './context/ThemeContext';

@@ -5,13 +5,14 @@
 .theme-light {
   --color-topbar-bg: #eef2f6;
   --color-sidebar-bg: #e0e7f0;
-  --color-main-bg: #ffffff;
+  --color-main-bg: #ffffff; /* Body */
   --color-text: #1a2e44;
   --color-muted: #64748b;
-  --color-card: #f4f7fa;
+  --color-card: #f4f7fa; /* Cards */
+  --color-container: #e6ecf2; /* Container */
   --color-primary: #2563eb;
   --color-hover: #1d4ed8;
-  --color-accent: #2b6cb0; /* New accent color for light mode */
+  --color-accent: #2b6cb0;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -21,13 +22,14 @@
 .theme-dark {
   --color-topbar-bg: #1e293b;
   --color-sidebar-bg: #243c5a;
-  --color-main-bg: #15202b;
+  --color-main-bg: #15202b; /* Body */
   --color-text: #e5e7eb;
   --color-muted: #94a3b8;
-  --color-card: #243c5a;
+  --color-card: #243c5a; /* Cards */
+  --color-container: #1e2a3b; /* Container */
   --color-primary: #3b82f6;
   --color-hover: #2b6cb0;
-  --color-accent: #60a5fa; /* New accent color for dark mode */
+  --color-accent: #60a5fa;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -39,8 +41,25 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-family: 'Montserrat', sans-serif;
-  background-color: var(--color-bg);
+  background-color: var(--color-main-bg); /* Very dark body */
   color: var(--color-text);
+}
+
+.card {
+  background-color: var(--color-card) !important;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  min-height: 10rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.625;
+}
+
+.card h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
 }
 
 a:hover {
