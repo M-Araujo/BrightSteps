@@ -48,7 +48,8 @@
         "frequency": "Frequência",
         "actions": "Ações",
         "add": "+ Adicionar hábito",
-        "noHabits": "Sem hábitos"
+        "noHabits": "Sem hábitos",
+        "createHabit": "Criar hábito"
     },
 
     "tips": {

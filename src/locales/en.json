@@ -49,8 +49,8 @@
     "frequency": "Frequecny",
     "actions": "Actions",
     "add": "+ Add habit",
-    "noHabits": "No habits"
-
+    "noHabits": "No habits",
+    "createHabit": "Create habit"
   },
 
   "tips": {

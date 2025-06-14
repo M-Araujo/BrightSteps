@@ -78,7 +78,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
         <>
             <Modal
                 show={show}
-                title={item ? t('habits.editHabit') : t('habits.addHabit')}
+                title={item ? t('habits.editHabit') : t('habits.createHabit')}
                 onClose={onClose}>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div>
@@ -97,7 +97,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
 
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="title">Goals</Label>
+                            <Label htmlFor="title">{t('goals.goal')}</Label>
                         </div>
 
                         {goals &&
@@ -127,7 +127,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
 
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="frequency">Frequency</Label>
+                            <Label htmlFor="frequency">{t('habits.frequency')}</Label>
                         </div>
 
                         <div >
@@ -160,7 +160,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
                         <Button
                             type="submit"
                             color="success"
-                            className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2 rounded-md shadow-md transition transform hover:scale-[1.05]"
+                            className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2 rounded-md shadow-md transition transform"
                         >
                             {t('modals.submit')}
                         </Button>

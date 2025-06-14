@@ -41,8 +41,8 @@ export default function Goals() {
     }, [goals]);
 
     return (
-        <div className="max-w-5xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
-            <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('goals.title', 'Goals')}</h1>
+        <div className="max-w-5xl mx-auto px-6 py-10 rounded-xl shadow-md bg-[var(--color-container)]">
+            <h1 className="text-2xl font-bold mb-8 border-b pb-2 border-[var(--color-muted)]">{t('menu.goals')}</h1>
 
             {canCreateGoal ?
                 <div className="flex justify-end mb-4">
@@ -51,32 +51,33 @@ export default function Goals() {
                 :
                 <div className="flex w-full">
                     <Alert color="failure" className="mx-auto mb-5">
-                        {t('goals.maxLimitReached', 'Maximum goal limit reached')}
+                        {t('goals.maxLimitReached')}
                     </Alert>
                 </div>
             }
 
-
-
-            <div className="grid grid-cols-5 font-semibold text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow-sm mb-2">
-                <span>🎯 {t('goals.goal')}</span>
-                <span>📅 {t('goals.startDate')}</span>
-                <span>📆 {t('goals.endDate')}</span>
-                <span>📊 {t('goals.status')}</span>
-                <span>📊 {t('goals.actions')}</span>
+            <div className="overflow-x-auto">
+                <div className="grid sm:grid-cols-1 md:grid-cols-5 font-semibold text-sm px-4 py-2 rounded-md shadow-sm mb-2">
+                    <span>🎯 {t('goals.goal')}</span>
+                    <span>📅 {t('goals.startDate')}</span>
+                    <span>📆 {t('goals.endDate')}</span>
+                    <span>📊 {t('goals.status')}</span>
+                    <span>📊 {t('goals.actions')}</span>
+                </div>
+                <div className="space-y-2">
+                    {goals && goals.map((goal) => (
+                        <GoalRow key={goal.id} goal={goal} lang={lang} onDeleteRequest={handleDeleteRequest} />
+                    ))}
+                </div>
             </div>
 
             {goals && goals.length === 0 && (
-                <p className="text-center text-gray-500 py-6">
+                <p className="text-center py-6">
                     {t('goals.noGoals')}
                 </p>
             )}
 
-            <div className="space-y-2">
-                {goals && goals.map((goal) => (
-                    <GoalRow goal={goal} key={goal.id} lang={lang} onDeleteRequest={handleDeleteRequest} />
-                ))}
-            </div>
+
 
             <GoalForm lang={lang} show={openModal} onClose={() => setOpenModal(false)} />
             <DeleteConfirmation title={goalToDelete?.title[lang]} show={showDeleteModal} onConfirm={handleConfirmDelete} onClose={() => {

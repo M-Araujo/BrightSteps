@@ -29,7 +29,7 @@ export default function Modal({
                     onClick={onClose}
                 >
                     <motion.div
-                        className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 space-y-4"
+                        className="bg-[var(--color-modal-bg)] rounded-lg shadow-lg w-full max-w-md p-6 space-y-4"
                         initial={{ scale: 0.95, y: 40, opacity: 0 }}
                         animate={{ scale: 1, y: 0, opacity: 1 }}
                         exit={{ scale: 0.95, y: 40, opacity: 0 }}
