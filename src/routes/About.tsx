@@ -7,7 +7,7 @@ export default function About() {
 
     return (
         <>
-            <div className="max-w-5xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
+            <div className="max-w-5xl mx-auto px-6 py-10 rounded-xl shadow-md bg-[var(--color-container)]">
                 <PageTitle title={t('about.title')} />
 
                 <h2 className="text-xl font-semibold mb-4">{t('about.welcome')}</h2>
