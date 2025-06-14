@@ -25,26 +25,27 @@ export default function Settings() {
         >
             <h1 className="text-2xl font-bold mb-8 border-b pb-2 border-[var(--color-muted)]">{t('menu.settings', 'Settings')}</h1>
 
-            {/* Theme Section */}
             <div className="mb-8 p-4 bg-[var(--color-main-bg)] rounded-lg shadow-sm">
                 <h2 className="text-lg font-semibold mb-4">{t('settings.theme')}</h2>
                 <div className="flex items-center space-x-4">
                     <Button
                         onClick={toggleTheme}
-                        className="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                        className="bg-[var(--color-primary)] text-white shadow-md"
                         aria-label="Toggle theme"
                     >
                         {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                     </Button>
-                    <span className="text-sm">{t('settings.currentTheme', `Current: ${theme}`)}</span>
+                    <span className="text-sm">{t('settings.currentTheme')} {theme}</span>
                 </div>
             </div>
 
-            {/* Reset Section */}
             <div className="mb-8 p-4 bg-[var(--color-main-bg)] rounded-lg shadow-sm">
                 <h2 className="text-lg font-semibold mb-4">{t('settings.reset')}</h2>
                 <p className="mb-4 text-sm">{t('settings.resetAllData')}</p>
-                <Button onClick={() => setShow(true)} className="mt-2">
+                <Button
+                    onClick={() => setShow(true)}
+                    className="px-6 py-2 rounded-md bg-[var(--color-primary)] text-white hover:bg-[var(--color-hover)] active:bg-[var(--color-primary)] transition transform hover:scale-[1.05] shadow-md"
+                >
                     {t('settings.reset')}
                 </Button>
             </div>
@@ -58,14 +59,16 @@ export default function Settings() {
                 <p className="mb-4">{t('settings.actionCannotBeUndone')}</p>
 
                 <div className="flex justify-end gap-2">
-                    <Button color="gray" onClick={() => setShow(false)}>
+                    <Button
+                        onClick={() => setShow(false)}
+                        className="px-6 py-2 rounded-md bg-gray-200 dark:bg-gray-700 text-[var(--color-text)] hover:bg-gray-300 dark:hover:bg-gray-600 transition transform hover:scale-[1.05] shadow-md"
+                    >
                         {t('modals.cancel')}
                     </Button>
                     <Button
+                        color="failure"
                         onClick={resetAllData}
-                        type="submit"
-                        color="success"
-                        className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-semibold px-6 py-2 rounded-md shadow-md transition transform hover:scale-[1.05]"
+                        className="px-6 py-2 rounded-md text-white font-semibold shadow-md transition transform hover:scale-[1.05]"
                     >
                         {t('modals.reset')}
                     </Button>

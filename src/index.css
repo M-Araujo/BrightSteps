@@ -4,10 +4,10 @@
 
 
 .theme-light {
-  --color-topbar-bg: #f3f4f6;
-  --color-sidebar-bg: #e2e8f0;
+  --color-topbar-bg: #f8fafc;
+  --color-sidebar-bg: #f1f5f9;
   --color-main-bg: #ffffff;
-  --color-text: #1e293b;
+  --color-text: #213547;
   --color-muted: #888;
   --color-card: #f9fafb;
   --color-primary: #2563eb;
@@ -19,8 +19,8 @@
 }
 
 .theme-dark {
-  --color-topbar-bg: #2d3748;
-  --color-sidebar-bg: #334155;
+  --color-topbar-bg: #1e293b;
+  --color-sidebar-bg: #273549;
   --color-main-bg: #1A202C;
   --color-text: #f3f4f6;
   --color-muted: #94a3b8;
@@ -45,3 +45,4 @@ body {
 a:hover {
   color: var(--color-hover);
 }
+
