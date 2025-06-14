@@ -100,6 +100,10 @@ export type Tip = {
     };
 };
 
+export interface PageTitleProps {
+    title: string;
+}
+
 export interface FormProps {
     show: boolean;
     onClose: () => void;

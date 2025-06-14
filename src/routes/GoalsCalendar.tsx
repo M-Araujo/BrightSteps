@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
 import { useCallback, useState } from 'react';
 import type { Habit } from '../types';
+import PageTitle from './../components/ui/PageTitle.tsx';
 
 interface Goal {
     id: number;
@@ -63,7 +64,7 @@ export default function GoalsCalendar() {
 
     return (
         <div className="max-w-5xl mx-auto px-4 py-10 bg-gray-50 rounded-xl shadow-md">
-            <h1 className="text-xl font-semibold mb-6 text-gray-700">{t('menu.calendar')}</h1>
+            <PageTitle title={t('menu.calendar')} />
             <div style={{ height: 700, position: 'relative' }}>
                 <Calendar
                     className="custom-calendar"

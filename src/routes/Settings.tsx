@@ -6,6 +6,7 @@ import { ThemeContext } from '../context/ThemeContext.tsx';
 import Modal from '../components/modals/Modal.tsx';
 import toast from 'react-hot-toast';
 import { Sun, Moon } from 'lucide-react';
+import PageTitle from './../components/ui/PageTitle.tsx';
 
 export default function Settings() {
     const { t } = useTranslation();
@@ -23,7 +24,7 @@ export default function Settings() {
         <div
             className={`max-w-5xl mx-auto px-6 py-10 bg-[var(--color-container)] rounded-xl shadow-xl ring-1 ring-black/5 dark:ring-white/10 transition-all duration-300 ${theme === 'light' ? 'text-[var(--color-text)]' : 'text-[var(--color-text)]'}`}
         >
-            <h1 className="text-2xl font-bold mb-8 border-b pb-2 border-[var(--color-muted)]">{t('menu.settings')}</h1>
+            <PageTitle title={t('menu.settings')} />
 
             <div className="mb-8 p-4 bg-[var(--color-card)] rounded-lg shadow-sm">
                 <h2 className="text-lg font-semibold mb-4">{t('settings.theme')}</h2>

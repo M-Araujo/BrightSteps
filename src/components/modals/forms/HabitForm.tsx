@@ -22,17 +22,12 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
     const { goals, updateGoals } = useGoalsAndHabits();
 
     const maxHabitsPerGoal: number = 10;
-
-    console.log(item);
-
-
     const daysOfWeek = Array.from({ length: 7 }, (_, i) => ({
         value: i + 1, // 1 to 7
         label: t(`habits.days.${i + 1}`),
     }));
 
     const onSubmit = (formData: HabitsFormData) => {
-        console.log('submitted called');
         const newHabit = {
             id: item ? item.id : Math.floor(Math.random() * 1000000),
             title: {

@@ -7,6 +7,8 @@ import HabitRow from '../components/ui/HabitRow.tsx';
 import toast from 'react-hot-toast';
 import HabitForm from '../components/modals/forms/HabitForm.tsx';
 import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
+import PageTitle from './../components/ui/PageTitle.tsx';
+
 
 export default function Habits() {
 
@@ -43,7 +45,7 @@ export default function Habits() {
     return (
 
         <div className="max-w-5xl mx-auto px-6 py-10 rounded-xl shadow-md bg-[var(--color-container)]">
-            <h1 className="text-2xl font-bold mb-8 border-b pb-2 border-[var(--color-muted)]">{t('menu.habits')}</h1>
+            <PageTitle title={t('menu.habits')} />
             <div className="flex justify-end mb-4">
                 <Button onClick={() => setShowAddModal(true)}>{t('habits.add')}</Button>
             </div>

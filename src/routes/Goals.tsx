@@ -5,6 +5,7 @@ import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits.tsx';
 import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
 import GoalForm from '../components/modals/forms/GoalForm.tsx';
+import PageTitle from './../components/ui/PageTitle.tsx';
 import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
 import type { Goal } from '../types';
 
@@ -42,8 +43,7 @@ export default function Goals() {
 
     return (
         <div className="max-w-5xl mx-auto px-6 py-10 rounded-xl shadow-md bg-[var(--color-container)]">
-            <h1 className="text-2xl font-bold mb-8 border-b pb-2 border-[var(--color-muted)]">{t('menu.goals')}</h1>
-
+            <PageTitle title={t('menu.goals')} />
             {canCreateGoal ?
                 <div className="flex justify-end mb-4">
                     <Button onClick={() => setOpenModal(true)}>{t('goals.add')}</Button>

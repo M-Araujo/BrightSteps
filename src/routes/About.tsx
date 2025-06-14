@@ -1,4 +1,5 @@
 import { Trans, useTranslation } from 'react-i18next';
+import PageTitle from './../components/ui/PageTitle.tsx';
 
 export default function About() {
     const { t } = useTranslation();
@@ -7,7 +8,8 @@ export default function About() {
     return (
         <>
             <div className="max-w-5xl mx-auto px-6 py-10 bg-gray-50 rounded-xl shadow-md">
-                <h1 className="text-3xl font-bold mb-4">{t('about.title')}</h1>
+                <PageTitle title={t('about.title')} />
+
                 <h2 className="text-xl font-semibold mb-4">{t('about.welcome')}</h2>
                 <p className="text-base leading-relaxed mb-4">
                     <Trans i18nKey="about.intro1" components={{ strong: <strong /> }} />
