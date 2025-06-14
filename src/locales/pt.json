@@ -76,7 +76,9 @@
         "reset": "Reiniciar",
         "resetConfirmation": "Tem a certeza que pretende apagar todos os seus dados?",
         "actionCannotBeUndone": "Esta ação não poderá ser desfeita.",
-        "resetAllData": "Apagar todos os seus dados desta plataforma?"
+        "resetAllData": "Apagar todos os seus dados desta plataforma?",
+        "theme": "Tema",
+        "currentTheme": "Tema corrente"
     },
     "common": {
         "title": "Título",
