@@ -29,20 +29,17 @@ export default function GoalsCalendar() {
         };
     });
 
-    const handleNavigate = useCallback((newDate: Date) => {
-        setDate(newDate);
-    }, []);
+    const handleNavigate = useCallback((action: 'PREV' | 'NEXT' | Date) => {
+        if (typeof action === 'string') {
+            const newDate = moment(date).add(action === 'NEXT' ? 1 : -1, 'month').toDate();
+            setDate(newDate);
+        } else {
+            setDate(action);
+        }
+    }, [date]);
 
     const handleView = useCallback((newView: CalendarView) => {
         setView(newView);
-    }, []);
-
-    const handleSelectEvent = useCallback((event: CalendarEvent) => {
-        console.log('Event selected:', event);
-    }, []);
-
-    const handleSelectSlot = useCallback((slotInfo: { start: Date; end: Date }) => {
-        console.log('Slot selected:', slotInfo);
     }, []);
 
     return (
@@ -60,14 +57,12 @@ export default function GoalsCalendar() {
                     view={view}
                     onNavigate={handleNavigate}
                     onView={handleView}
-                    onSelectEvent={handleSelectEvent}
-                    onSelectSlot={handleSelectSlot}
                     views={['month', 'week', 'day']}
                     selectable
                     style={{ zIndex: 1 }}
                     components={{
                         toolbar: (props) => {
-                            const viewNames = ['month', 'week', 'day']; // Match views prop
+                            const viewNames = ['month', 'week', 'day'];
                             return (
                                 <div className="rbc-toolbar" style={{ color: 'var(--color-text)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem', gap: '0.5rem' }}>
                                     <div>
