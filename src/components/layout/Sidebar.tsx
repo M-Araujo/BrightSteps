@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import NavLinks from "../ui/NavLinks";
 import { LayoutDashboard, Target, Repeat, Calendar, BarChart, Lightbulb, Info, Settings } from 'lucide-react';
+
 
 interface SidebarProps {
     isOpen: boolean;
@@ -8,10 +8,17 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
-    const { t } = useTranslation();
-    const iconClass = 'w-5 h-5 group-hover:text-blue-600 transition';
-    const linkClass = 'flex items-center p-2 rounded-lg hover:bg-gray-100 group';
-    const activeClass = 'bg-gray-100 dark:text-blue-600';
+
+    const navLinks = [
+        { 'link': '/', 'label': 'dashboard', 'icon': LayoutDashboard },
+        { 'link': '/goals', 'label': 'goals', 'icon': Target },
+        { 'link': '/habits', 'label': 'habits', 'icon': Repeat },
+        { 'link': '/calendar', 'label': 'calendar', 'icon': Calendar },
+        { 'link': '/stats', 'label': 'stats', 'icon': BarChart },
+        { 'link': '/tips', 'label': 'tips', 'icon': Lightbulb },
+        { 'link': '/about', 'label': 'about', 'icon': Info },
+        { 'link': '/settings', 'label': 'settings', 'icon': Settings }
+    ];
 
     return (
         <>
@@ -29,87 +36,14 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
             >
                 <div className="h-full px-3 pb-4 overflow-y-auto text-left">
                     <ul className="space-y-2 font-medium">
-                        <li>
-                            <NavLink
-                                to="/"
-                                end
-                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
-                                onClick={closeSidebar}
-                            >
-                                <LayoutDashboard className={iconClass} />
-                                <span className="ml-3">{t('menu.dashboard', 'Dashboard')}</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/goals"
-                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
-                                onClick={closeSidebar}
-                            >
-                                <Target className={iconClass} />
-                                <span className="ml-3">{t('menu.goals', 'Goals')}</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/habits"
-                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
-                                onClick={closeSidebar}
-                            >
-                                <Repeat className={iconClass} />
-                                <span className="ml-3">{t('menu.habits', 'Habits')}</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/calendar"
-                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
-                                onClick={closeSidebar}
-                            >
-                                <Calendar className={iconClass} />
-                                <span className="ml-3">{t('menu.calendar', 'Calendar')}</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/stats"
-                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
-                                onClick={closeSidebar}
-                            >
-                                <BarChart className={iconClass} />
-                                <span className="ml-3">{t('menu.stats', 'Stats')}</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/tips"
-                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
-                                onClick={closeSidebar}
-                            >
-                                <Lightbulb className={iconClass} />
-                                <span className="ml-3">{t('menu.tips', 'Tips')}</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/about"
-                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
-                                onClick={closeSidebar}
-                            >
-                                <Info className={iconClass} />
-                                <span className="ml-3">{t('menu.about', 'About')}</span>
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink
-                                to="/settings"
-                                className={({ isActive }) => `${linkClass} ${isActive ? activeClass : ''}`}
-                                onClick={closeSidebar}
-                            >
-                                <Settings className={iconClass} />
-                                <span className="ml-3">{t('menu.settings', 'Settings')}</span>
-                            </NavLink>
-                        </li>
+
+                        {navLinks && (
+                            navLinks.map((link) => (
+                                <li>
+                                    <NavLinks listItem={link} closeSidebar={closeSidebar} />
+                                </li>
+                            ))
+                        )}
                     </ul>
                 </div>
             </aside>

@@ -1,3 +1,5 @@
+import type { FC, SVGProps } from 'react';
+
 export type Lang = 'en' | 'pt';
 
 export type Habit = {
@@ -99,6 +101,18 @@ export type Tip = {
         pt: string;
     };
 };
+
+
+export interface NavItem {
+    label: string;
+    link: string;
+    icon: FC<SVGProps<SVGSVGElement>>; // 👈 This tells TypeScript it's a React component for an SVG
+}
+
+export interface NavLinkProps {
+    listItem: NavItem;
+    closeSidebar: () => void;
+}
 
 export interface PageTitleProps {
     title: string;
