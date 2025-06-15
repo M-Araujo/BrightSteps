@@ -7,7 +7,7 @@ import { useCallback, useState } from 'react';
 import type { Goal, CalendarEvent } from '../types';
 import PageTitle from './../components/ui/PageTitle.tsx';
 
-type CalendarView = 'month' | 'week' | 'day' | 'work_week' | 'agenda'; // Include all View types
+type CalendarView = 'month' | 'week' | 'day' | 'work_week' | 'agenda';
 
 export default function GoalsCalendar() {
     moment.locale('en-GB');
@@ -62,9 +62,34 @@ export default function GoalsCalendar() {
                     onView={handleView}
                     onSelectEvent={handleSelectEvent}
                     onSelectSlot={handleSelectSlot}
-                    views={['month', 'week', 'day']} // UI limited to these views
+                    views={['month', 'week', 'day']}
                     selectable
                     style={{ zIndex: 1 }}
+                    components={{
+                        toolbar: (props) => {
+                            const viewNames = ['month', 'week', 'day']; // Match views prop
+                            return (
+                                <div className="rbc-toolbar" style={{ color: 'var(--color-text)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.5rem', gap: '0.5rem' }}>
+                                    <div>
+                                        <button onClick={() => props.onNavigate('PREV')} style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-card)', border: '1px solid var(--color-muted)', marginRight: '0.5rem', padding: '0.25rem 0.5rem' }}>Prev</button>
+                                        <button onClick={() => props.onNavigate('NEXT')} style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-card)', border: '1px solid var(--color-muted)', padding: '0.25rem 0.5rem' }}>Next</button>
+                                    </div>
+                                    <span style={{ color: 'var(--color-text)', margin: '0 1rem' }}>{props.label}</span>
+                                    <div>
+                                        {viewNames.map((view) => (
+                                            <button
+                                                key={view}
+                                                onClick={() => props.onView(view as CalendarView)}
+                                                style={{ color: 'var(--color-text)', backgroundColor: 'var(--color-card)', border: '1px solid var(--color-muted)', marginLeft: '0.5rem', padding: '0.25rem 0.5rem' }}
+                                            >
+                                                {view.charAt(0).toUpperCase() + view.slice(1)}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            );
+                        },
+                    }}
                 />
             </div>
         </div>

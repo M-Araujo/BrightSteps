@@ -78,7 +78,13 @@ form input {
 form input ::placeholder {
   color: #94a3b8; /* Ensure placeholder visibility */
 }
-
 a:hover {
   color: var(--color-hover);
+}
+
+.custom-calendar .rbc-event {
+  background-color: var(--color-primary) !important; /* #3b82f6 */
+  color: var(--color-text) !important; /* #e5e7eb */
+  border-radius: 4px;
+  padding: 2px 4px;
 }

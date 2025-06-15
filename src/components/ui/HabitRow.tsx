@@ -1,17 +1,13 @@
 import { useState } from 'react';
-import type { HabitRowProps } from '../../types';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import HabitForm from '../../components/modals/forms/HabitForm.tsx';
+import type { HabitRowProps } from '../../types';
 
 export default function HabitRow({ goal, habit, lang, onDeleteRequest }: HabitRowProps) {
 
     const { t } = useTranslation();
     const [showModal, setShowModal] = useState(false);
-    console.log('goal', goal);
-    console.log('habit', habit);
-
-
 
     return (
         <>
@@ -52,7 +48,6 @@ export default function HabitRow({ goal, habit, lang, onDeleteRequest }: HabitRo
                         <Trash2 size={18} />
                     </button>
                 </div>
-
             </div>
             <HabitForm item={habit} lang={lang} show={showModal} onClose={() => setShowModal(false)} />
         </>

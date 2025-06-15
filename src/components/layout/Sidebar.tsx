@@ -39,7 +39,7 @@ export default function Sidebar({ isOpen, closeSidebar }: SidebarProps) {
 
                         {navLinks && (
                             navLinks.map((link) => (
-                                <li>
+                                <li key={link.label}>
                                     <NavLinks listItem={link} closeSidebar={closeSidebar} />
                                 </li>
                             ))

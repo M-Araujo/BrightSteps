@@ -4,7 +4,6 @@ import { Pencil, Trash2 } from 'lucide-react';
 import type { GoalRowProps } from '../../types';
 import GoalForm from '../../components/modals/forms/GoalForm.tsx';
 
-
 export default function GoalRow({ goal, lang, onDeleteRequest }: GoalRowProps) {
     const { t } = useTranslation();
     const [openModal, setOpenModal] = useState<boolean>(false);

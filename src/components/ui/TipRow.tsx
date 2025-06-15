@@ -2,7 +2,6 @@
 import type { TipRowProps } from './../../types';
 
 export default function TipRow({ tip, lang }: TipRowProps) {
-
     return (
         <div
             key={tip.id}
