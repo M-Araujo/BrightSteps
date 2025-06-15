@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { Goal } from '../types';
+import { Goal } from './../../types';
 import axios from 'axios';
 
 

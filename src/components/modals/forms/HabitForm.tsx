@@ -45,7 +45,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
         if (item) {
             updatedGoals = goals.map((goal) => {
                 if (goal.id == newHabit.goalId) {
-                    const associatedHabits = goal['habits']?.map((habit) => {
+                    const associatedHabits = goal['habits']?.map((habit: Habit) => {
                         if (habit.id == item.id) {
                             return newHabit;
                         } else {
