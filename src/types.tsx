@@ -154,3 +154,12 @@ export type ThemeContextType = {
     theme: ThemeMode | null;
     setTheme: (mode: ThemeMode) => void;
 };
+
+
+export interface CreateButtonProps {
+    label: string;
+    onClick: () => void;
+    icon?: React.ReactNode;
+    className?: string;
+    type?: 'button' | 'submit' | 'reset';
+}

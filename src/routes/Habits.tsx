@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { Button } from "flowbite-react";
 import { useState, useEffect } from 'react';
 import type { Habit } from '../types';
 import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
@@ -8,7 +7,7 @@ import toast from 'react-hot-toast';
 import HabitForm from '../components/modals/forms/HabitForm.tsx';
 import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
 import PageTitle from './../components/ui/PageTitle.tsx';
-
+import CreateButton from '../components/ui/CreateButton.tsx';
 
 export default function Habits() {
 
@@ -19,9 +18,7 @@ export default function Habits() {
     const { goals, updateGoals } = useGoalsAndHabits();
     const [showAddModal, setShowAddModal] = useState(false);
 
-
     useEffect(() => { }, [i18n.language, i18n.isInitialized]);
-
 
     // set the habit to delete
     const handleDeleteRequest = (habit: Habit) => {
@@ -46,9 +43,7 @@ export default function Habits() {
 
         <div className="max-w-5xl mx-auto px-6 py-10 rounded-xl shadow-md bg-[var(--color-container)]">
             <PageTitle title={t('menu.habits')} />
-            <div className="flex justify-end mb-4">
-                <Button onClick={() => setShowAddModal(true)}>{t('habits.add')}</Button>
-            </div>
+            <CreateButton onClick={() => setShowAddModal(true)} text={t('habits.add')} />
 
             <div className="overflow-x-auto">
                 <div className="grid sm:grid-cols-1 md:grid-cols-4 font-semibold text-sm px-4 py-2 rounded-md shadow-sm mb-2">

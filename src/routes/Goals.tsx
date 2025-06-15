@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Alert } from "flowbite-react";
+import { Alert } from "flowbite-react";
 import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
 import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
@@ -8,6 +8,7 @@ import GoalForm from '../components/modals/forms/GoalForm.tsx';
 import PageTitle from './../components/ui/PageTitle.tsx';
 import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
 import type { Goal } from '../types';
+import CreateButton from '../components/ui/CreateButton.tsx';
 
 export default function Goals() {
     const { i18n, t } = useTranslation();
@@ -45,9 +46,7 @@ export default function Goals() {
         <div className="max-w-5xl mx-auto px-6 py-10 rounded-xl shadow-md bg-[var(--color-container)]">
             <PageTitle title={t('menu.goals')} />
             {canCreateGoal ?
-                <div className="flex justify-end mb-4">
-                    <Button onClick={() => setOpenModal(true)}>{t('goals.add')}</Button>
-                </div>
+                <CreateButton onClick={() => setOpenModal(true)} text={t('goals.add')} />
                 :
                 <div className="flex w-full">
                     <Alert color="failure" className="mx-auto mb-5">
