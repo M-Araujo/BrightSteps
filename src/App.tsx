@@ -18,114 +18,39 @@ import { Toaster } from 'react-hot-toast';
 function AnimatedRoutes() {
   const location = useLocation();
 
+  const routes = [
+    { path: '/', routeComponent: Dashboard },
+    { path: '/goals', routeComponent: Goals },
+    { path: '/habits', routeComponent: Habits },
+    { path: '/calendar', routeComponent: GoalsCalendar },
+    { path: '/stats', routeComponent: Stats },
+    { path: '/tips', routeComponent: Tips },
+    { path: '/about', routeComponent: About },
+    { path: '/settings', routeComponent: Settings }
+  ];
+
   return (
     <AnimatePresence mode="wait">
       <Toaster position="top-right" />
       <Routes location={location} key={location.pathname}>
-        <Route
-          path="/"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Dashboard />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/goals"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Goals />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/habits"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Habits />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/calendar"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <GoalsCalendar />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/stats"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Stats />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/tips"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Tips />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <About />
-            </motion.div>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Settings />
-            </motion.div>
-          }
-        />
+
+        {routes.map(({ path, routeComponent: RouteComponent }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <RouteComponent />
+              </motion.div>
+            }
+          />
+        ))}
+
       </Routes>
     </AnimatePresence>
   );
