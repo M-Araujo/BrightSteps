@@ -1,10 +1,11 @@
-import { Label, TextInput, Button } from 'flowbite-react';
+import { Label, TextInput } from 'flowbite-react';
 import { useForm } from 'react-hook-form';
 import Modal from '../Modal.tsx';
 import toast from 'react-hot-toast';
+import ModelActionButton from './../../ui/ModelActionButton.tsx';
 import { useTranslation } from 'react-i18next';
 import type { FormProps, GoalsFormData, Goal } from '../../../types.tsx';
-import { useGoalsAndHabits } from '../../../hooks/useGoalsAndHabits.tsx';
+import { useGoalsAndHabits } from '../../../context/goalsAndHabits/useGoalsAndHabits.tsx';
 
 interface GoalFormProps extends Omit<FormProps, 'item'> {
     item?: Goal;
@@ -50,7 +51,7 @@ export default function GoalForm({ show, onClose, item, lang }: GoalFormProps) {
         updateGoals(updatedGoals);
         localStorage.setItem('brightsteps.goalsAndHabits', JSON.stringify(updatedGoals))
 
-        toast.success(item ? t('common.deletedSuccessfully') : t('common.deletedSuccessfully'));
+        toast.success(item ? t('common.updatedSuccessfully') : t('common.createdSuccessfully'));
         onClose();
         reset();
     };
@@ -59,7 +60,7 @@ export default function GoalForm({ show, onClose, item, lang }: GoalFormProps) {
         <Modal
             show={show}
             title={item ? t('goals.editGoal') : t('goals.createGoal')}
-            onClose={onClose}
+            onClose={() => { onClose(); reset(); }}
         >
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
@@ -122,16 +123,8 @@ export default function GoalForm({ show, onClose, item, lang }: GoalFormProps) {
                 </div>
 
                 <div className="flex justify-end gap-2 pt-4">
-                    <Button color="gray" onClick={() => { onClose(); reset(); }}>
-                        {t('modals.cancel')}
-                    </Button>
-                    <Button
-                        type="submit"
-                        color="success"
-                        className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2 rounded-md shadow-md transition transform"
-                    >
-                        {t('modals.submit')}
-                    </Button>
+                    <ModelActionButton onClick={onClose} text={t('modals.cancel')} variant={'cancel'} />
+                    <ModelActionButton type="submit" text={t('modals.submit')} variant={'create'} />
                 </div>
             </form>
         </Modal>

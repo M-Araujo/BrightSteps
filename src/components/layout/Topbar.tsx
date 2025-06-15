@@ -3,7 +3,7 @@ import LanguageSwitcher from '../ui/LanguageSwitcher.tsx';
 import logoLight from './../../assets/logo-light.svg';
 import logoDark from './../../assets/logo-dark.svg';
 import { HiMenu, HiX } from 'react-icons/hi';
-import { ThemeContext } from './../../context/ThemeContext.tsx';
+import { ThemeContext } from './../../context/theme/ThemeContext.tsx';
 import { useContext } from 'react';
 
 interface TopbarProps {
@@ -13,7 +13,7 @@ interface TopbarProps {
 
 export default function Topbar({ toggleSidebar, isSidebarOpen }: TopbarProps) {
 
-    const { theme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext)!;
 
 
     return (

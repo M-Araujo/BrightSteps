@@ -10,7 +10,7 @@ import Settings from "../../src/routes/Settings";
 import { I18nextProvider } from "react-i18next";
 import i18n from "../../src/i18n";
 import "@testing-library/jest-dom";
-import { GoalsAndHabitsProvider } from "../../src/hooks/GoalsAndHabitsContext";
+import { GoalsAndHabitsProvider } from "../../src/context/goalsAndHabits/GoalsAndHabitsContext";
 
 
 // mocks the localstorage

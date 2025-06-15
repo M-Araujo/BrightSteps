@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from "flowbite-react";
 import { useState, useEffect } from 'react';
 import type { Habit } from '../types';
-import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
+import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
 import HabitRow from '../components/ui/HabitRow.tsx';
 import toast from 'react-hot-toast';
 import HabitForm from '../components/modals/forms/HabitForm.tsx';

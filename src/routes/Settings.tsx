@@ -1,10 +1,11 @@
 import { useState, useContext } from 'react';
 import { Button } from 'flowbite-react';
 import { useTranslation } from 'react-i18next';
-import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits.tsx';
-import { ThemeContext } from '../context/ThemeContext.tsx';
+import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
+import { ThemeContext } from '../context/theme/ThemeContext.tsx';
 import Modal from '../components/modals/Modal.tsx';
 import toast from 'react-hot-toast';
+import ModelActionButton from './../components/ui/ModelActionButton.tsx';
 import { Sun, Moon } from 'lucide-react';
 import PageTitle from './../components/ui/PageTitle.tsx';
 
@@ -12,12 +13,18 @@ export default function Settings() {
     const { t } = useTranslation();
     const [show, setShow] = useState<boolean>(false);
     const { resetGoals } = useGoalsAndHabits();
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const themeContext = useContext(ThemeContext);
+
+    if (!themeContext) {
+        throw new Error('ThemeContext not found. Did you forget to wrap your app in <ThemeProvider>?');
+    }
+
+    const { theme, toggleTheme } = themeContext;
 
     const resetAllData = () => {
         resetGoals();
         setShow(false);
-        toast.success('Data resetted successfully!');
+        toast.success(t('settings.resetSuccessfull'));
     };
 
     return (
@@ -60,19 +67,8 @@ export default function Settings() {
                 <p className="mb-4">{t('settings.actionCannotBeUndone')}</p>
 
                 <div className="flex justify-end gap-2">
-                    <Button
-                        onClick={() => setShow(false)}
-                        className="px-6 py-2 rounded-md bg-gray-200 dark:bg-gray-700 text-[var(--color-text)] hover:bg-gray-300 dark:hover:bg-gray-600 transition transform hover:scale-[1.05] shadow-md"
-                    >
-                        {t('modals.cancel')}
-                    </Button>
-                    <Button
-                        color="failure"
-                        onClick={resetAllData}
-                        className="px-6 py-2 rounded-md text-white font-semibold shadow-md transition transform hover:scale-[1.05]"
-                    >
-                        {t('modals.reset')}
-                    </Button>
+                    <ModelActionButton onClick={() => setShow(false)} text={t('modals.cancel')} variant={'cancel'} />
+                    <ModelActionButton onClick={resetAllData} text={t('modals.reset')} variant={'failure'} />
                 </div>
             </Modal>
         </div>

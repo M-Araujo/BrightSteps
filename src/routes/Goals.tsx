@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Alert } from "flowbite-react";
-import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits.tsx';
+import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
 import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
 import GoalForm from '../components/modals/forms/GoalForm.tsx';

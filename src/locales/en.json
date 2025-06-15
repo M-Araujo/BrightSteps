@@ -52,6 +52,7 @@
     "add": "+ Add habit",
     "noHabits": "No habits",
     "createHabit": "Create habit",
+    "editHabit": "Edit habit",
     "maxHabitReached": "max habit reached"
   },
 
@@ -82,7 +83,8 @@
     "actionCannotBeUndone": "This action cannot be undone",
     "resetAllData": "Reset all your data from this platform?",
     "theme": "Theme",
-    "currentTheme": "Current theme"
+    "currentTheme": "Current theme",
+    "resetSuccessfull": "Data reset successfully"
   },
 
   "common": {
@@ -94,6 +96,7 @@
     "submit": "Submit",
     "deletedSuccessfully": "Item deleted successfully",
     "updatedSuccessfully": "Item updated successfully",
+    "createdSuccessfully": "Item created successfully",
     "minVal": "min val",
     "invalidNumber": "invalid number"
   },

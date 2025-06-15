@@ -51,6 +51,7 @@
         "add": "+ Adicionar hábito",
         "noHabits": "Sem hábitos",
         "createHabit": "Criar hábito",
+        "editHabit": "Editar hábito",
         "maxHabitReached": "valor limite de hábitos alcançado",
         "minVal": "valor mínimo",
         "invalidNumber": "numero inválido"
@@ -83,7 +84,8 @@
         "actionCannotBeUndone": "Esta ação não poderá ser desfeita.",
         "resetAllData": "Apagar todos os seus dados desta plataforma?",
         "theme": "Tema",
-        "currentTheme": "Tema corrente"
+        "currentTheme": "Tema corrente",
+        "resetSuccessfull": "Dados reiniciados com sucesso"
     },
     "common": {
         "title": "Título",
@@ -93,7 +95,8 @@
         "endDateTooEarly": "A data de fim tem ser posterior à data de início.",
         "submit": "Submeter",
         "deletedSuccessfully": "Item apagado com sucesso",
-        "updatedSuccessfully": "Item updated successfully"
+        "updatedSuccessfully": "Item atualizado com sucesso",
+        "createdSuccessfully": "Item criado com sucesso"
     },
     "modals": {
         "submit": "Submeter",

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { Checkbox, Label } from "flowbite-react";
 import type { Goal, Movie, Mentor, Tip, Habit } from '../types';
-import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
+import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import axios from 'axios';

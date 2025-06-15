@@ -2,7 +2,7 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useTranslation } from 'react-i18next';
-import { useGoalsAndHabits } from '../hooks/useGoalsAndHabits';
+import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
 import { useCallback, useState } from 'react';
 import type { Goal, CalendarEvent } from '../types';
 import PageTitle from './../components/ui/PageTitle.tsx';

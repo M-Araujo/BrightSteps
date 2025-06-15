@@ -102,6 +102,14 @@ export type Tip = {
     };
 };
 
+export type ButtonProps = {
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    text: string;
+    variant?: 'default' | 'cancel' | 'failure' | 'create' | 'edit';
+    type?: 'button' | 'submit' | 'reset';
+    className?: string;
+    disabled?: boolean;
+};
 
 export interface NavItem {
     label: string;
@@ -140,3 +148,9 @@ export interface CalendarEvent {
 }
 
 export type ThemeMode = 'light' | 'dark';
+
+export type ThemeContextType = {
+    toggleTheme: () => void;
+    theme: ThemeMode | null;
+    setTheme: (mode: ThemeMode) => void;
+};

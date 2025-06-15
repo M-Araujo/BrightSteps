@@ -1,10 +1,12 @@
-import { Label, TextInput, Select, Checkbox, Button } from "flowbite-react";
+import { Label, TextInput, Select, Checkbox } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import { useGoalsAndHabits } from '../../../hooks/useGoalsAndHabits.tsx';
+import { useGoalsAndHabits } from '../../../context/goalsAndHabits/useGoalsAndHabits.tsx';
 import Modal from '../Modal.tsx';
 import toast from 'react-hot-toast';
+import ModelActionButton from './../../ui/ModelActionButton.tsx';
 import type { FormProps, HabitsFormData, Habit } from '../../../types.tsx';
+
 
 interface HabitFormProps extends Omit<FormProps, 'item'> {
     item?: Habit;
@@ -17,7 +19,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
         frequency: item?.frequency || [],
     }
 
-    const { register, handleSubmit, formState: { errors } } = useForm<HabitsFormData>({ defaultValues });
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<HabitsFormData>({ defaultValues });
     const { t } = useTranslation();
     const { goals, updateGoals } = useGoalsAndHabits();
 
@@ -66,7 +68,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
 
         updateGoals(updatedGoals);
         onClose();
-        toast.success(item ? t('common.deletedSuccessfully') : t('common.deletedSuccessfully'))
+        toast.success(item ? t('common.updatedSuccessfully') : t('common.createdSuccessfully'))
     }
 
     return (
@@ -74,7 +76,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
             <Modal
                 show={show}
                 title={item ? t('habits.editHabit') : t('habits.createHabit')}
-                onClose={onClose}>
+                onClose={() => { onClose(); reset(); }}>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div>
                         <div className="mb-2 block">
@@ -122,7 +124,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
 
                     <div>
                         <div className="mb-2 block">
-                            <Label htmlFor="frequency">{t('habits.frequency')}</Label>
+                            <Label htmlFor="frequency" className="cursor-pointer select-none !text-[var(--color-text)]">{t('habits.frequency')}</Label>
                         </div>
 
                         <div >
@@ -151,14 +153,8 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
                         </div>
                     </div>
                     <div className="flex justify-end space-x-2 mt-4">
-                        <Button color="gray" onClick={onClose}> {t('modals.cancel')}</Button>
-                        <Button
-                            type="submit"
-                            color="success"
-                            className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2 rounded-md shadow-md transition transform"
-                        >
-                            {t('modals.submit')}
-                        </Button>
+                        <ModelActionButton onClick={onClose} text={t('modals.cancel')} variant={'cancel'} />
+                        <ModelActionButton type="submit" text={t('modals.submit')} variant={'create'} />
                     </div>
                 </form>
             </Modal>
