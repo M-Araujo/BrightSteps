@@ -5,7 +5,7 @@ import pt from './locales/pt.json'
 
 i18n.use(initReactI18next).init({
   fallbackLng: "en",
-  lng: localStorage.getItem("lang") || "en",
+  lng: localStorage.getItem("brightsteps.lang") || "en",
   interpolation: {
     escapeValue: false,
   },
