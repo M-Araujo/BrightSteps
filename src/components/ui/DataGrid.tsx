@@ -6,7 +6,7 @@ type DataGridProps<T> = {
 
 export default function DataGrid<T>({ gridHeader, data, renderRow }: DataGridProps<T>) {
 
-    const gridColsClassMap = {
+    const gridColsClassMap: { [key: number]: string } = {
         1: 'md:grid-cols-1',
         2: 'md:grid-cols-2',
         3: 'md:grid-cols-3',
@@ -15,12 +15,10 @@ export default function DataGrid<T>({ gridHeader, data, renderRow }: DataGridPro
         6: 'md:grid-cols-6',
     };
     const gridColsClass = gridColsClassMap[gridHeader.length] || 'md:grid-cols-1';
-    console.log(gridColsClass);
+
     return (
         <div className="overflow-x-auto">
-
-            <div className={`grid grid-cols-1 ${gridColsClass} py-2 mb-2 text-sm font-medium `}>
-
+            <div className={`grid grid-cols-1 ${gridColsClass} py-2 mb-2 font-semibold `}>
                 {gridHeader.map((item) => (
                     <span key={item.id}>{item.title}</span>
                 ))
