@@ -1,9 +1,9 @@
 import Modal from './Modal.tsx';
 import { useTranslation } from 'react-i18next';
-import ModelActionButton from './../ui/ModelActionButton.tsx';
-import type { DeleteConfirmationProps } from './../../types.tsx';
+import ModelActionButton from '../ui/ModelActionButton.tsx';
+import type { DeleteConfirmationProps } from '../../types.tsx';
 
-export default function DeleteConfirmation({ show, onClose, onConfirm, title }: DeleteConfirmationProps) {
+export default function DeleteConfirmationModal({ show, onClose, onConfirm, title }: DeleteConfirmationProps) {
     const { t } = useTranslation();
 
     return (

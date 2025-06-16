@@ -6,7 +6,7 @@ import GoalRow from './../components/ui/GoalRow.tsx';
 import toast from 'react-hot-toast';
 import GoalForm from '../components/modals/forms/GoalForm.tsx';
 import PageTitle from './../components/ui/PageTitle.tsx';
-import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
+import DeleteConfirmation from '../components/modals/DeleteConfirmationModal.tsx';
 import type { Goal } from '../types';
 import CreateButton from '../components/ui/CreateButton.tsx';
 import DataGrid from './../components/ui/DataGrid.tsx';

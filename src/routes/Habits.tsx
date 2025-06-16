@@ -5,7 +5,7 @@ import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.t
 import HabitRow from '../components/ui/HabitRow.tsx';
 import toast from 'react-hot-toast';
 import HabitForm from '../components/modals/forms/HabitForm.tsx';
-import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
+import DeleteConfirmation from '../components/modals/DeleteConfirmationModal.tsx';
 import PageTitle from './../components/ui/PageTitle.tsx';
 import CreateButton from '../components/ui/CreateButton.tsx';
 import DataGrid from './../components/ui/DataGrid.tsx';
