@@ -98,7 +98,8 @@
     "updatedSuccessfully": "Item updated successfully",
     "createdSuccessfully": "Item created successfully",
     "minVal": "min val",
-    "invalidNumber": "invalid number"
+    "invalidNumber": "invalid number",
+    "errorLoadingData": "⚠️ Error loading data. Please try again later."
   },
   "modals": {
     "submit": "Submit",

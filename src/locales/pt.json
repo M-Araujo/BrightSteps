@@ -96,7 +96,8 @@
         "submit": "Submeter",
         "deletedSuccessfully": "Item apagado com sucesso",
         "updatedSuccessfully": "Item atualizado com sucesso",
-        "createdSuccessfully": "Item criado com sucesso"
+        "createdSuccessfully": "Item criado com sucesso",
+        "errorLoadingData": "⚠️ Erro ao fazer o pedido. Por favor tente mais tarde."
     },
     "modals": {
         "submit": "Submeter",
