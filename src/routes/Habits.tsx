@@ -8,6 +8,7 @@ import HabitForm from '../components/modals/forms/HabitForm.tsx';
 import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
 import PageTitle from './../components/ui/PageTitle.tsx';
 import CreateButton from '../components/ui/CreateButton.tsx';
+import DataGrid from './../components/ui/DataGrid.tsx';
 
 export default function Habits() {
 
@@ -17,6 +18,13 @@ export default function Habits() {
     const [habitToDelete, setHabitToDelete] = useState<Habit | null>(null);
     const { goals, updateGoals } = useGoalsAndHabits();
     const [showAddModal, setShowAddModal] = useState(false);
+    const gridHeader = [
+        { id: 1, title: '🎯' + ' ' + t('habits.title') },
+        { id: 2, title: '📅' + ' ' + t('habits.goal') },
+        { id: 3, title: '📆' + ' ' + t('habits.frequency') },
+        { id: 4, title: '📊' + ' ' + t('habits.actions') }
+    ];
+
 
     useEffect(() => { }, [i18n.language, i18n.isInitialized]);
 
@@ -45,22 +53,23 @@ export default function Habits() {
             <PageTitle title={t('menu.habits')} />
             <CreateButton onClick={() => setShowAddModal(true)} text={t('habits.add')} />
 
-            <div className="overflow-x-auto">
-                <div className="grid sm:grid-cols-1 md:grid-cols-4 font-semibold text-sm px-4 py-2 rounded-md shadow-sm mb-2">
-                <span>🎯 {t('habits.title')}</span>
-                <span>📅 {t('habits.goal')}</span>
-                <span>📆 {t('habits.frequency')}</span>
-                <span>📊 {t('habits.actions')}</span>
-                </div>
-                <div className="space-y-2">
-                    {goals.map(goal =>
-                        goal.habits?.map(habit => (
-                            <HabitRow key={habit.id} goal={goal} habit={habit} lang={lang} onDeleteRequest={handleDeleteRequest} />
-                        ))
-                    )}
-                </div>
-            </div>
+            <DataGrid
+                gridHeader={gridHeader}
+                data={goals.flatMap(goal =>
+                    goal.habits?.map(habit => ({ habit, goal })) || []
+                )}
+                renderRow={({ habit, goal }) => (
+                    <HabitRow
+                        key={habit.id}
+                        habit={habit}
+                        goal={goal}
+                        lang={lang}
+                        onDeleteRequest={handleDeleteRequest}
+                    />
+                )}
 
+
+            />
             {goals && goals.length === 0 && (
                 <p className="text-center py-6">
                     {t('habits.noHabits')}
