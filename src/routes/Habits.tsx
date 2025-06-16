@@ -67,8 +67,6 @@ export default function Habits() {
                         onDeleteRequest={handleDeleteRequest}
                     />
                 )}
-
-
             />
             {goals && goals.length === 0 && (
                 <p className="text-center py-6">

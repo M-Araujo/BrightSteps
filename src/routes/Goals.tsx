@@ -9,6 +9,7 @@ import PageTitle from './../components/ui/PageTitle.tsx';
 import DeleteConfirmation from '../components/modals/DeleteConfirmation.tsx';
 import type { Goal } from '../types';
 import CreateButton from '../components/ui/CreateButton.tsx';
+import DataGrid from './../components/ui/DataGrid.tsx';
 
 export default function Goals() {
     const { i18n, t } = useTranslation();
@@ -19,7 +20,13 @@ export default function Goals() {
     const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
     const [canCreateGoal, setCanCreateGoal] = useState<boolean>(true);
     const maxGoals: number = 10;
-
+    const gridHeader = [
+        { id: 1, title: '🎯' + ' ' + t('goals.goal') },
+        { id: 2, title: '📅' + ' ' + t('goals.startDate') },
+        { id: 3, title: '📆' + ' ' + t('goals.endDate') },
+        { id: 4, title: '📊' + ' ' + t('goals.status') },
+        { id: 5, title: '📊' + ' ' + t('habits.actions') }
+    ];
     // set the goal to delete
     const handleDeleteRequest = (goal: Goal) => {
         setGoalToDelete(goal);
@@ -29,7 +36,7 @@ export default function Goals() {
     // shows modal
     const handleConfirmDelete = () => {
         const filteredGoals = goals.filter((goal) => {
-            return goal.id != goalToDelete?.id;
+            return goal.id !== goalToDelete?.id;
         });
 
         updateGoals(filteredGoals);
@@ -55,20 +62,18 @@ export default function Goals() {
                 </div>
             }
 
-            <div className="overflow-x-auto">
-                <div className="grid sm:grid-cols-1 md:grid-cols-5 font-semibold text-sm px-4 py-2 rounded-md shadow-sm mb-2">
-                    <span>🎯 {t('goals.goal')}</span>
-                    <span>📅 {t('goals.startDate')}</span>
-                    <span>📆 {t('goals.endDate')}</span>
-                    <span>📊 {t('goals.status')}</span>
-                    <span>📊 {t('goals.actions')}</span>
-                </div>
-                <div className="space-y-2">
-                    {goals && goals.map((goal) => (
-                        <GoalRow key={goal.id} goal={goal} lang={lang} onDeleteRequest={handleDeleteRequest} />
-                    ))}
-                </div>
-            </div>
+            <DataGrid
+                gridHeader={gridHeader}
+                data={goals}
+                renderRow={(goal) => (
+                    <GoalRow
+                        key={goal.id}
+                        goal={goal}
+                        lang={lang}
+                        onDeleteRequest={handleDeleteRequest}
+                    />
+                )}
+            />
 
             {goals && goals.length === 0 && (
                 <p className="text-center py-6">
