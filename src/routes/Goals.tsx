@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from "flowbite-react";
 import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
@@ -20,13 +20,14 @@ export default function Goals() {
     const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
     const [canCreateGoal, setCanCreateGoal] = useState<boolean>(true);
     const maxGoals: number = 10;
-    const gridHeader = [
+    const gridHeader = useMemo(() => [
         { id: 1, title: '🎯' + ' ' + t('goals.goal') },
         { id: 2, title: '📅' + ' ' + t('goals.startDate') },
         { id: 3, title: '📆' + ' ' + t('goals.endDate') },
         { id: 4, title: '📊' + ' ' + t('goals.status') },
         { id: 5, title: '📊' + ' ' + t('habits.actions') }
-    ];
+    ], [t]);
+
     // set the goal to delete
     const handleDeleteRequest = (goal: Goal) => {
         setGoalToDelete(goal);

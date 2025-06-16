@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import type { Tip } from '../types';
 import TipRow from '../components/ui/TipRow.tsx';
 import PageTitle from './../components/ui/PageTitle.tsx';
@@ -10,10 +10,10 @@ export default function Tips() {
     const { t, i18n } = useTranslation();
     const lang = i18n.language as 'en' | 'pt';
     const [tips, setTips] = useState<Tip[]>([]);
-    const gridHeader = [
-        { id: 1, title: '🎯' + ' ' + t('tips.title') },
-        { id: 2, title: '📅' + ' ' + t('tips.description') }
-    ];
+    const gridHeader = useMemo(() => [
+        { id: 1, title: '🎯 ' + t('tips.title') },
+        { id: 2, title: '📅 ' + t('tips.description') }
+    ], [t]);
 
     useEffect(() => {
         axios.get("https://brighsteps-api.vercel.app/api/tips")

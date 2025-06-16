@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import type { Habit } from '../types';
 import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
 import HabitRow from '../components/ui/HabitRow.tsx';
@@ -18,12 +18,12 @@ export default function Habits() {
     const [habitToDelete, setHabitToDelete] = useState<Habit | null>(null);
     const { goals, updateGoals } = useGoalsAndHabits();
     const [showAddModal, setShowAddModal] = useState(false);
-    const gridHeader = [
+    const gridHeader = useMemo(() => [
         { id: 1, title: '🎯' + ' ' + t('habits.title') },
         { id: 2, title: '📅' + ' ' + t('habits.goal') },
         { id: 3, title: '📆' + ' ' + t('habits.frequency') },
         { id: 4, title: '📊' + ' ' + t('habits.actions') }
-    ];
+      ], [t]);
 
 
     useEffect(() => { }, [i18n.language, i18n.isInitialized]);
