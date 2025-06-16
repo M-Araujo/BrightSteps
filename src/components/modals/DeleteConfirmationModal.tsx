@@ -12,7 +12,7 @@ export default function DeleteConfirmationModal({ show, onClose, onConfirm, titl
             title={t('modals.deleteItem')}
             onClose={onClose}
         >
-            <p id="modal-description" className="text-gray-700 mb-6">
+            <p id="modal-description" className="mb-6">
                 {t('modals.areYouSure')} <span className="font-semibold">"{title}"</span>?
             </p>
             <div className="flex justify-end space-x-2">

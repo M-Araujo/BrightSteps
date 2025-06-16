@@ -15,17 +15,18 @@ export default function DataGrid<T>({ gridHeader, data, renderRow }: DataGridPro
         6: 'md:grid-cols-6',
     };
     const gridColsClass = gridColsClassMap[gridHeader.length] || 'md:grid-cols-1';
-
+    console.log(gridColsClass);
     return (
         <div className="overflow-x-auto">
-            <div className={`grid sm:grid-cols-1 ${gridColsClass} font-semibold text-sm px-4 py-2 rounded-md shadow-sm mb-2`}>
+
+            <div className={`grid grid-cols-1 ${gridColsClass} py-2 mb-2 text-sm font-medium `}>
 
                 {gridHeader.map((item) => (
                     <span key={item.id}>{item.title}</span>
                 ))
                 }
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 text-sm font-normal">
                 {data.map((item, index) => renderRow(item, index))}
             </div>
         </div>
