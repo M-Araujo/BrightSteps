@@ -1,5 +1,4 @@
-import { useTranslation } from 'react-i18next'
-import Card from './../components/ui/Card.tsx';
+import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
 import { Checkbox, Label } from "flowbite-react";
@@ -8,9 +7,12 @@ import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.t
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import axios from 'axios';
+import BarChartComponent from '../components/charts/BarChartComponent.tsx';
+import { CardContent } from "@/components/ui/card";
+import DashboardCard from './../components/ui/DashboardCard.tsx';
+import buildDashboardBarData from './../lib/charts/chartDataBuilders.ts';
 
 export default function Dashboard() {
-
     const { t, i18n } = useTranslation();
     const lang = i18n.language as 'en' | 'pt';
     const [movie, setMovie] = useState<Movie>();
@@ -19,113 +21,75 @@ export default function Dashboard() {
     const [todaysHabits, setTodaysHabits] = useState<Goal[]>([]);
     const { goals, updateHabit } = useGoalsAndHabits();
     const [confetti, showConfetti] = useState(false);
-    const { width, height } = useWindowSize()
+    const { width, height } = useWindowSize();
+    const chartData = buildDashboardBarData(goals);
+
 
     useEffect(() => {
-        //localStorage.clear();
-
         axios.get('https://brighsteps-api.vercel.app/api/dashboard')
-            .then(function (response) {
+            .then((response) => {
                 const data = response['data'];
                 setMovie(data['movie']);
                 setMentor(data['mentor']);
                 setTip(data['tip']);
             })
-            .catch(function (error) {
-                console.log('Oppps, something went wrong.');
+            .catch((error) => {
+                console.log('Oops, something went wrong.');
                 console.log(error);
             });
-
     }, []);
-
 
     useEffect(() => {
         if (!goals || goals.length === 0) return;
-
         const currentDay = new Date().getDay();
-        const weekday = currentDay === 0 ? 7 : currentDay; // Sunday=7, Monday=1, etc.
+        const weekday = currentDay === 0 ? 7 : currentDay;
         const todayDate = new Date();
-
-        // filter goals to present only goals that are active today
-        const getActiveGoals = goals.filter((goal) => {
-            return todayDate > new Date(goal.startDate) && todayDate < new Date(goal.endDate);
-        });
-
-        const filtered = getActiveGoals.map((goal) => {
-            const goalHabits = goal.habits ?? [];
-            const filteredHabits = goalHabits.filter((habit) =>
-                habit.frequency.includes(weekday)
-            );
-            return {
-                ...goal,
-                habits: filteredHabits,
-            };
-        }).filter(goal => goal.habits.length > 0);
+        const getActiveGoals = goals.filter((goal) => todayDate > new Date(goal.startDate) && todayDate < new Date(goal.endDate));
+        const filtered = getActiveGoals.map((goal) => ({
+            ...goal,
+            habits: (goal.habits ?? []).filter((habit) => habit.frequency.includes(weekday)),
+        })).filter(goal => goal.habits.length > 0);
         setTodaysHabits(filtered);
-    }, [goals])
-
+    }, [goals]);
 
     const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-        if (event.target.checked == true) {
+        if (event.target.checked) {
             showConfetti(true);
-            setTimeout(function () {
-                showConfetti(false);
-            }, 7000);
+            setTimeout(() => showConfetti(false), 7000);
         }
-
         updateHabit(Number(event.target.id));
-        // TODO filter goals only that are todays goals
-    }
+    };
 
     const isHabitCompletedForToday = (habit: Habit) => {
         const todaysDate = new Date().toISOString().slice(0, 10);
-        if (habit['completions'].includes(todaysDate)) {
-            return true;
-        }
-        return false;
-    }
+        return habit['completions'].includes(todaysDate);
+    };
 
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-[var(--color-container)] rounded-xl shadow-xl">
-
             <div className="fixed inset-0 z-50 pointer-events-none">
-                {confetti && (
-                    <Confetti
-                        width={width}
-                        height={height}
-                        tweenDuration={1000}
-                    />
-                )}
+                {confetti && <Confetti width={width} height={height} tweenDuration={1000} />}
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1 ">
+                <DashboardCard className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
                     <div className="max-w-md mx-auto text-center py-6 px-4">
-                        <p className="text-2xl font-semibold mb-2 text-[var(--color-accent)]">
-                            {t('dashboard.welcome')}
-                        </p>
-                        <p className="text-base leading-relaxed">
-                            {t('dashboard.description')}
-                        </p>
+                        <p className="text-2xl font-semibold mb-2 text-[var(--color-accent)]">{t('dashboard.welcome')}</p>
+                        <p className="text-base leading-relaxed">{t('dashboard.description')}</p>
                     </div>
-                </Card>
+                </DashboardCard>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-y-auto pr-2 p-4 rounded-lg">
+                <DashboardCard className="h-[12rem] overflow-y-auto pr-2 p-4 rounded-lg">
                     <h2 className="text-xl font-semibold mb-4">{t('dashboard.habits')}</h2>
-
                     {todaysHabits && todaysHabits.map((goal) => (
                         <div key={goal.id} className="mb-6 border-b border-indigo-100 pb-4 last:border-0 last:pb-0">
                             <h3 className="text-md font-semibold text-[var(--color-accent)] mb-3 uppercase tracking-wide border-b border-indigo-300 pb-1">
                                 {goal.title?.[lang] ?? goal.title.en}
                             </h3>
-
                             {goal.habits?.map((habit) => (
-                                <div
-                                    key={habit.id}
-                                    className="flex items-center gap-3 mb-2 p-2 rounded-md cursor-pointer transition-colors"
-                                >
+                                <div key={habit.id} className="flex items-center gap-3 mb-2 p-2 rounded-md cursor-pointer transition-colors">
                                     <Checkbox checked={isHabitCompletedForToday(habit)} onChange={(e) => handleCheckboxChange(e)} id={`${habit.id}`} />
                                     <Label htmlFor={`${habit.id}`} className="cursor-pointer select-none !text-[var(--color-text)]">
                                         {habit.title?.[lang] ?? habit.title?.en}
@@ -134,22 +98,22 @@ export default function Dashboard() {
                             ))}
                         </div>
                     ))}
-                </Card>
+                </DashboardCard>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
+                <DashboardCard className="h-[12rem] overflow-none pr-1">
                     <h2 className="text-xl font-semibold mb-4">{t('dashboard.summary')}</h2>
-                </Card>
+                    <CardContent className="p-0 h-full">
+                        <BarChartComponent data={chartData} />
+                    </CardContent>
+                </DashboardCard>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
+                <DashboardCard className="h-[12rem] overflow-hidden overflow-y-auto pr-1">
                     <div className="flex flex-col justify-center h-full px-4 overflow-y-auto">
-                        <h2 className="text-lg font-semibold mb-2">
-                            {t('dashboard.tip')}
-                        </h2>
-
+                        <h2 className="text-lg font-semibold mb-2">{t('dashboard.tip')}</h2>
                         {tip ? (
                             <>
                                 <blockquote className="relative border-l-4 border-primary pl-3 italic font-serif text-lg leading-relaxed">
@@ -161,29 +125,22 @@ export default function Dashboard() {
                                 <p className="text-sm">{t('dashboard.loading')}</p>
                         )}
                     </div>
-                </Card>
+                </DashboardCard>
             </div>
 
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[30rem] flex flex-col justify-between">
+                <DashboardCard className="h-[30rem] flex flex-col justify-between">
                     <h2 className="text-lg font-semibold mb-2">{t('dashboard.inspiration')}</h2>
-
                     {!movie ? (
                         <p className="text-sm">{t('dashboard.loading')}</p>
                     ) : (
                         <>
                             {movie.title?.[lang] && (
-                                    <p className="text-md font-medium mb-1 min-h-[3rem] leading-normal">
-                                    {movie.title[lang]}
-                                </p>
-                            )}
-
+                                    <p className="text-md font-medium mb-1 min-h-[3rem] leading-normal">{movie.title[lang]}</p>
+                                )}
                             {movie.description?.[lang] && (
-                                    <p className="text-sm mb-3 line-clamp-3 min-h-[4rem] leading-normal">
-                                    {movie.description[lang]}
-                                </p>
-                            )}
-
+                                    <p className="text-sm mb-3 line-clamp-3 min-h-[4rem] leading-normal">{movie.description[lang]}</p>
+                                )}
                             {movie.link && movie.link.includes('youtube.com') && (
                                     <div className="w-full h-60 mt-2 overflow-hidden rounded-md">
                                     <iframe
@@ -196,45 +153,28 @@ export default function Dashboard() {
                                     ></iframe>
                                 </div>
                             )}
-
-
-                            {!movie.link && (
-                                    <p className="text-xs mt-2">{t('dashboard.noVideoAvailable')}</p>
-                            )}
+                                {!movie.link && <p className="text-xs mt-2">{t('dashboard.noVideoAvailable')}</p>}
                         </>
                     )}
-                </Card>
+                </DashboardCard>
             </div>
 
-
             <div className="sm:col-span-2 lg:col-span-2">
-                <Card className="h-[30rem] flex flex-col justify-between">
+                <DashboardCard className="h-[30rem] flex flex-col justify-between">
                     <h2 className="text-lg font-semibold mb-2">{t('dashboard.mentors')}</h2>
-
                     {mentor && (
                         <>
                             {mentor.title?.[lang] && (
-                                <p className="text-md font-medium mb-1 min-h-[3rem] leading-normal">
-                                    {mentor.title[lang]}
-                                </p>
+                                <p className="text-md font-medium mb-1 min-h-[3rem] leading-normal">{mentor.title[lang]}</p>
                             )}
-
                             {mentor.description?.[lang] && (
-                                <p className="text-sm mb-3 line-clamp-3 min-h-[4rem] leading-normal">
-                                    {mentor.description[lang]}
-                                </p>
+                                <p className="text-sm mb-3 line-clamp-3 min-h-[4rem] leading-normal">{mentor.description[lang]}</p>
                             )}
-
                             {mentor.image ? (
                                 <div className="w-full h-60 mt-2 overflow-hidden rounded-md">
-                                    <img
-                                        src={mentor.image}
-                                        alt=""
-                                        className="w-full h-full object-cover rounded-md"
-                                    />
+                                    <img src={mentor.image} alt="" className="w-full h-full object-cover rounded-md" />
                                 </div>
                             ) : (
-
                                 mentor.link && mentor.link.includes('youtube.com') && (
                                     <div className="w-full h-60 mt-2 overflow-hidden rounded-md">
                                         <iframe
@@ -250,7 +190,7 @@ export default function Dashboard() {
                             )}
                         </>
                     )}
-                </Card>
+                </DashboardCard>
             </div>
         </div>
     );

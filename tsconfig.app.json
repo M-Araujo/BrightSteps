@@ -25,5 +25,11 @@
     "noUncheckedSideEffectImports": true,
     "types" : ["jest", "node"]
   },
-  "include": ["src", "tests"]
+  "include": ["src", "tests"],
+  "baseUrl": ".",
+  "paths": {
+    "@/*": [
+      "./src/*"
+    ]
+  }
 }
