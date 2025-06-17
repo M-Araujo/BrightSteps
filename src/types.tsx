@@ -163,3 +163,16 @@ export interface CreateButtonProps {
     className?: string;
     type?: 'button' | 'submit' | 'reset';
 }
+
+export type DataChart = {
+    labels: string[];
+    datasets: [{
+        label: string;
+        data: number[];
+        backgroundColor: string;
+        borderRadius: number;
+    }]
+}
+export type DataChartProps = {
+    data: DataChart;
+};

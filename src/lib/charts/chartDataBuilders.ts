@@ -61,7 +61,7 @@ export function buildDonutData(goals: Goal[]) {
   const weekday = currentDay === 0 ? 7 : currentDay;
 
   goals.forEach((goal) => {
-    goal.habits.forEach((habit) => {
+    goal.habits?.forEach((habit) => {
       if (habit.frequency.includes(weekday)) {
         total++;
         if (habit.completions.includes(today)) {

@@ -1,18 +1,7 @@
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
+import type { DataChartProps } from './../../types.tsx';
 
-type DataChart = {
-    labels: string[];
-    datasets: [{
-        label: string;
-        data: number[];
-        backgroundColor: string;
-        borderRadius: number;
-    }]
-}
-type BarChartProps = {
-    data: DataChart;
-};
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -27,6 +16,6 @@ const options = {
     layout: { padding: 0 },
 };
 
-export default function BarChartComponent({ data }: BarChartProps) {
+export default function BarChartComponent({ data }: DataChartProps) {
     return <div style={{ height: '110px', width: '100%' }}><Bar data={data} options={options} /></div>;
 }
