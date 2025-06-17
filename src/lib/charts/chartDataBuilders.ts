@@ -1,6 +1,17 @@
 
 import type { Goal } from "./../../types";
 
+
+/**
+ * Builds bar chart data showing the number of times each habit 
+ * was completed in the past 7 days.
+ *
+ * X-axis: Habit titles
+ * Y-axis: Completion count over the past week
+ * 
+ * Filters completions to only include dates between today and 7 days ago..
+ */
+
 export default function buildDashboardBarBata(goals: Goal[]) {
   const formatDate = (date: Date) => date.toISOString().slice(0, 10);
   const todaysDate = new Date();
@@ -49,6 +60,19 @@ export default function buildDashboardBarBata(goals: Goal[]) {
 const getDateToString = (m: number, y: number, d: number): string => {
   return `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
 };
+
+
+/**
+ * Builds donut chart data representing today's habit completion status.
+ *
+ * Filters habits scheduled for today (based on frequency).
+ * Counts how many of those have been completed (based on today's date).
+ * 
+ * Returns data formatted for a donut/pie chart:
+ * - "Completed" vs "Remaining"
+ * - Useful for visualizing daily habit progress at a glance.
+ */
+
 
 export function buildDonutData(goals: Goal[]) {
   let total = 0;

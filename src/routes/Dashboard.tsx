@@ -104,7 +104,7 @@ export default function Dashboard() {
 
             <div className="sm:col-span-2 lg:col-span-2">
                 <DashboardCard className="h-[12rem] overflow-none pr-1">
-                    <h2 className="text-xl font-semibold mb-4">{t('dashboard.summary')}</h2>
+                    <h2 className="text-xl font-semibold mb-4">Weekly Habit Activity</h2>
                     <CardContent className="p-0 h-full">
                         <BarChartComponent data={chartData} />
                     </CardContent>

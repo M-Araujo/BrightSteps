@@ -31,7 +31,7 @@ export default function Stats() {
                 </div>
 
                 <div className="sm:col-span-2 lg:col-span-2 mb-8 p-4 bg-[var(--color-card)] rounded-lg shadow-sm">
-                    <p className="justify-center flex items-center">Completed habits for today vs pending habits for today</p>
+                    <p className="justify-center flex items-center">Today's Habit Completion</p>
                     <div className="justify-center flex items-center space-x-4">
                         <CardContent className="p-0 h-full">
                             <DonutChartComponent data={chartData} />
