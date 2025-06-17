@@ -1,7 +1,6 @@
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 
-
 type DataChart = {
     labels: string[];
     datasets: [{
@@ -11,21 +10,11 @@ type DataChart = {
         borderRadius: number;
     }]
 }
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-/*
-const data = {
-    labels: ['Tips', 'Goals', 'Habits'],
-    datasets: [
-        {
-            label: 'Activity Count',
-            data: [12, 8, 15],
-            backgroundColor: '#3b82f6',
-            borderRadius: 6,
-        },
-    ],
+type BarChartProps = {
+    data: DataChart;
 };
-*/
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const options = {
     responsive: true,
@@ -38,7 +27,6 @@ const options = {
     layout: { padding: 0 },
 };
 
-export default function BarChartComponent(data: DataChart) {
-
-    return <div style={{ height: '110px', width: '100%' }}><Bar data={data['data']} options={options} /></div>;
+export default function BarChartComponent({ data }: BarChartProps) {
+    return <div style={{ height: '110px', width: '100%' }}><Bar data={data} options={options} /></div>;
 }

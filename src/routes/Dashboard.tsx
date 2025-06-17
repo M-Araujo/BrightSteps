@@ -8,7 +8,7 @@ import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import axios from 'axios';
 import BarChartComponent from '../components/charts/BarChartComponent.tsx';
-import { CardContent } from "@/components/ui/card";
+import { CardContent } from "./../components/ui/Card.tsx";
 import DashboardCard from './../components/ui/DashboardCard.tsx';
 import buildDashboardBarData from './../lib/charts/chartDataBuilders.ts';
 
