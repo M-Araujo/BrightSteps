@@ -24,6 +24,7 @@ export default function Dashboard() {
     const { width, height } = useWindowSize();
     const chartData = buildDashboardBarData(goals);
 
+    //localStorage.clear();
 
     useEffect(() => {
         axios.get('https://brighsteps-api.vercel.app/api/dashboard')

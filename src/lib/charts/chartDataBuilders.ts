@@ -44,3 +44,41 @@ export default function buildDashboardBarBata(goals: Goal[]) {
   };
   return chartData;
 }
+
+
+const getDateToString = (m: number, y: number, d: number): string => {
+  return `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+};
+
+export function buildDonutData(goals: Goal[]) {
+  let total = 0;
+  let completed = 0;
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const today = getDateToString(now.getMonth(), year, now.getDate());
+  const currentDay = now.getDay();
+  const weekday = currentDay === 0 ? 7 : currentDay;
+
+  goals.forEach((goal) => {
+    goal.habits.forEach((habit) => {
+      if (habit.frequency.includes(weekday)) {
+        total++;
+        if (habit.completions.includes(today)) {
+          completed++;
+        }
+      }
+    });
+  });
+
+  return {
+    labels: ["Completed", "Remaining"],
+    datasets: [
+      {
+        data: [completed, total - completed],
+        backgroundColor: ["#10b981", "#e5e7eb"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+}
