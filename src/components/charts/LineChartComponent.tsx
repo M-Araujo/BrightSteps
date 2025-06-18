@@ -3,7 +3,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const data = {
+/*const data = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
         {
@@ -14,7 +14,7 @@ const data = {
             tension: 0.1,
         },
     ],
-};
+};*/
 
 const options = {
     responsive: true,
@@ -29,6 +29,6 @@ const options = {
     layout: { padding: { top: 20 } },
 };
 
-export default function LineChartComponent() {
+export default function LineChartComponent({ data }) {
     return <div style={{ height: '110px', width: '100%' }}><Line data={data} options={options} /></div>;
 }
