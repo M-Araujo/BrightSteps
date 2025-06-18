@@ -19,7 +19,7 @@ export default function Goals() {
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const [goalToDelete, setGoalToDelete] = useState<Goal | null>(null);
     const [canCreateGoal, setCanCreateGoal] = useState<boolean>(true);
-    const maxGoals: number = 10;
+    const maxGoals: number = 4;
     const gridHeader = useMemo(() => [
         { id: 1, title: '🎯' + ' ' + t('goals.goal') },
         { id: 2, title: '📅' + ' ' + t('goals.startDate') },

@@ -23,7 +23,7 @@ export default function HabitForm({ show, onClose, item, lang }: HabitFormProps)
     const { t } = useTranslation();
     const { goals, updateGoals } = useGoalsAndHabits();
 
-    const maxHabitsPerGoal: number = 10;
+    const maxHabitsPerGoal: number = 5;
     const daysOfWeek = Array.from({ length: 7 }, (_, i) => ({
         value: i + 1, // 1 to 7
         label: t(`habits.days.${i + 1}`),

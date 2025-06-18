@@ -126,7 +126,7 @@ export function buildWeeklyHabitCompletionTimeline(goals: Goal[]) {
   const todaysDate = new Date();
   const lastWeekDate = new Date(todaysDate.getTime() - 7 * 24 * 60 * 60 * 1000);
   const weekCounter = [];
-  let dayCounts = [];
+  const dayCounts = [];
 
   goals.forEach((goal) => {
     goal.habits?.forEach((habit) => {
@@ -160,6 +160,83 @@ export function buildWeeklyHabitCompletionTimeline(goals: Goal[]) {
         label: "Weekly Completions",
         data: dayCounts,
         backgroundColor: "#3b82f6",
+        borderRadius: 6,
+      },
+    ],
+  };
+}
+
+/**
+ * Calculates the weekly progress for each habit across all goals.
+ *
+ * For each habit, the function checks which weekdays (from the current week) the habit was scheduled
+ * based on its `frequency`, and compares them against the dates listed in its `completions` array.
+ *
+ * The result is a per-habit breakdown of how many scheduled completions were actually completed,
+ * allowing for insights such as completion rates, consistency, and gaps during the current week.
+ *
+ * This function can be used to power charts or progress summaries by returning, for example:
+ * - A list of habits with their scheduled vs. completed count
+ * - Percentage completion per habit for the current week
+ * 
+ * [
+  { habitId: 1, title: "Read 10 pages", scheduled: 3, completed: 2, percent: 66.67 },
+  ...
+]
+ */ export function calculateWeeklyHabitProgress(goals) {
+  console.log("inside function calculateWeeklyHabitProgress");
+
+  const dt = new Date(); // current date of week
+  const currentWeekDay = dt.getDay();
+  const lessDays = currentWeekDay == 0 ? 6 : currentWeekDay - 1;
+  const wkStart = new Date(new Date(dt).setDate(dt.getDate() - lessDays));
+  const wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+
+  const progressData = [];
+
+  goals.forEach((goal: Goal) => {
+    goal.habits?.forEach((habit) => {
+      const filteredHabits = habit.completions?.filter((completion) => {
+        const date = new Date(completion);
+        return date >= wkStart && date <= wkEnd;
+      });
+
+      let expectedCompletions = 0;
+      for (let i = 0; i < 7; i++) {
+        const checkDate = new Date(wkStart);
+        checkDate.setDate(wkStart.getDate() + i);
+        const dayOfWeek = checkDate.getDay() === 0 ? 7 : checkDate.getDay();
+        if (habit.frequency.includes(dayOfWeek)) {
+          expectedCompletions++;
+        }
+      }
+
+      const completed = filteredHabits?.length ?? 0;
+      const progress =
+        expectedCompletions > 0
+          ? Math.round((completed / expectedCompletions) * 100)
+          : 0;
+
+      progressData.push({
+        goal: goal.title.en,
+        habit: habit.title.en,
+        progress,
+      });
+    });
+  });
+  return progressData;
+}
+
+export function buildWeeklyProgressBarChart(goals: Goal[]) {
+  const rawProgress = calculateWeeklyHabitProgress(goals);
+
+  return {
+    labels: rawProgress.map((item) => item.habit),
+    datasets: [
+      {
+        label: "Weekly Progress (%)",
+        data: rawProgress.map((item) => item.progress),
+        backgroundColor: "#10b981",
         borderRadius: 6,
       },
     ],
