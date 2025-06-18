@@ -101,54 +101,49 @@ export function buildDonutData(goals: Goal[]) {
         hoverOffset: 4,
       },
     ],
+    plugins: {
+      title: { display: false },
+      legend: { display: true, position: "bottom" },
+    },
   };
 }
 
-export function generateHabitCompletionTimeline(goals: Goal[]) {
+/**
+ * Generates chart data for a weekly habit completion timeline.
+ *
+ * - Purpose: To visualize how many times habits were completed over the past 7 days.
+ * - X-axis: Days of the week (Monday to Sunday)
+ * - Y-axis: Number of habit completions on each day
+ *
+ * Logic:
+ * - Filters all habit completion dates to keep only those within the past week.
+ * - Counts how many completions occurred on each day of the week.
+ * - Maps those counts to their respective weekdays using localized labels.
+ */
+
+export function buildWeeklyHabitCompletionTimeline(goals: Goal[]) {
   const { t } = useTranslation();
-
-  console.log("lets generate a line chart");
-
-  /* mon-sun seg dom */
-
   const todaysDate = new Date();
-  const year = todaysDate.getFullYear();
-  const today = getDateToString(
-    todaysDate.getMonth(),
-    year,
-    todaysDate.getDate()
-  );
-  const currentDay = todaysDate.getDay();
-  const weekday = currentDay === 0 ? 7 : currentDay;
-
   const lastWeekDate = new Date(todaysDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-
   const weekCounter = [];
-  let cData = [];
+  let dayCounts = [];
 
   goals.forEach((goal) => {
-    //console.log(goal);
     goal.habits?.forEach((habit) => {
-      // console.log(habit);
       const filteredHabits = habit.completions.filter((completion) => {
         const c = new Date(completion);
         return c >= lastWeekDate && c <= todaysDate;
       });
 
       filteredHabits.forEach((filteredHabit) => {
-        console.log("inside the other loop");
-        console.log(filteredHabit);
-        console.log(new Date(filteredHabit).getDay());
         weekCounter.push(new Date(filteredHabit).getDay() + 1);
       });
     });
   });
 
   weekCounter.forEach((day) => {
-    cData[day] = (cData[day] || 0) + 1;
+    dayCounts[day] = (dayCounts[day] || 0) + 1;
   });
-
-  console.log("cData", cData);
 
   return {
     labels: [
@@ -162,7 +157,8 @@ export function generateHabitCompletionTimeline(goals: Goal[]) {
     ],
     datasets: [
       {
-        data: cData,
+        label: "Weekly Completions",
+        data: dayCounts,
         backgroundColor: "#3b82f6",
         borderRadius: 6,
       },

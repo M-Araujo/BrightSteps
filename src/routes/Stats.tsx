@@ -1,10 +1,9 @@
 import PageTitle from './../components/ui/PageTitle.tsx';
 import { useTranslation } from 'react-i18next';
 import DonutChartComponent from '../components/charts/DonutChartComponent.tsx';
-import { buildDonutData, generateHabitCompletionTimeline } from './../lib/charts/chartDataBuilders.ts';
+import { buildDonutData, buildWeeklyHabitCompletionTimeline } from './../lib/charts/chartDataBuilders.ts';
 import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
 import LineChartComponent from '../components/charts/LineChartComponent.tsx';
-
 import { CardContent } from "./../components/ui/Card.tsx";
 
 export default function Stats() {
@@ -12,8 +11,7 @@ export default function Stats() {
     const { t } = useTranslation();
     const { goals } = useGoalsAndHabits();
     const chartData = buildDonutData(goals);
-    const habitCompletionTimeline = generateHabitCompletionTimeline(goals);
-    console.log(habitCompletionTimeline);
+    const habitCompletionTimeline = buildWeeklyHabitCompletionTimeline(goals);
 
     return (
         <div className="max-w-5xl mx-auto px-6 py-10 rounded-xl shadow-md bg-[var(--color-container)]">
@@ -22,11 +20,10 @@ export default function Stats() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 ">
 
                 <div className="sm:col-span-2 lg:col-span-2 mb-8 p-4 bg-[var(--color-card)] rounded-lg shadow-sm">
-                    <p className="justify-center flex items-center">This is a chart</p>
+                    <p className="justify-center flex items-center">Weekly habit completion</p>
                     <div className="justify-center flex items-center space-x-4">
                         <CardContent className="p-0 h-full">
-                            {/* <BarChartComponent />
-                             */}
+                            <LineChartComponent data={habitCompletionTimeline} />
 
                         </CardContent>
                     </div>
@@ -46,7 +43,7 @@ export default function Stats() {
                     <div className="justify-center flex items-center space-x-4">
                         <CardContent className="p-0 h-full">
 
-                            <LineChartComponent data={habitCompletionTimeline} />
+
 
                         </CardContent>
                     </div>
