@@ -166,13 +166,14 @@ export interface CreateButtonProps {
 
 export type DataChart = {
     labels: string[];
-    datasets: [{
-        label: string;
+    datasets: {
+        label?: string;
         data: number[];
-        backgroundColor: string;
-        borderRadius: number;
-    }]
-}
+        backgroundColor?: string | string[];
+        borderRadius?: number;
+    }[];
+};
+
 export type DataChartProps = {
     data: DataChart;
 };

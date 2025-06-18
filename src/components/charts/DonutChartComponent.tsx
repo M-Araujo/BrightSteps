@@ -8,7 +8,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const options = {
     responsive: true,
     maintainAspectRatio: false,
-    plugins: { legend: { position: 'bottom' } },
+    legend: { display: true, position: 'bottom' as const }
 };
 
 export default function DonutChartComponent({ data }: DataChartProps) {
