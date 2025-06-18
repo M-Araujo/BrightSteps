@@ -1,6 +1,6 @@
 
 import type { Goal } from "./../../types";
-import { useTranslation } from "react-i18next";
+
 
 /**
  * Builds bar chart data showing the number of times each habit
@@ -121,12 +121,14 @@ export function buildDonutData(goals: Goal[]) {
  * - Maps those counts to their respective weekdays using localized labels.
  */
 
-export function buildWeeklyHabitCompletionTimeline(goals: Goal[]) {
-  const { t } = useTranslation();
+export function buildWeeklyHabitCompletionTimeline(
+  goals: Goal[],
+  t: (key: string) => string
+) {
   const todaysDate = new Date();
   const lastWeekDate = new Date(todaysDate.getTime() - 7 * 24 * 60 * 60 * 1000);
-  const weekCounter = [];
-  const dayCounts = [];
+  const weekCounter: number[] = [];
+  const dayCounts: number[] = [];
 
   goals.forEach((goal) => {
     goal.habits?.forEach((habit) => {
@@ -183,7 +185,7 @@ export function buildWeeklyHabitCompletionTimeline(goals: Goal[]) {
   { habitId: 1, title: "Read 10 pages", scheduled: 3, completed: 2, percent: 66.67 },
   ...
 ]
- */ export function calculateWeeklyHabitProgress(goals) {
+ */ export function calculateWeeklyHabitProgress(goals: Goal[]) {
   console.log("inside function calculateWeeklyHabitProgress");
 
   const dt = new Date(); // current date of week
@@ -192,7 +194,11 @@ export function buildWeeklyHabitCompletionTimeline(goals: Goal[]) {
   const wkStart = new Date(new Date(dt).setDate(dt.getDate() - lessDays));
   const wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
 
-  const progressData = [];
+  const progressData: {
+    goal: string;
+    habit: string;
+    progress: number;
+  }[] = [];
 
   goals.forEach((goal: Goal) => {
     goal.habits?.forEach((habit) => {

@@ -14,7 +14,7 @@ export default function Stats() {
     const { t } = useTranslation();
     const { goals } = useGoalsAndHabits();
     const chartData = buildDonutData(goals);
-    const habitCompletionTimeline = buildWeeklyHabitCompletionTimeline(goals);
+    const habitCompletionTimeline = buildWeeklyHabitCompletionTimeline(goals, t);
     const weeklyHabitProgress = buildWeeklyProgressBarChart(goals);
 
     return (
