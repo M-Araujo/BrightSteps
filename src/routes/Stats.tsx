@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import BarChartComponent from '../components/charts/BarChartComponent.tsx';
 import DonutChartComponent from '../components/charts/DonutChartComponent.tsx';
 import LineChartComponent from '../components/charts/LineChartComponent.tsx';
-import { buildDonutData, buildWeeklyHabitCompletionTimeline, buildWeeklyProgressBarChart, } from './../lib/charts/chartDataBuilders.ts';
+import { buildTodaysHabitCompletionStatusDonut, buildWeeklyHabitCompletionTimeline, buildWeeklyProgressBarChart, } from './../lib/charts/chartDataBuilders.ts';
 import { useGoalsAndHabits } from '../context/goalsAndHabits/useGoalsAndHabits.tsx';
 
 
@@ -13,7 +13,7 @@ export default function Stats() {
 
     const { t } = useTranslation();
     const { goals } = useGoalsAndHabits();
-    const chartData = buildDonutData(goals);
+    const chartData = buildTodaysHabitCompletionStatusDonut(goals);
     const habitCompletionTimeline = buildWeeklyHabitCompletionTimeline(goals, t);
     const weeklyHabitProgress = buildWeeklyProgressBarChart(goals);
 

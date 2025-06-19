@@ -12,7 +12,7 @@ import type { Goal } from "./../../types";
  * Filters completions to only include dates between today and 7 days ago..
  */
 
-export default function buildDashboardBarBata(goals: Goal[]) {
+export default function buildWeeklyHabitCompletionCounts(goals: Goal[]) {
   const formatDate = (date: Date) => date.toISOString().slice(0, 10);
   const todaysDate = new Date();
   const lastWeekDate = new Date(todaysDate.getTime() - 7 * 24 * 60 * 60 * 1000);
@@ -71,7 +71,7 @@ const getDateToString = (m: number, y: number, d: number): string => {
  * - Useful for visualizing daily habit progress at a glance.
  */
 
-export function buildDonutData(goals: Goal[]) {
+export function buildTodaysHabitCompletionStatusDonut(goals: Goal[]) {
   let total = 0;
   let completed = 0;
 

@@ -10,7 +10,7 @@ import axios from 'axios';
 import BarChartComponent from '../components/charts/BarChartComponent.tsx';
 import { CardContent } from "./../components/ui/Card.tsx";
 import DashboardCard from './../components/ui/DashboardCard.tsx';
-import buildDashboardBarData from './../lib/charts/chartDataBuilders.ts';
+import buildWeeklyHabitCompletionCounts from './../lib/charts/chartDataBuilders.ts';
 
 export default function Dashboard() {
     const { t, i18n } = useTranslation();
@@ -22,7 +22,7 @@ export default function Dashboard() {
     const { goals, updateHabit } = useGoalsAndHabits();
     const [confetti, showConfetti] = useState(false);
     const { width, height } = useWindowSize();
-    const chartData = buildDashboardBarData(goals);
+    const chartData = buildWeeklyHabitCompletionCounts(goals);
 
     //localStorage.clear();
 
