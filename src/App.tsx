@@ -30,29 +30,29 @@ function AnimatedRoutes() {
   ];
 
   return (
-    <AnimatePresence mode="wait">
+    <>
       <Toaster position="top-right" />
-      <Routes location={location} key={location.pathname}>
-
-        {routes.map(({ path, routeComponent: RouteComponent }) => (
-          <Route
-            key={path}
-            path={path}
-            element={
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <RouteComponent />
-              </motion.div>
-            }
-          />
-        ))}
-
-      </Routes>
-    </AnimatePresence>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          {routes.map(({ path, routeComponent: RouteComponent }) => (
+            <Route
+              key={path}
+              path={path}
+              element={
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <RouteComponent />
+                </motion.div>
+              }
+            />
+          ))}
+        </Routes>
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -63,11 +63,11 @@ function App() {
 
   return (
     <ThemeProvider>
-    <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
-        <Topbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-        <main className="flex flex-1">
-          <Sidebar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
+      <BrowserRouter>
+        <div className="flex flex-col min-h-screen">
+          <Topbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+          <main className="flex flex-1">
+            <Sidebar isOpen={isSidebarOpen} closeSidebar={closeSidebar} />
             <div
               className={`
                 flex-1 p-6 mt-16 transition-all duration-300
@@ -76,14 +76,14 @@ function App() {
                 min-h-[calc(100vh-4rem)]
               `}
             >
-            <div className="p-4">
-              <GoalsAndHabitsProvider>
-                <AnimatedRoutes />
+              <div className="p-4">
+                <GoalsAndHabitsProvider>
+                  <AnimatedRoutes />
                 </GoalsAndHabitsProvider>
+              </div>
             </div>
-          </div>
-        </main>
-      </div>
+          </main>
+        </div>
       </BrowserRouter>
     </ThemeProvider>
   );
