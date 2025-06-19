@@ -185,8 +185,8 @@ export function buildWeeklyHabitCompletionTimeline(
   { habitId: 1, title: "Read 10 pages", scheduled: 3, completed: 2, percent: 66.67 },
   ...
 ]
- */ export function calculateWeeklyHabitProgress(goals: Goal[]) {
-  console.log("inside function calculateWeeklyHabitProgress");
+ */
+export function calculateWeeklyHabitProgress(goals: Goal[]) {
 
   const dt = new Date(); // current date of week
   const currentWeekDay = dt.getDay();
@@ -243,6 +243,33 @@ export function buildWeeklyProgressBarChart(goals: Goal[]) {
         label: "Weekly Progress (%)",
         data: rawProgress.map((item) => item.progress),
         backgroundColor: "#10b981",
+        borderRadius: 6,
+      },
+    ],
+  };
+}
+
+
+export function buildHabitCountPerGoalChart(
+  goals: Goal[],
+  t: (key: string) => string
+) {
+
+  const labels: string[] = [];
+  const chartData :number[] = [];
+
+  goals.forEach((goal) => {
+    const title = goal.title?.en ?? goal.title?.pt;
+    labels.push(title);
+    chartData.push(goal.habits?.length ?? 0);
+  });
+
+  return {
+    labels: labels,
+    datasets: [
+      {
+        data: chartData,
+        backgroundColor: "#3b82f6",
         borderRadius: 6,
       },
     ],
