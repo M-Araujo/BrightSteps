@@ -16,7 +16,7 @@ export default function Stats() {
     const chartData = buildTodaysHabitCompletionStatusDonut(goals);
     const habitCompletionTimeline = buildWeeklyHabitCompletionTimeline(goals, t);
     const weeklyHabitProgress = buildWeeklyProgressBarChart(goals);
-    const habitCountPerGoalChart = buildHabitCountPerGoalChart(goals, t);
+    const habitCountPerGoalChart = buildHabitCountPerGoalChart(goals);
 
     return (
         <div className="max-w-5xl mx-auto px-6 py-10 rounded-xl shadow-md bg-[var(--color-container)]">

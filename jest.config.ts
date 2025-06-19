@@ -12,6 +12,7 @@ export default {
     ],
   },
   moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1",
     "^(\\.{1,2}/.*)\\.js$": "$1",
     "\\.(css|less|scss|sass)$": "<rootDir>/src/__mocks__/styleMock.js",
   },

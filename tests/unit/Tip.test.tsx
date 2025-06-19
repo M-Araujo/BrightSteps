@@ -7,15 +7,24 @@ import axios from 'axios';
 jest.mock('axios');
 jest.mock('react-i18next', () => ({
     useTranslation: () => ({
-        t: (key: string) => key,
+        t: (key: string) => {
+            const translations: Record<string, string> = {
+                'menu.tips': 'Tip of the day',
+                'tips.title': 'Title',
+                'tips.description': 'Description',
+            };
+            return translations[key] ?? key;
+        },
         i18n: { language: 'en' },
     }),
 }));
+
 
 const mockedTips = [
     { id: 1, title: 'Tip One', description: 'Do something' },
     { id: 2, title: 'Tip Two', description: 'Do something else' },
   ];
+
 
 
 describe('Tips Component', () => {

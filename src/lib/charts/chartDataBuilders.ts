@@ -250,13 +250,9 @@ export function buildWeeklyProgressBarChart(goals: Goal[]) {
 }
 
 
-export function buildHabitCountPerGoalChart(
-  goals: Goal[],
-  t: (key: string) => string
-) {
-
+export function buildHabitCountPerGoalChart(goals: Goal[]) {
   const labels: string[] = [];
-  const chartData :number[] = [];
+  const chartData: number[] = [];
 
   goals.forEach((goal) => {
     const title = goal.title?.en ?? goal.title?.pt;
