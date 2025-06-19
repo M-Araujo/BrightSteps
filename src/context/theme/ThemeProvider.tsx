@@ -3,7 +3,7 @@ import { ThemeContext } from './ThemeContext';
 import type { ReactNode } from 'react';
 import type { ThemeMode } from '../../types';
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
+export default function ThemeProvider({ children }: { children: ReactNode }) {
     const [theme, setTheme] = useState<ThemeMode | null>(null);
 
     useEffect(() => {

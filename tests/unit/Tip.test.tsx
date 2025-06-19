@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import Tips from './../../src/routes/Tips'; 
-import { ThemeProvider } from './../../src/context/theme/ThemeProvider';
+import ThemeProvider from './../../src/context/theme/ThemeProvider';
 import axios from 'axios';
 
 
