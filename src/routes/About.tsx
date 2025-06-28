@@ -22,19 +22,16 @@ export default function About() {
                 </p>
 
                 <p className="text-base leading-relaxed mb-4">
-                    <Trans
-                        i18nKey="about.connect"
-                        components={{
-                            0: (
-                                <a
-                                    href="https://www.linkedin.com/in/seu-perfil"
-                                    className="text-blue-600 hover:underline focus:outline-none focus:ring focus:ring-blue-400 rounded"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                />
-                            ),
-                        }}
-                    />
+                    {t('about.connect_before')}{' '}
+                    <a
+                        href="https://www.linkedin.com/in/miriam-araujo-dev"
+                        className="text-blue-600 hover:underline focus:outline-none focus:ring focus:ring-blue-400 rounded"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        {t('about.connect_link')}
+                    </a>{' '}
+                    {t('about.connect_after')}
                 </p>
 
                 <ul className="list-disc ml-6 space-y-2 text-base leading-relaxed">
