@@ -264,6 +264,7 @@ export function buildHabitCountPerGoalChart(goals: Goal[]) {
     labels: labels,
     datasets: [
       {
+        label: "Habit Count",
         data: chartData,
         backgroundColor: "#3b82f6",
         borderRadius: 6,
