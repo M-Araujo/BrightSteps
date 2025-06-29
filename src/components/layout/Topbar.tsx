@@ -17,7 +17,7 @@ export default function Topbar({ toggleSidebar, isSidebarOpen }: TopbarProps) {
 
 
     return (
-        <nav className="fixed top-0 z-50 w-full h-16 bg-[var(--color-topbar-bg)] border-b border-[var(--color-muted)]">
+        <nav className="fixed top-0 z-50 w-full h-16 bg-[var(--color-topbar-bg)]">
             <div className="px-4 py-3 flex items-center justify-between">
                 <div className="flex items-center">
                     <button

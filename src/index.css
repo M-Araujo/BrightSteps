@@ -24,16 +24,16 @@
 }
 
 .theme-dark {
-  --color-topbar-bg: #1a252f; /* Darker topbar */
+  --color-topbar-bg: #202d3a;
   --color-sidebar-bg: #243c5a; /* Keep navbar */
   --color-main-bg: #15202b; /* Background */
   --color-container: #2a3b4d; /* Lighter main content */
   --color-text: #e5e7eb;
   --color-muted: #94a3b8;
   --color-card: #243c5a; /* Cards */
-  --color-primary: #3b82f6;
+--color-primary: #3b82f6;
   --color-hover: #2b6cb0;
-  --color-accent: #60a5fa;
+--color-accent: #60a5fa;
   --color-modal-bg: #3a4d5d;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
